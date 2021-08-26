@@ -1,0 +1,491 @@
+{
+  "deckId": 1,
+  "cards": [
+    {
+      "shape": "Wave",
+      "fill": "Hollow",
+      "color": "Violet",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Pill",
+      "fill": "Striped",
+      "color": "Green",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Hollow",
+      "color": "Violet",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Pill",
+      "fill": "Solid",
+      "color": "Red",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Hollow",
+      "color": "Red",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Pill",
+      "fill": "Striped",
+      "color": "Red",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Solid",
+      "color": "Red",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Pill",
+      "fill": "Hollow",
+      "color": "Red",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Wave",
+      "fill": "Hollow",
+      "color": "Red",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Hollow",
+      "color": "Violet",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Solid",
+      "color": "Green",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Wave",
+      "fill": "Striped",
+      "color": "Green",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Wave",
+      "fill": "Striped",
+      "color": "Violet",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Solid",
+      "color": "Red",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Wave",
+      "fill": "Solid",
+      "color": "Green",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Striped",
+      "color": "Green",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Wave",
+      "fill": "Solid",
+      "color": "Violet",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Pill",
+      "fill": "Solid",
+      "color": "Violet",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Striped",
+      "color": "Green",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Striped",
+      "color": "Red",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Striped",
+      "color": "Violet",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Hollow",
+      "color": "Green",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Wave",
+      "fill": "Solid",
+      "color": "Violet",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Wave",
+      "fill": "Hollow",
+      "color": "Green",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Wave",
+      "fill": "Hollow",
+      "color": "Violet",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Wave",
+      "fill": "Hollow",
+      "color": "Red",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Solid",
+      "color": "Green",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Striped",
+      "color": "Red",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Pill",
+      "fill": "Striped",
+      "color": "Red",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Pill",
+      "fill": "Hollow",
+      "color": "Green",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Wave",
+      "fill": "Striped",
+      "color": "Violet",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Wave",
+      "fill": "Solid",
+      "color": "Red",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Wave",
+      "fill": "Striped",
+      "color": "Green",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Solid",
+      "color": "Violet",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Striped",
+      "color": "Violet",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Solid",
+      "color": "Red",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Wave",
+      "fill": "Hollow",
+      "color": "Red",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Hollow",
+      "color": "Violet",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Pill",
+      "fill": "Solid",
+      "color": "Green",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Solid",
+      "color": "Violet",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Wave",
+      "fill": "Hollow",
+      "color": "Violet",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Hollow",
+      "color": "Violet",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Wave",
+      "fill": "Striped",
+      "color": "Red",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Solid",
+      "color": "Violet",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Pill",
+      "fill": "Solid",
+      "color": "Violet",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Striped",
+      "color": "Violet",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Wave",
+      "fill": "Solid",
+      "color": "Red",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Hollow",
+      "color": "Violet",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Solid",
+      "color": "Red",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Striped",
+      "color": "Red",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Hollow",
+      "color": "Red",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Wave",
+      "fill": "Solid",
+      "color": "Green",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Hollow",
+      "color": "Red",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Solid",
+      "color": "Green",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Hollow",
+      "color": "Red",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Striped",
+      "color": "Green",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Wave",
+      "fill": "Solid",
+      "color": "Red",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Pill",
+      "fill": "Hollow",
+      "color": "Green",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Wave",
+      "fill": "Striped",
+      "color": "Red",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Pill",
+      "fill": "Striped",
+      "color": "Violet",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Wave",
+      "fill": "Hollow",
+      "color": "Green",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Hollow",
+      "color": "Green",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Wave",
+      "fill": "Solid",
+      "color": "Green",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Striped",
+      "color": "Green",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Striped",
+      "color": "Red",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Pill",
+      "fill": "Solid",
+      "color": "Violet",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Solid",
+      "color": "Green",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Wave",
+      "fill": "Solid",
+      "color": "Violet",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Wave",
+      "fill": "Hollow",
+      "color": "Green",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Pill",
+      "fill": "Hollow",
+      "color": "Violet",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Striped",
+      "color": "Violet",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Striped",
+      "color": "Green",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Solid",
+      "color": "Red",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Wave",
+      "fill": "Striped",
+      "color": "Green",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Pill",
+      "fill": "Hollow",
+      "color": "Red",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Wave",
+      "fill": "Striped",
+      "color": "Violet",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Solid",
+      "color": "Green",
+      "nrOfShapes": 3
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Hollow",
+      "color": "Green",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Wave",
+      "fill": "Striped",
+      "color": "Red",
+      "nrOfShapes": 1
+    },
+    {
+      "shape": "Diamond",
+      "fill": "Hollow",
+      "color": "Green",
+      "nrOfShapes": 2
+    },
+    {
+      "shape": "Pill",
+      "fill": "Striped",
+      "color": "Violet",
+      "nrOfShapes": 3
+    }
+  ]
+}

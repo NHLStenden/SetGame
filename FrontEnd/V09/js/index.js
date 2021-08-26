@@ -1,5 +1,7 @@
 "use strict"
 
+import  {HttpService} from './HttpService.js';
+
 const colors = ["red", "green", "purple"];
 const fills = ["solid", "hollow", "striped"];
 const shapes = ["diamond", "pill", "wave"]
@@ -9,9 +11,12 @@ let cardsOnTheBoard;
 let hintsUsed = 0 ;
 let nrOfAttempts = 0 ;
 
+let httpService;
+let idDeck = -1;
+
 window.onload = () => {
+    httpService = new HttpService('http://localhost:5000');
     setup();
-    findAllSets(cardsOnTheBoard);
 }
 
 function showCardsLeftInFullSet(){
@@ -34,82 +39,63 @@ function showNrOfTurns() {
         div.innerHTML = `Number of attempts:<span>${nrOfAttempts}</span>`;
     }
 }
-
-function createFullSetOfCards() {
-    const items = [];
-
-    // Permutate all colors, fills and shapes
-    for (const color of colors) {
-        for (const fill of fills) {
-            for (const shape of shapes) {
-                for (let shapesToPlace of nrOfShapes) {
-                    let shapes = '';
-
-                    for (let i = 0; i < shapesToPlace; i++) {
-                        const shapeTemplate = `
-                        <svg 
-                                viewBox="0 0 150 120" 
-                                width="150px" height="120px">
-                                <use xlink:href="#svg_defs"/>
-                                <use xlink:href="#card_${shape}" class="shape ${fill} ${color}"/>
-                        </svg>`;
-                        shapes += shapeTemplate;
-
-                    }// for items on card
-                    const cardTemplate = `<div id="${items.length+1}" class="card ${shape}">${shapes}</div>`;
-                    items.push({
-                        id: items.length + 1,
-                        shape,
-                        fill,
-                        color,
-                        nrOfShapes: shapesToPlace,
-                        html:  cardTemplate
-                    });
-                }// for nr of shapes
-            }// for shapes
-        }// for fills
-    }//for colors
-    return items;
-}// GetFullSet()
-
-function GetRandomItems(fullSetOfCards, nrOfItemsToTake) {
-    // in this version we take items from the full set, thereby reducing the full set
-
-    // define result set
-    const results = [];
-
-    // loop to get number of items required
+function GetRandomItems(nrOfItemsToTake) {
+    const requests = [];
     for (let i = 0; i < nrOfItemsToTake; i++) {
-        // get a new random number that is maximum the length of the list
-        const pos = Math.floor( Math.random() * fullSetOfCards.length );
-        // remove the item at random position from the list. the spliced-off items are returned as a new array
-        const item = fullSetOfCards.splice(pos,1);
-
-        // unpack the resulted items (one at most) and add it to the result list
-        results.push(...item);
+        const oneRequest = httpService.getOneCardFromDeck(idDeck);
+        requests.push(oneRequest);
     }
-    return results;
+    return Promise.all(requests);
 } // GetRandomItems
 
 function setup() {
-  setupBoard();
-  manageBoard();
-  setupHinting();
-  setupButtons();
+    setupBoard();
+    manageBoard();
+    setupHinting();
+    setupButtons();
 
-  showNrOfTurns();
-  showCardsLeftInFullSet();
-  showHintsUsed();
+    showNrOfTurns();
+    showCardsLeftInFullSet();
+    showHintsUsed();
 }// setup
 
 function setupBoard() {
-    fullSetOfCards = createFullSetOfCards();
     cardsOnTheBoard = [];
+    fullSetOfCards  = [];
 
-    const cards = GetRandomItems(fullSetOfCards, 12);
-    addCards(cards);
-    showCardsLeftInFullSet();
+    httpService.getNewDeck().then(
+        (data) => {
+            idDeck = data.deckId;
+            fullSetOfCards = data.cards;
+            ProcessCardsFromBackend(fullSetOfCards);
+            addNewRandomCards(12);
+        },
+        (error) => {
+            console.error(error.statusText);
+        }
+    );
 }// setupBoard
+
+function ProcessCardsFromBackend(cards){
+    let cardNr = 1;
+    for (const card of cards) {
+        let shapes = '';
+        for (let i = 0; i < card.nrOfShapes; i++) {
+            const shapeTemplate = `
+                <svg 
+                        viewBox="0 0 150 120" 
+                        width="150px" height="120px">
+                        <use xlink:href="#svg_defs"/>
+                        <use xlink:href="#card_${card.shape}" class="shape ${card.fill} ${card.color}"/>
+                </svg>`;
+            shapes += shapeTemplate;
+        }// for items on card
+        const cardTemplate = `<div id="${cardNr}" class="card ${card.shape}">${shapes}</div>`;
+        card.html = cardTemplate;
+        card.id = cardNr;
+        cardNr++;
+    }
+}
 
 function addCards(cards) {
     // get the container from the HTML
@@ -224,9 +210,12 @@ function RemoveSelectedCards(){
  * @constructor
  */
 function addNewRandomCards(nrOfNewCards) {
-    const cards = GetRandomItems(fullSetOfCards, nrOfNewCards);
-    addCards(cards);
-    showCardsLeftInFullSet();
+    GetRandomItems(nrOfNewCards).then(cards => {
+        console.log(cards);
+        ProcessCardsFromBackend(cards);
+        addCards(cards);
+        showCardsLeftInFullSet();
+    });
 }// AddNewRandomCards
 
 /**
@@ -354,7 +343,7 @@ function setupHinting() {
     const btn = document.getElementById("showHint");
     if (btn) {
         btn.addEventListener('click', function (evt) {
-           const setsFound = findAllSets(cardsOnTheBoard);
+            const setsFound = findAllSets(cardsOnTheBoard);
             showHintsAsCards(setsFound);
             hintsUsed++;
             showHintsUsed();
@@ -447,4 +436,6 @@ function findAllSet(cards, currentSet){
     }
     return setsFound;
 }// findAllSet
+
+
 
