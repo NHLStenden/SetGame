@@ -17,6 +17,7 @@ namespace Backend
 {
     public class Startup
     {
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,6 +38,18 @@ namespace Backend
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Backend", Version = "v1"});
             });
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:63342")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,9 +62,11 @@ namespace Backend
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend v1"));
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors();
 
             app.UseAuthorization();
 
