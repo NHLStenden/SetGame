@@ -3,7 +3,7 @@ namespace Backend.Models
     
     public enum Shape
     {
-        Diamnond, Pill, Wave
+        Diamond, Pill, Wave
     }
 
     public enum Fill
@@ -13,7 +13,7 @@ namespace Backend.Models
         
     public enum Color
     {
-        Red, Green, Violent
+        Red, Green, Violet
     }
     
     public class Card
