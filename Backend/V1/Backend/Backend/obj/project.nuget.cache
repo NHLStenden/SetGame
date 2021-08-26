@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "E7FASBYBxUUI/GDFQME9dj3M2aQkhGzo+7dtfZ1ExfJMtNcuLgjChI+CQhyw9t7hRbCJ5efDdQJRHNJ7NmyKEw==",
+  "success": true,
+  "projectFilePath": "/Users/e2498/Dev/SetGame/Backend/V1/Backend/Backend/Backend.csproj",
+  "expectedPackageFiles": [
+    "/Users/e2498/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/swashbuckle.aspnetcore/5.6.3/swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/swashbuckle.aspnetcore.swagger/5.6.3/swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/swashbuckle.aspnetcore.swaggergen/5.6.3/swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/swashbuckle.aspnetcore.swaggerui/5.6.3/swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
