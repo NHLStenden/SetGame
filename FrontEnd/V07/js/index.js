@@ -252,7 +252,6 @@ function isSelectionASet() {
     fillTableWithSelectionInfo(allDiffColors, allDiffShapes, allDiffFills,allDiffNrOfShapes,
         allSameColors, allSameShapes, allSameFills, allSameNrOfShapes);
 
-    // TODO: yield real result
     return itIsASet;
 }// isSelectionASet
 
