@@ -191,7 +191,6 @@ function isSelectionASet() {
         (allDiffNrOfShapes || allSameNrOfShapes) &&
         (allDiffShapes || allSameShapes);
 
-    // TODO: yield real result
     return itIsASet;
 }// isSelectionASet
 
