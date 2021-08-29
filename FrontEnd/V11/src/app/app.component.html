@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="left">
+    <app-board></app-board>
+  </div>
+
+  <div class="right">
+    <app-statistics></app-statistics>
+    <app-selection-info></app-selection-info>
+    <button (click)="onClickShowHints()">Hint!</button>
+    <button (click)="onClickAddCard()">Add Card</button>
+
+    <app-hints [hints]="hints"></app-hints>
+  </div>
+</div>

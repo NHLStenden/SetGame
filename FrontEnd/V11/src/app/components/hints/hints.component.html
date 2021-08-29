@@ -1,0 +1,8 @@
+<div class="board">
+  <div class="oneHint" *ngFor="let hint of hints.sets">
+    <div *ngFor="let card of hint.cards" class="hintcard">
+      <app-guicard [card]="card" shapeHeight="50" shapeWidth="70" ></app-guicard>
+    </div>
+  </div>
+
+</div>

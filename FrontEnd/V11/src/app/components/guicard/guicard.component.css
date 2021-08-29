@@ -1,0 +1,39 @@
+div.container {
+  height: calc(100%);
+}
+
+/*
+Stroking colors
+ */
+.shape.Violet { stroke: purple; }
+.shape.Red    { stroke: red; }
+.shape.Green  { stroke: green; }
+
+svg .shape ,
+svg .shape {
+  stroke-width: 3;
+}
+
+/*
+ Striped fills
+ */
+
+.shape.Striped.Violet { fill: url(#stripes-purple);}
+.shape.Striped.Red    { fill: url(#stripes-red);}
+.shape.Striped.Green  { fill: url(#stripes-green);}
+
+/*
+ Solid fills
+ */
+
+.shape.Solid.Violet { fill: purple;}
+.shape.Solid.Red    { fill: red;}
+.shape.Solid.Green  { fill: green;}
+
+/*
+ No Fills (hollow)
+ */
+
+.shape.Hollow {
+  fill: white;
+}
