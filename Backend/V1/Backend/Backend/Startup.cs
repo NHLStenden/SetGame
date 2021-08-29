@@ -43,7 +43,7 @@ namespace Backend
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:63342")
+                        builder.WithOrigins("http://localhost:63342", "http://localhost:4200")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
