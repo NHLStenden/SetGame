@@ -43,7 +43,7 @@ export class HttpService {
   getOneCardFromDeck(id: number): Observable<Card> {
     return this.getRequest<Card>(`/Deck/GetNextCardFromDeck?deckId=${id}`)
       .pipe(
-        map(data => new Card(data.color, data.fill, data.shape, data.nrOfShapes))
+        map(data => new Card(data.fill, data.color, data.shape, data.nrOfShapes))
       );
   }
 
