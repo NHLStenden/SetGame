@@ -5,7 +5,7 @@ namespace Backend.Utils
 {
     public static class ShuffelList
     {
-        private static Random rng = new Random();  
+        private static Random rng = new Random(1024);  
 
         public static void Shuffle<T>(this IList<T> list)  
         {  

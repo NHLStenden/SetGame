@@ -18,9 +18,11 @@ namespace Backend.Models
     
     public class Card
     {
+        public int CardId { get; set; }
+        
         public Shape Shape { get; set; }
         public Fill Fill { get; set; }
         public Color Color { get; set; }
-        public int NrOfShapes { get; set; }
+        public string NrOfShapes { get; set; }
     }
 }
