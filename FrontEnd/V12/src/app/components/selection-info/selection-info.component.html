@@ -1,0 +1,35 @@
+<div id="checkResult" class="checkResult guicard">
+  <P >Dit is <span *ngIf="!checkResult?.isItASet">g</span>een set!</P>
+  <table>
+    <thead>
+    <th>Item</th>
+    <th>Diff</th>
+    <th>Same</th>
+    </thead>
+    <tbody>
+    <tr class="fills" [class.ok]="checkResult?.allDiffFills || checkResult?.allSameFills">
+      <td>Fills:</td>
+      <td class="indicator">{{checkResult?.allDiffFills ? "&#10003;" : "-"}}</td>
+      <td class="indicator">{{checkResult?.allSameFills ? "&#10003;" : "-"}}</td>
+    </tr>
+    <tr class="colors"[class.ok]="checkResult?.allDiffColors || checkResult?.allSameColors">
+      <td>Colors:</td>
+      <td class="indicator">{{checkResult?.allDiffColors ? "&#10003;" : "-"}}</td>
+      <td class="indicator">{{checkResult?.allSameColors ? "&#10003;" : "-"}}</td>
+    </tr>
+    <tr class="shapes"[class.ok]="checkResult?.allDiffShapes || checkResult?.allSameShapes">
+      <td>Shapes:</td>
+      <td class="indicator">{{checkResult?.allDiffShapes ? "&#10003;" : "-"}}</td>
+      <td class="indicator">{{checkResult?.allSameShapes ? "&#10003;" : "-"}}</td>
+    </tr>
+    <tr class="nrOfshapes"[class.ok]="checkResult?.allDiffNrOfShapes || checkResult?.allSameNrOfShapes">
+      <td># shapes</td>
+      <td class="indicator">{{checkResult?.allDiffNrOfShapes ? "&#10003;" : "-"}}</td>
+      <td class="indicator">{{checkResult?.allSameNrOfShapes ? "&#10003;" : "-"}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+
+    </tfoot>
+  </table>
+</div>

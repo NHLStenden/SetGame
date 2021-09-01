@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+div.board {
+  background-color: indianred;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  width: 1100px;
+  border-radius: 10px;
+  margin:auto;
+  overflow: hidden;
+}
+
+
+div.card {
+  cursor: pointer;
+  box-shadow: 4px 4px 4px darkgray;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+  height:300px;
+  width:150px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 10px;
+
+}
+
+div.card:hover {
+  box-shadow: 4px 4px 4px darkgreen;
+}
+
+div.card.selected {
+  box-shadow: 4px 4px 4px blue;
+  background-color: lightgreen;
+}
+
+div.card svg {
+  height: 100px;
+  width: 140px;
+}
+
