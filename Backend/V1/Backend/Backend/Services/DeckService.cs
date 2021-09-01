@@ -32,7 +32,7 @@ namespace Backend.Services
                                 Shape = shape,
                                 Fill = fill,
                                 Color = color,
-                                NrOfShapes = shapeIdx.ToString()
+                                NrOfShapes = shapeIdx
                             };
                         }
                     }
