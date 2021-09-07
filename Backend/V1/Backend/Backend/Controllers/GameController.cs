@@ -19,7 +19,7 @@ namespace Backend.Controllers
         public Card[] DrawCards(int gameId, int numberOfCards)
         {
             if (numberOfCards <= 0)
-                throw new ArgumentException();
+                throw new ArgumentOutOfRangeException($"numOfCards: {numberOfCards} should be > 0");
             
             return _gameService.DrawCardsFromDeck(gameId, numberOfCards);
         }

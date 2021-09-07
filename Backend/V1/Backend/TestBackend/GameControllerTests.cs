@@ -10,6 +10,15 @@ namespace TestBackend
     public class GameControllerTests : IntegrationTest
     {
         [Fact]
+        public async Task GetCardFrom_Deck_InvalidNumberOfCards()
+        {
+            Func<Task> request = async () => await GetRequest<Card[]>("/Game/DrawCards",
+                new {gameId = 1, numberOfCards = -1});
+
+            await request.Should().ThrowAsync<ArgumentOutOfRangeException>();
+        }
+        
+        [Fact]
         public async Task GetCardsFrom_Deck_ThreeCards()
         {
             var cards = await GetRequest<Card[]>("/Game/DrawCards", new {gameId = 1, numberOfCards = 3});

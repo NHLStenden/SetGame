@@ -23,16 +23,23 @@ namespace Backend.Services
             //
             // string yaml = ConvertToYaml(new List<Game>() {game0});
             //var currentDirectory = Environment.CurrentDirectory;
+
+            string yaml = File.ReadAllText(GetDataPath());
+            List<Game> games = YamlToObject<List<Game>>(yaml);
             
+            db.Games = games;
+        }
+
+        public static T YamlToObject<T>(string yaml)
+        {
             var deserializer = new DeserializerBuilder()
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
             
-            var game = deserializer.Deserialize<List<Game>>(File.ReadAllText(GetDataPath()));
-
-            db.Games = game;
+            var result = deserializer.Deserialize<T>(yaml);
+            return result;
         }
-
+        
         public static string ConvertToYaml<T>(T obj)
         {
             var serializer = new SerializerBuilder()
