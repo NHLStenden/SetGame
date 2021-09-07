@@ -1,15 +1,65 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend;
 using Backend.Models;
 using FluentAssertions;
-using NUnit.Framework;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
+using Xunit;
 
 namespace TestBackend
 {
-    public class GameControllerTests : IntegrationTest
+    public class GameControllerTests : IClassFixture<WebApplicationFactory<Startup>>, IDisposable
     {
-        [Test]
+        private WebApplicationFactory<Startup> _factory;
+
+        public GameControllerTests(WebApplicationFactory<Startup> factory)
+        {
+            _factory = factory;
+        }
+        
+        protected async Task<T> GetRequest<T>(string apiPath, dynamic parameters)
+        {
+            if (apiPath.StartsWith("/"))
+            {
+                apiPath = apiPath.Substring(1);
+            }
+
+            var requestUri = $"http://localhost:5000/{apiPath}";
+            bool firstParameter = true;
+            foreach (var parameter in parameters.GetType().GetProperties())
+            {
+                var propertyName = parameter.Name;
+                var propretyValue = parameters.GetType().GetProperty(propertyName).GetValue(parameters, null);
+
+                if (firstParameter)
+                {
+                    
+                    requestUri += "?";
+                }
+
+                if (!firstParameter)
+                {
+                    requestUri += "&";
+                }
+
+                requestUri += $"{propertyName}={propretyValue}";
+                
+                firstParameter = false;
+            }
+            
+            var response = await _factory.CreateClient().GetAsync(requestUri);
+
+            response.EnsureSuccessStatusCode();
+
+            string json = await response.Content.ReadAsStringAsync();
+
+            var objects = JsonConvert.DeserializeObject<T>(json);
+            return objects;
+        }
+        
+        [Fact]
         public async Task GetCardsFrom_Deck_ThreeCards()
         {
             var cards = await GetRequest<Card[]>("/Game/DrawCards", new {gameId = 1, numberOfCards = 3});
@@ -45,15 +95,14 @@ namespace TestBackend
             cards.Should().BeEquivalentTo(expectedCards);
         }
 
-        [Test]
+        [Fact]
         public async Task DrawCards_InvalidDeckId_Exception()
         {
-
             Func<Task> request = async () => await GetRequest<Card[]>("/Game/DrawCards", new {gameId = -1, numberOfCards = 41});
             request.Should().ThrowAsync<InvalidOperationException>();
         }
         
-        [Test]
+        [Fact]
         public async Task DrawCards_DeckIsEmpty_EmptyList()
         {
             var cards = await GetRequest<Card[]>("/Game/DrawCards", new {gameId = 1, numberOfCards = 41});
@@ -77,6 +126,11 @@ namespace TestBackend
             
             nextHand = await GetRequest<Card[]>("/Game/DrawCards", new {gameId = 1, numberOfCards = 3});
             nextHand.Should().HaveCount(0);
+        }
+
+        public void Dispose()
+        {
+            _factory?.Dispose();
         }
     }
 }

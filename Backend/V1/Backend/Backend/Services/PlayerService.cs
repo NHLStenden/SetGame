@@ -3,14 +3,14 @@ using System.Linq;
 using Backend.Models;
 
 namespace Backend.Services
-{
+{   
     public class PlayerService
     {
-        private static List<Player> Players = new List<Player>();
+        private static List<Player> _players = new List<Player>();
 
         public Player GetById(int playerId)
         {
-            return Players.First(x => x.PlayerId == playerId);
+            return _players.First(x => x.PlayerId == playerId);
         }
 
         public Player CreatePlayer(string name)
@@ -18,10 +18,10 @@ namespace Backend.Services
             var player = new Player()
             {
                 Name = name,
-                PlayerId = Players.Count + 1
+                PlayerId = _players.Count + 1
             };
                 
-            Players.Add(player);
+            _players.Add(player);
             
             return player;
         }

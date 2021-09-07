@@ -5,30 +5,35 @@ using Backend.Models;
 
 namespace Backend.Services
 {
-    public class GameService
+    public class GameService : IGameService
     {
-        private static List<Game> Games = new List<Game>();
+        private readonly SetContext _db;
 
-        public Game StartNewGame(int playerId)
+        public GameService(SetContext db)
         {
-            var deck = new DeckService().CreateDeck();
-            var player = new PlayerService().GetById(playerId);
-            
-            Games.Add(new Game()
-            {
-                GameId = Games.Count + 1,
-                Deck = deck,
-                DeckId = deck.DeckId,
-                Player = player,
-                PlayerId = player.PlayerId
-            });
-
-            return Games[^1];
+            _db = db;
         }
+        
+        // public Game StartNewGame(int playerId)
+        // {
+        //     var deck = new DeckService().CreateDeck();
+        //     var player = new PlayerService().GetById(playerId);
+        //     
+        //     _db.Games.Add(new Game()
+        //     {
+        //         GameId = _db.Games.Count + 1,
+        //         Deck = deck,
+        //         DeckId = deck.DeckId,
+        //         Player = player,
+        //         PlayerId = player.PlayerId
+        //     });
+        //
+        //     return _db.Games[^1];
+        // }
 
         public Card[] DrawCardsFromDeck(int gameId, int numCards)
         {
-            Game game = Games.First(x => x.GameId == gameId);
+            Game game = _db.Games.First(x => x.GameId == gameId);
             //Todo throw deck not found exception or not found expcetion
             
 
