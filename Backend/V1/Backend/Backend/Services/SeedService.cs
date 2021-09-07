@@ -7,9 +7,11 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace Backend.Services
 {
-    public class SeedService
+    public abstract class SeedService
     {
-        public static void Seed(SetContext db)
+        protected abstract string GetDataPath();
+        
+        public void Seed(SetContext db)
         {
             // var joris = new PlayerService().CreatePlayer("Joris");
             //     var game0 = new GameService().StartNewGame(joris.PlayerId);
@@ -25,13 +27,8 @@ namespace Backend.Services
             var deserializer = new DeserializerBuilder()
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
-
-            var testDataPath = Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName, "TestData",
-                "GameControllerTestData.yaml");
             
-            
-            string currentDirectory = Environment.CurrentDirectory;
-            var game = deserializer.Deserialize<List<Game>>(File.ReadAllText(testDataPath));
+            var game = deserializer.Deserialize<List<Game>>(File.ReadAllText(GetDataPath()));
 
             db.Games = game;
         }
@@ -44,6 +41,25 @@ namespace Backend.Services
             var yaml = serializer.Serialize(obj);
             return yaml;
         }
-        
+    }
+
+    public class TestSeedService : SeedService
+    {
+        protected override string GetDataPath()
+        {
+            string path = Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName, "TestData",
+                "GameControllerTestData.yaml");
+            return path;
+        }
+    }
+
+    public class NormalSeedService : SeedService
+    {
+        protected override string GetDataPath()
+        {
+            string path = Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).FullName, "TestData",
+                "GameData.yaml");
+            return path;
+        }
     }
 }

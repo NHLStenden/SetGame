@@ -1,11 +1,14 @@
 using System;
 using System.Dynamic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Backend;
+using Backend.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 
@@ -21,6 +24,14 @@ namespace TestBackend
         public IntegrationTest()
         {
             _server = new TestServer(new WebHostBuilder()
+                .ConfigureTestServices(services =>
+                {
+                    var descriptor = services.SingleOrDefault(
+                        d => d.ServiceType ==
+                             typeof(SeedService));
+                    services.Remove(descriptor);
+                    services.AddSingleton<SeedService, TestSeedService>();
+                })
                 .UseStartup<Startup>()
             );
             _client = _server.CreateClient();

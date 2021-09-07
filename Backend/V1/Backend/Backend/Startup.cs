@@ -32,6 +32,7 @@ namespace Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<SetContext>();
+            services.AddSingleton<SeedService, NormalSeedService>();
             services.AddScoped<IGameService, GameService>();
             
             services.AddControllers()
@@ -59,9 +60,9 @@ namespace Backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SetContext db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SetContext db, SeedService seedService)
         {
-            SeedService.Seed(db);
+            seedService.Seed(db);
             
             if (env.IsDevelopment())
             {

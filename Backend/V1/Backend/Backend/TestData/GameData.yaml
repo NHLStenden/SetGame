@@ -1,0 +1,415 @@
+- gameId: 1
+  deckId: 1
+  deck:
+    deckId: 1
+    cards:
+      - cardId: 1
+        shape: Diamond
+        fill: Striped
+        color: Violet
+        nrOfShapes: 3
+      - cardId: 2
+        shape: Diamond
+        fill: Striped
+        color: Violet
+        nrOfShapes: 1
+      - cardId: 3
+        shape: Wave
+        fill: Hollow
+        color: Red
+        nrOfShapes: 3
+      - cardId: 4
+        shape: Diamond
+        fill: Striped
+        color: Red
+        nrOfShapes: 2
+      - cardId: 5
+        shape: Diamond
+        fill: Hollow
+        color: Violet
+        nrOfShapes: 3
+      - cardId: 6
+        shape: Wave
+        fill: Solid
+        color: Green
+        nrOfShapes: 3
+      - cardId: 7
+        shape: Diamond
+        fill: Hollow
+        color: Violet
+        nrOfShapes: 1
+      - cardId: 8
+        shape: Pill
+        fill: Striped
+        color: Red
+        nrOfShapes: 2
+      - cardId: 9
+        shape: Wave
+        fill: Striped
+        color: Violet
+        nrOfShapes: 2
+      - cardId: 10
+        shape: Diamond
+        fill: Hollow
+        color: Green
+        nrOfShapes: 2
+      - cardId: 11
+        shape: Wave
+        fill: Striped
+        color: Red
+        nrOfShapes: 1
+      - cardId: 12
+        shape: Pill
+        fill: Hollow
+        color: Red
+        nrOfShapes: 1
+      - cardId: 13
+        shape: Diamond
+        fill: Solid
+        color: Red
+        nrOfShapes: 1
+      - cardId: 14
+        shape: Pill
+        fill: Solid
+        color: Red
+        nrOfShapes: 2
+      - cardId: 15
+        shape: Wave
+        fill: Striped
+        color: Red
+        nrOfShapes: 2
+      - cardId: 16
+        shape: Diamond
+        fill: Striped
+        color: Green
+        nrOfShapes: 1
+      - cardId: 17
+        shape: Wave
+        fill: Striped
+        color: Violet
+        nrOfShapes: 1
+      - cardId: 18
+        shape: Pill
+        fill: Solid
+        color: Violet
+        nrOfShapes: 2
+      - cardId: 19
+        shape: Wave
+        fill: Hollow
+        color: Green
+        nrOfShapes: 2
+      - cardId: 20
+        shape: Pill
+        fill: Hollow
+        color: Violet
+        nrOfShapes: 2
+      - cardId: 21
+        shape: Pill
+        fill: Solid
+        color: Red
+        nrOfShapes: 1
+      - cardId: 22
+        shape: Pill
+        fill: Hollow
+        color: Green
+        nrOfShapes: 1
+      - cardId: 23
+        shape: Diamond
+        fill: Solid
+        color: Red
+        nrOfShapes: 2
+      - cardId: 24
+        shape: Pill
+        fill: Striped
+        color: Red
+        nrOfShapes: 3
+      - cardId: 25
+        shape: Pill
+        fill: Hollow
+        color: Red
+        nrOfShapes: 2
+      - cardId: 26
+        shape: Pill
+        fill: Solid
+        color: Violet
+        nrOfShapes: 1
+      - cardId: 27
+        shape: Wave
+        fill: Striped
+        color: Green
+        nrOfShapes: 1
+      - cardId: 28
+        shape: Diamond
+        fill: Solid
+        color: Red
+        nrOfShapes: 3
+      - cardId: 29
+        shape: Diamond
+        fill: Striped
+        color: Green
+        nrOfShapes: 3
+      - cardId: 30
+        shape: Diamond
+        fill: Solid
+        color: Violet
+        nrOfShapes: 2
+      - cardId: 31
+        shape: Wave
+        fill: Solid
+        color: Green
+        nrOfShapes: 1
+      - cardId: 32
+        shape: Wave
+        fill: Solid
+        color: Red
+        nrOfShapes: 1
+      - cardId: 33
+        shape: Pill
+        fill: Striped
+        color: Red
+        nrOfShapes: 1
+      - cardId: 34
+        shape: Pill
+        fill: Hollow
+        color: Green
+        nrOfShapes: 3
+      - cardId: 35
+        shape: Pill
+        fill: Striped
+        color: Violet
+        nrOfShapes: 1
+      - cardId: 36
+        shape: Pill
+        fill: Striped
+        color: Violet
+        nrOfShapes: 2
+      - cardId: 37
+        shape: Pill
+        fill: Solid
+        color: Red
+        nrOfShapes: 3
+      - cardId: 38
+        shape: Diamond
+        fill: Solid
+        color: Green
+        nrOfShapes: 3
+      - cardId: 39
+        shape: Pill
+        fill: Hollow
+        color: Red
+        nrOfShapes: 3
+      - cardId: 40
+        shape: Wave
+        fill: Solid
+        color: Violet
+        nrOfShapes: 1
+      - cardId: 41
+        shape: Wave
+        fill: Hollow
+        color: Violet
+        nrOfShapes: 3
+      - cardId: 42
+        shape: Diamond
+        fill: Hollow
+        color: Violet
+        nrOfShapes: 2
+      - cardId: 43
+        shape: Pill
+        fill: Solid
+        color: Green
+        nrOfShapes: 1
+      - cardId: 44
+        shape: Diamond
+        fill: Hollow
+        color: Red
+        nrOfShapes: 2
+      - cardId: 45
+        shape: Wave
+        fill: Solid
+        color: Violet
+        nrOfShapes: 2
+      - cardId: 46
+        shape: Diamond
+        fill: Solid
+        color: Violet
+        nrOfShapes: 1
+      - cardId: 47
+        shape: Wave
+        fill: Hollow
+        color: Violet
+        nrOfShapes: 2
+      - cardId: 48
+        shape: Pill
+        fill: Solid
+        color: Green
+        nrOfShapes: 2
+      - cardId: 49
+        shape: Wave
+        fill: Solid
+        color: Red
+        nrOfShapes: 3
+      - cardId: 50
+        shape: Wave
+        fill: Striped
+        color: Green
+        nrOfShapes: 3
+      - cardId: 51
+        shape: Diamond
+        fill: Hollow
+        color: Red
+        nrOfShapes: 3
+      - cardId: 52
+        shape: Wave
+        fill: Hollow
+        color: Green
+        nrOfShapes: 3
+      - cardId: 53
+        shape: Wave
+        fill: Hollow
+        color: Violet
+        nrOfShapes: 1
+      - cardId: 54
+        shape: Wave
+        fill: Hollow
+        color: Red
+        nrOfShapes: 1
+      - cardId: 55
+        shape: Diamond
+        fill: Striped
+        color: Red
+        nrOfShapes: 1
+      - cardId: 56
+        shape: Diamond
+        fill: Solid
+        color: Violet
+        nrOfShapes: 3
+      - cardId: 57
+        shape: Wave
+        fill: Solid
+        color: Green
+        nrOfShapes: 2
+      - cardId: 58
+        shape: Pill
+        fill: Hollow
+        color: Violet
+        nrOfShapes: 3
+      - cardId: 59
+        shape: Diamond
+        fill: Solid
+        color: Green
+        nrOfShapes: 1
+      - cardId: 60
+        shape: Diamond
+        fill: Solid
+        color: Green
+        nrOfShapes: 2
+      - cardId: 61
+        shape: Wave
+        fill: Striped
+        color: Red
+        nrOfShapes: 3
+      - cardId: 62
+        shape: Wave
+        fill: Hollow
+        color: Green
+        nrOfShapes: 1
+      - cardId: 63
+        shape: Diamond
+        fill: Striped
+        color: Violet
+        nrOfShapes: 2
+      - cardId: 64
+        shape: Wave
+        fill: Striped
+        color: Violet
+        nrOfShapes: 3
+      - cardId: 65
+        shape: Diamond
+        fill: Striped
+        color: Red
+        nrOfShapes: 3
+      - cardId: 66
+        shape: Pill
+        fill: Solid
+        color: Violet
+        nrOfShapes: 3
+      - cardId: 67
+        shape: Pill
+        fill: Striped
+        color: Green
+        nrOfShapes: 3
+      - cardId: 68
+        shape: Diamond
+        fill: Hollow
+        color: Green
+        nrOfShapes: 3
+      - cardId: 69
+        shape: Wave
+        fill: Striped
+        color: Green
+        nrOfShapes: 2
+      - cardId: 70
+        shape: Wave
+        fill: Hollow
+        color: Red
+        nrOfShapes: 2
+      - cardId: 71
+        shape: Pill
+        fill: Striped
+        color: Green
+        nrOfShapes: 2
+      - cardId: 72
+        shape: Wave
+        fill: Solid
+        color: Violet
+        nrOfShapes: 3
+      - cardId: 73
+        shape: Pill
+        fill: Striped
+        color: Green
+        nrOfShapes: 1
+      - cardId: 74
+        shape: Diamond
+        fill: Hollow
+        color: Green
+        nrOfShapes: 1
+      - cardId: 75
+        shape: Pill
+        fill: Striped
+        color: Violet
+        nrOfShapes: 3
+      - cardId: 76
+        shape: Pill
+        fill: Solid
+        color: Green
+        nrOfShapes: 3
+      - cardId: 77
+        shape: Pill
+        fill: Hollow
+        color: Green
+        nrOfShapes: 2
+      - cardId: 78
+        shape: Diamond
+        fill: Hollow
+        color: Red
+        nrOfShapes: 1
+      - cardId: 79
+        shape: Pill
+        fill: Hollow
+        color: Violet
+        nrOfShapes: 1
+      - cardId: 80
+        shape: Diamond
+        fill: Striped
+        color: Green
+        nrOfShapes: 2
+      - cardId: 81
+        shape: Wave
+        fill: Solid
+        color: Red
+        nrOfShapes: 2
+  cardIndex: 0
+  playerId: 1
+  player:
+    playerId: 1
+    name: Joris

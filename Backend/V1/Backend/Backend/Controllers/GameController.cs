@@ -16,12 +16,6 @@ namespace Backend.Controllers
         }
 
         [HttpGet("[action]")]
-        public Game StartNewGame()
-        {
-            return null;
-        }
-        
-        [HttpGet("[action]")]
         public Card[] DrawCards(int gameId, int numberOfCards)
         {
             if (numberOfCards <= 0)
@@ -29,8 +23,5 @@ namespace Backend.Controllers
             
             return _gameService.DrawCardsFromDeck(gameId, numberOfCards);
         }
-
-        
-        
     }
 }
