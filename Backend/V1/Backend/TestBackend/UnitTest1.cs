@@ -1,4 +1,6 @@
+using System;
 using System.Dynamic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,7 +16,81 @@ using NUnit.Framework;
 
 namespace TestBackend
 {
-    public class DeckControllerTests
+    
+    public class GameControllerTests : IntegrationTest
+    {
+        [Test]
+        public async Task GetCardsFrom_Deck_ThreeCards()
+        {
+            var cards = await GetRequest<Card[]>("/Game/DrawCards", new {gameId = 1, numberOfCards = 3});
+
+            cards.Should().HaveCount(3);
+            cards.Should().OnlyHaveUniqueItems();
+            
+            var expectedCards = new Card[]
+            {
+                new Card() {
+                    CardId = 1,
+                    Color = Backend.Models.Color.Violet,
+                    Fill = Backend.Models.Fill.Striped,
+                    NrOfShapes = 3,
+                    Shape = Shape.Diamond
+                }, new Card()
+                {
+                    CardId = 2,
+                    Color = Backend.Models.Color.Violet,
+                    Fill = Backend.Models.Fill.Striped,
+                    NrOfShapes = 1,
+                    Shape = Shape.Diamond
+                }, new Card()
+                {
+                    CardId = 3,
+                    Color = Color.Red,
+                    Fill = Backend.Models.Fill.Hollow,
+                    NrOfShapes = 3,
+                    Shape = Shape.Wave                    
+                }
+            };
+
+            cards.Should().BeEquivalentTo(expectedCards);
+        }
+
+        [Test]
+        public async Task DrawCards_InvalidDeckId_Exception()
+        {
+
+            Func<Task> request = async () => await GetRequest<Card[]>("/Game/DrawCards", new {gameId = -1, numberOfCards = 41});
+            request.Should().ThrowAsync<InvalidOperationException>();
+        }
+        
+        [Test]
+        public async Task DrawCards_DeckIsEmpty_EmptyList()
+        {
+            var cards = await GetRequest<Card[]>("/Game/DrawCards", new {gameId = 1, numberOfCards = 41});
+            cards.Should().HaveCount(41);
+            cards.Should().OnlyHaveUniqueItems();
+
+            var nextHand = await GetRequest<Card[]>("/Game/DrawCards", new {gameId = 1, numberOfCards = 38});
+            nextHand.Should().HaveCount(38);
+            nextHand.Should().OnlyHaveUniqueItems();
+            
+            var allCards = cards.Concat(nextHand);
+            allCards.Should().HaveCount(41+38);
+            allCards.Should().OnlyHaveUniqueItems();
+
+            nextHand = await GetRequest<Card[]>("/Game/DrawCards", new {gameId = 1, numberOfCards = 3});
+            nextHand.Should().HaveCount(2);
+
+            allCards = allCards.Concat(nextHand);
+            allCards.Should().HaveCount(81);
+            allCards.Should().OnlyHaveUniqueItems();
+            
+            nextHand = await GetRequest<Card[]>("/Game/DrawCards", new {gameId = 1, numberOfCards = 3});
+            nextHand.Should().HaveCount(0);
+        }
+    }
+
+    public class IntegrationTest
     {
         private TestServer _server;
         private HttpClient _client;
@@ -26,71 +102,45 @@ namespace TestBackend
                 .UseStartup<Startup>());
             _client = _server.CreateClient();
         }
-
-        [Test]
-        public async Task GetNewBoard()
-        {
-            var response = await _client.GetAsync("http://localhost:5000/Deck/GetNewDeck");
-            response.EnsureSuccessStatusCode();
-
-            string json = await response.Content.ReadAsStringAsync();
-
-            var deck = JsonConvert.DeserializeObject<Deck>(json);
-
-            deck.DeckId.Should().Be(1);
-            deck.Cards.Count.Should().Be(81);
-        }
-
-        [Test]
-        public async Task GetCardsFromDeck_DeckDoesNotExists_ThrowException()
-        {
-            var response = await _client.GetAsync("http://localhost:5000/Deck/GetCardsFromDeck?deckId=0&numberOfCards=3");
-
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        } 
         
-        [Test]
-        public async Task GetCardsFrom_Deck_ThreeCards()
+        protected async Task<T> GetRequest<T>(string apiPath, dynamic parameters)
         {
-            var response = await _client.GetAsync("http://localhost:5000/Deck/GetNewDeck");
+            if (apiPath.StartsWith("/"))
+            {
+                apiPath = apiPath.Substring(1);
+            }
+
+            var requestUri = $"http://localhost:5000/{apiPath}";
+            bool firstParameter = true;
+            foreach (var parameter in parameters.GetType().GetProperties())
+            {
+                var propertyName = parameter.Name;
+                var propretyValue = parameters.GetType().GetProperty(propertyName).GetValue(parameters, null);
+
+                if (firstParameter)
+                {
+                    
+                    requestUri += "?";
+                }
+
+                if (!firstParameter)
+                {
+                    requestUri += "&";
+                }
+
+                requestUri += $"{propertyName}={propretyValue}";
+                
+                firstParameter = false;
+            }
             
-            response = await _client.GetAsync("http://localhost:5000/Deck/GetCardsFromDeck?deckId=1&numberOfCards=3");
+            var response = await _client.GetAsync(requestUri);
 
             response.EnsureSuccessStatusCode();
 
             string json = await response.Content.ReadAsStringAsync();
 
-            var cards = JsonConvert.DeserializeObject<Card[]>(json);
-
-            cards.Should().HaveCount(3);
-            cards.Should().OnlyHaveUniqueItems();
-            
-            var expectedCards = new Card[]
-            {
-                new Card() {
-                    Color = Backend.Models.Color.Violet,
-                    Fill = Backend.Models.Fill.Striped,
-                    NrOfShapes = 3,
-                    Shape = Shape.Diamond
-                }, new Card()
-                {
-                    Color = Backend.Models.Color.Violet,
-                    Fill = Backend.Models.Fill.Striped,
-                    NrOfShapes = 1,
-                    Shape = Shape.Diamond
-                }, new Card()
-                {
-                    Color = Color.Red,
-                    Fill = Backend.Models.Fill.Hollow,
-                    NrOfShapes = 3,
-                    Shape = Shape.Wave                    
-                }
-            };
-
-            cards.Should().BeEquivalentTo(expectedCards);
-
-
-
+            var objects = JsonConvert.DeserializeObject<T>(json);
+            return objects;
         }
     }
 }

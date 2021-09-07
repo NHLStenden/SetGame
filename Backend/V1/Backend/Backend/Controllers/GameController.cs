@@ -9,12 +9,14 @@ namespace Backend.Controllers
     public class GameController : ControllerBase
     {
         [HttpGet("[action]")]
-        public Card[] DrawCards(int gameId, int numCards)
+        public Card[] DrawCards(int gameId, int numberOfCards)
         {
-            if (numCards <= 0)
+            if (numberOfCards <= 0)
                 throw new ArgumentException();
             
-            return new GameService().DrawCardsFromDeck(gameId, numCards);
+            return new GameService().DrawCardsFromDeck(gameId, numberOfCards);
         }
+        
+        
     }
 }

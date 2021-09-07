@@ -29,6 +29,8 @@ namespace Backend.Services
         public Card[] DrawCardsFromDeck(int gameId, int numCards)
         {
             Game game = Games.First(x => x.GameId == gameId);
+            //Todo throw deck not found exception or not found expcetion
+            
 
             int endIndex = Math.Min(81, game.CardIndex + numCards);
             var deckCards = game.Deck.Cards[game.CardIndex..endIndex];
