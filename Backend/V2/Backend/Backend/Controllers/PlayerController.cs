@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Backend.Models;
 using Dapper.Contrib.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,13 @@ namespace Backend.Controllers
         private MySqlConnection GetConnection() => 
              new MySqlConnection("Server=localhost;Database=SetGame;Uid=root;Pwd=Test@1234!;");
 
+        [HttpGet("[action]")]
+        public IEnumerable<Player> Get()
+        {
+            using var conn = GetConnection();
+            return conn.GetAll<Player>();
+        }
+        
         [HttpGet("[action]/{id}")]
         public IActionResult GetById(int id)
         {
