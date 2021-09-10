@@ -5,9 +5,12 @@ using MySql.Data.MySqlClient;
 
 namespace Backend.Controllers
 {
-    [Microsoft.AspNetCore.Components.Route("[controller]")]
+    [Route("[controller]")]
     public class PlayerController : ControllerBase
     {
+        private MySqlConnection GetConnection() => 
+             new MySqlConnection("Server=localhost;Database=SetGame;Uid=root;Pwd=Test@1234!;");
+
         [HttpGet("[action]/{id}")]
         public IActionResult GetById(int id)
         {
@@ -22,15 +25,29 @@ namespace Backend.Controllers
         [HttpGet("[action]")]
         public IActionResult Create(string name)
         {
-            using var conn = new MySqlConnection("Server=localhost;Database=SetGame;Uid=root;Pwd=Test@1234!;");
-
+            using var conn = GetConnection();
             var player = new Player()
             {
                 Name = name
             };
             var playerId = conn.Insert(player);
-            
             return CreatedAtAction(nameof(GetById), new { id = playerId }, player);
+        }
+
+        [HttpGet("[action]/{id}")]
+        public IActionResult Delete(int id)
+        {
+            using var conn = GetConnection();
+            bool sucess = conn.Delete<Player>(new Player() { PlayerId = id });
+            return sucess ? Ok() : NotFound();
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult<Player> Update(Player player)
+        {
+            using var conn = GetConnection();
+            bool updatedPlayer = conn.Update(player);
+            return updatedPlayer ? Ok(player) : NotFound();
         }
         
     }
