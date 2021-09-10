@@ -23,5 +23,11 @@ namespace Backend.Controllers
             
             return _gameService.DrawCardsFromDeck(gameId, numberOfCards);
         }
+
+        [HttpGet("[action]")]
+        public int StartGame(int playerId)
+        {
+            return _gameService.StartNewGame(playerId);
+        }
     }
 }

@@ -7,7 +7,6 @@ namespace Backend.Models
         public int DeckId { get; set; }
         public Deck Deck { get; set; }
         
-
         public int CardIndex { get; set; }
         public int PlayerId { get; set; }
         public Player Player { get; set; }

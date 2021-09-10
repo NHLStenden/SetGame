@@ -43,5 +43,24 @@ namespace Backend.Services
             
             return deckCards;
         }
+        
+
+
+        public int StartNewGame(int playerId, int? deckId)
+        {
+            DeckService deckService = new DeckService(_db);
+            Game game = new Game()
+            {
+                GameId = _db.Games.Max(x => x.GameId) + 1,
+                Deck = deckId.HasValue ? 
+                    deckService.GetById(deckId) : deckService.CreateDeck(), 
+            };
+            game.DeckId = game.Deck.DeckId;
+            game.PlayerId = playerId;
+                
+            _db.Games.Add(game);
+
+            return game.GameId;
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Backend.Models;
 using Backend.Utils;
 
@@ -7,14 +8,18 @@ namespace Backend.Services
 {
     public class DeckService
     {
-        private static int dekcId = 1;
-        private static int cardId = 1;
+        private readonly SetContext _db;
+
+        public DeckService(SetContext db)
+        {
+            _db = db;
+        }
         
         public Deck CreateDeck()
         {
             var deck = new Deck()
             {
-                DeckId = dekcId++,
+                DeckId = _db.Games.Max(x => x.DeckId) + 1,
                 Cards = new Card[81]
             };
 
@@ -43,10 +48,15 @@ namespace Backend.Services
             
             foreach (var card in deck.Cards)
             {
-                card.CardId = cardId++;
+                card.CardId = _db.Games.Max(x => x.Deck.Cards.Max(x => x.CardId)) + 1;
             }
             
             return deck;
+        }
+
+        public Deck GetById(int? deckId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
