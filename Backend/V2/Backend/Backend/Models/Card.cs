@@ -1,3 +1,5 @@
+using Dapper.Contrib.Extensions;
+
 namespace Backend.Models
 {
     
@@ -16,8 +18,10 @@ namespace Backend.Models
         Red, Green, Violet
     }
     
+    [Table("card")]
     public class Card
     {
+        [Key]
         public int CardId { get; set; }
         
         public Shape Shape { get; set; }
