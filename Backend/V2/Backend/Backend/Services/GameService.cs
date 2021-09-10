@@ -44,8 +44,6 @@ namespace Backend.Services
             return deckCards;
         }
         
-
-
         public int StartNewGame(int playerId, int? deckId)
         {
             DeckService deckService = new DeckService(_db);

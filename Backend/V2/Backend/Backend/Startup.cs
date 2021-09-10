@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Backend.Models;
+using Backend.Repository;
 using Backend.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,7 +27,10 @@ namespace Backend
             services.AddSingleton<SetContext>();
             services.AddSingleton<SeedService, NormalSeedService>();
             services.AddScoped<IGameService, GameService>();
-            
+
+            services.AddScoped<IGenericRepository<Player>, GenericRepository<Player>>();
+            services.AddScoped<IGenericRepository<Card>, GenericRepository<Card>>();
+                
             services.AddControllers()
                 .AddJsonOptions(opts =>
                 {
@@ -47,8 +51,6 @@ namespace Backend
                             .AllowAnyMethod();
                     });
             });
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
