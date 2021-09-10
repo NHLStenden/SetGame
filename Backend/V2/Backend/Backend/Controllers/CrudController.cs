@@ -2,14 +2,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Dapper.Contrib.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
 namespace Backend.Controllers
 {
     public class CrudController<T> : ControllerBase where T : class, new()
     {
+        private readonly IConfiguration _configuration;
+
         private MySqlConnection GetConnection() => 
-            new MySqlConnection("Server=localhost;Database=SetGame;Uid=root;Pwd=Test@1234!;");
+            new MySqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+
+        protected CrudController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         
         [HttpGet("[action]")]
         public IEnumerable<T> Get()
