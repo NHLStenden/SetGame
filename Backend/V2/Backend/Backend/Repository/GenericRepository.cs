@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace Backend.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class, new()
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class, new()
     {
         private readonly IConfiguration _configuration;
 

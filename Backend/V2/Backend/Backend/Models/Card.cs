@@ -2,7 +2,6 @@ using Dapper.Contrib.Extensions;
 
 namespace Backend.Models
 {
-    
     public enum Shape
     {
         Diamond, Pill, Wave

@@ -28,8 +28,8 @@ namespace Backend
             services.AddSingleton<SeedService, NormalSeedService>();
             services.AddScoped<IGameService, GameService>();
 
-            services.AddScoped<IGenericRepository<Player>, GenericRepository<Player>>();
-            services.AddScoped<IGenericRepository<Card>, GenericRepository<Card>>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<ICardRepository, CardRepository>();
                 
             services.AddControllers()
                 .AddJsonOptions(opts =>
