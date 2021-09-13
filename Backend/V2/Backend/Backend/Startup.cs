@@ -46,6 +46,7 @@ namespace Backend
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<IDeckRepository, DeckRepository>();
             
             services.AddScoped<IDeckService, DeckService>();
                 

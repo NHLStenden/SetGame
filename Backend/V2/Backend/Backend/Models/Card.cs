@@ -23,9 +23,12 @@ namespace Backend.Models
         [Key]
         public int CardId { get; set; }
         
+        public int DeckId { get; set; }
+        
         public Shape Shape { get; set; }
         public Fill Fill { get; set; }
         public Color Color { get; set; }
         public int NrOfShapes { get; set; }
+        public int DeckIndex { get; set; }
     }
 }

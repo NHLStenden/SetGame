@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
+using Dapper;
+using Dapper.Logging;
 
 namespace Backend.Services
 {
@@ -11,11 +13,17 @@ namespace Backend.Services
     {
         private readonly IGameRepository _gameRepository;
         private readonly IDeckService _deckService;
+        private readonly IDeckRepository _deckRepository;
+        private readonly ICardRepository _cardRepository;
+        private readonly IDbConnectionFactory _factory;
 
-        public GameService(IGameRepository gameRepository, IDeckService deckService)
+        public GameService(IGameRepository gameRepository, IDeckService deckService, IDeckRepository deckRepository, ICardRepository cardRepository, IDbConnectionFactory factory)
         {
             _gameRepository = gameRepository;
             _deckService = deckService;
+            _deckRepository = deckRepository;
+            _cardRepository = cardRepository;
+            _factory = factory;
         }
         
         // public Game StartNewGame(int playerId)
@@ -49,14 +57,26 @@ namespace Backend.Services
         
         public async Task<int> StartNewGame(int playerId, int? deckId)
         {
+            Deck deck = null;
+            if (deckId.HasValue)
+            {
+                deck = _deckService.GetById(deckId);
+            }
+            else
+            {
+                deck = await _deckService.CreateDeck();
+                //deckId = await _deckRepository.AddAsync(deck);
+            }
+            
             Game game = new Game()
             {
-                Deck = deckId.HasValue ? 
-                    _deckService.GetById(deckId) : _deckService.CreateDeck(), 
+                DeckId = deckId.Value
             };
             game.PlayerId = playerId;
 
-            await _gameRepository.AddAsync(game);
+            
+            
+            //await _gameRepository.AddAsync(game);
             
             return game.GameId;
         }
