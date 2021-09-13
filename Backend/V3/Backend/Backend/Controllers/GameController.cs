@@ -9,26 +9,22 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class GameController : ControllerBase
+    public class GameController : CrudController<Game>
     {
-        private readonly SetContext _db;
-
-        public GameController(SetContext db)
+        public GameController(SetContext setContext) : base(setContext)
         {
-            _db = db;
         }
 
-        [HttpGet()]
-        public async Task<List<Game>> Get()
+        [HttpGet("{id}")]
+        public override async Task<Game> GetByIdAsync(int id)
         {
-            var result = await _db.Games.AsNoTracking().ToListAsync();
-            return result;
+            var entity = await _setContext.Games
+                .Include(x => x.Deck)
+                    .ThenInclude(x => x.Cards)
+                .Include(x => x.Player)
+                .SingleAsync(x => x.GameId == id);
+            return entity;
         }
         
-        [HttpGet("{gameId:int}")]
-        public async Task<Game> Get(int gameId)
-        {
-            return await _db.Games.FindAsync(gameId);
-        }
     }
 }
