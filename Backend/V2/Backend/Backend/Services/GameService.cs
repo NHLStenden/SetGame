@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Backend.Models;
+using Backend.Repository;
 
 namespace Backend.Services
 {
     public class GameService : IGameService
     {
-        private readonly SetContext _db;
+        private readonly IGameRepository _gameRepository;
+        private readonly IDeckService _deckService;
 
-        public GameService(SetContext db)
+        public GameService(IGameRepository gameRepository, IDeckService deckService)
         {
-            _db = db;
+            _gameRepository = gameRepository;
+            _deckService = deckService;
         }
         
         // public Game StartNewGame(int playerId)
@@ -31,12 +35,11 @@ namespace Backend.Services
         //     return _db.Games[^1];
         // }
 
-        public Card[] DrawCardsFromDeck(int gameId, int numCards)
+        public async Task<Card[]> DrawCardsFromDeck(int gameId, int numCards)
         {
-            Game game = _db.Games.First(x => x.GameId == gameId);
+            Game game = await _gameRepository.GetAsync(gameId);
             //Todo throw deck not found exception or not found expcetion
             
-
             int endIndex = Math.Min(81, game.CardIndex + numCards);
             var deckCards = game.Deck.Cards[game.CardIndex..endIndex];
             game.CardIndex = endIndex;
@@ -44,20 +47,17 @@ namespace Backend.Services
             return deckCards;
         }
         
-        public int StartNewGame(int playerId, int? deckId)
+        public async Task<int> StartNewGame(int playerId, int? deckId)
         {
-            DeckService deckService = new DeckService(_db);
             Game game = new Game()
             {
-                GameId = _db.Games.Max(x => x.GameId) + 1,
                 Deck = deckId.HasValue ? 
-                    deckService.GetById(deckId) : deckService.CreateDeck(), 
+                    _deckService.GetById(deckId) : _deckService.CreateDeck(), 
             };
-            game.DeckId = game.Deck.DeckId;
             game.PlayerId = playerId;
-                
-            _db.Games.Add(game);
 
+            await _gameRepository.AddAsync(game);
+            
             return game.GameId;
         }
     }

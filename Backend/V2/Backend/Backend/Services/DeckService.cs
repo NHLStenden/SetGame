@@ -6,20 +6,18 @@ using Backend.Utils;
 
 namespace Backend.Services
 {
-    public class DeckService
+    public interface IDeckService
     {
-        private readonly SetContext _db;
+        Deck CreateDeck();
+        Deck GetById(int? deckId);
+    }
 
-        public DeckService(SetContext db)
-        {
-            _db = db;
-        }
-        
+    public class DeckService : IDeckService
+    {
         public Deck CreateDeck()
         {
             var deck = new Deck()
             {
-                DeckId = _db.Games.Max(x => x.DeckId) + 1,
                 Cards = new Card[81]
             };
 
@@ -45,12 +43,7 @@ namespace Backend.Services
             }
 
             deck.Cards.Shuffle();
-            
-            foreach (var card in deck.Cards)
-            {
-                card.CardId = _db.Games.Max(x => x.Deck.Cards.Max(x => x.CardId)) + 1;
-            }
-            
+
             return deck;
         }
 

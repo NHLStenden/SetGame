@@ -1,11 +1,11 @@
 using Backend.Models;
-using Microsoft.Extensions.Configuration;
+using Dapper.Logging;
 
 namespace Backend.Repository
 {
     public class PlayerRepository : GenericRepository<Player>, IPlayerRepository
     {
-        public PlayerRepository(IConfiguration configuration) : base(configuration)
+        public PlayerRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
         {
         }
     }

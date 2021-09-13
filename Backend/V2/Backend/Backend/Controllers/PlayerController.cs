@@ -7,7 +7,7 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class PlayerController : CrudController<Player>
     {
-        public PlayerController(IGenericRepository<Player> repository) : base(repository)
+        public PlayerController(IPlayerRepository repository) : base(repository)
         {
         }
     }

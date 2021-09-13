@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
+using Dapper.Logging;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
@@ -9,16 +11,15 @@ namespace Backend.Repository
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class, new()
     {
-        private readonly IConfiguration _configuration;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        private MySqlConnection GetConnection() => 
-            new MySqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-
-        public GenericRepository(IConfiguration configuration)
+        public GenericRepository(IDbConnectionFactory connectionFactory)
         {
-            _configuration = configuration;
+            _connectionFactory = connectionFactory;
         }
-        
+
+        private IDbConnection GetConnection() => _connectionFactory.CreateConnection();
+
         public Task<IEnumerable<T>> GetAllAsync()
         {
             var result = GetConnection().GetAllAsync<T>();

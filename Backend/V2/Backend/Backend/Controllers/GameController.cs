@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("[action]")]
-        public Card[] DrawCards(int gameId, int numberOfCards)
+        public Task<Card[]> DrawCards(int gameId, int numberOfCards)
         {
             if (numberOfCards <= 0)
                 throw new ArgumentOutOfRangeException($"numOfCards: {numberOfCards} should be > 0");
@@ -25,7 +26,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("[action]")]
-        public int StartGame(int playerId)
+        public Task<int> StartGame(int playerId)
         {
             return _gameService.StartNewGame(playerId);
         }
