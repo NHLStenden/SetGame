@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models
 {
-
-    public class Game
+    public class Game : IEntity
     {
         [Key]
-        public int GameId { get; set; }
+        public int Id { get; set; }
         
         [Required]
         public int DeckId { get; set; }

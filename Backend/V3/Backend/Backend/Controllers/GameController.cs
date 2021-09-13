@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
+using Backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,19 +12,17 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class GameController : CrudController<Game>
     {
-        public GameController(SetContext setContext) : base(setContext)
+        private readonly IGameRepository _gameRepository;
+
+        public GameController(IGameRepository gameRepository) : base(gameRepository)
         {
+            _gameRepository = gameRepository;
         }
 
         [HttpGet("{id}")]
         public override async Task<Game> GetByIdAsync(int id)
         {
-            var entity = await _setContext.Games
-                .Include(x => x.Deck)
-                    .ThenInclude(x => x.Cards)
-                .Include(x => x.Player)
-                .SingleAsync(x => x.GameId == id);
-            return entity;
+            return await _gameRepository.GetByIdWithRelated(id);
         }
         
     }

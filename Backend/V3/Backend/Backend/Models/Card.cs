@@ -20,10 +20,10 @@ namespace Backend.Models
     }
     
 
-    public class Card
+    public class Card : IEntity
     {
         [Key]
-        public int CardId { get; set; }
+        public int Id { get; set; }
         
         //
         // public int DeckId { get; set; }

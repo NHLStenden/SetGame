@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models
 {
-    public class Deck
+    public class Deck : IEntity
     {
-        public int DeckId { get; set; }
+        public int Id { get; set; }
         
         //added extra/dummy property, mysql doesn't like tables with only a primary key 
         public string Name { get; set; }
