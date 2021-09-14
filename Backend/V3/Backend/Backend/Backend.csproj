@@ -11,4 +11,28 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Repository\DeckRepository.cs">
+        <DependentUpon>IDeckRepository.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Repository\GameRepository.cs">
+        <DependentUpon>IGameRepository.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Repository\GenericRepository.cs">
+        <DependentUpon>IGenericRepository.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Repository\CardRepository.cs">
+        <DependentUpon>ICardRepository.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Repository\PlayerRepository.cs">
+        <DependentUpon>IPlayerRepository.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Services\GameService.cs">
+        <DependentUpon>IGameService.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Services\DeckService.cs">
+        <DependentUpon>IDeckService.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

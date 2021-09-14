@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
+using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +14,12 @@ namespace Backend.Controllers
     public class GameController : CrudController<Game>
     {
         private readonly IGameRepository _gameRepository;
+        private readonly IGameService _gameService;
 
-        public GameController(IGameRepository gameRepository) : base(gameRepository)
+        public GameController(IGameRepository gameRepository, IGameService gameService) : base(gameRepository)
         {
             _gameRepository = gameRepository;
+            _gameService = gameService;
         }
 
         [HttpGet("{id}")]
@@ -24,6 +27,19 @@ namespace Backend.Controllers
         {
             return await _gameRepository.GetByIdWithRelated(id);
         }
+
+        [HttpGet("[action]/{playerId:int}")]
+        public async Task<Game> StartGame(int playerId)
+        {
+            return await _gameService.StartNewGame(playerId);
+        }
+
+        [HttpGet("[action]/{gameId:int}/{numberOfCards:int}")]
+        public Task<List<Card>> DrawCards(int gameId, int numberOfCards)
+        {
+            return _gameService.DrawCardsFromDeck(gameId, numberOfCards);
+        }
         
-    }
+  
+     }
 }

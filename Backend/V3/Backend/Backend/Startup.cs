@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
+using Backend.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,11 +36,20 @@ namespace Backend
             );
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-
+            //Repositories  
+            services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<IDeckRepository, DeckRepository>();
             services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
             
+            //Services
+            services.AddScoped<IDeckService, DeckService>();
+            services.AddScoped<IGameService, GameService>();
+
+            services.AddControllers()
+                .AddJsonOptions(x =>
+                    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             
-            services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Backend", Version = "v1"}); });
         }
 

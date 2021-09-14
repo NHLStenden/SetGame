@@ -1,14 +1,10 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repository
 {
-    public interface IGameRepository : IGenericRepository<Game>
-    {
-        Task<Game> GetByIdWithRelated(int id);
-    }
-
     public class GameRepository : GenericRepository<Game>, IGameRepository
     {
         public GameRepository(SetContext db) : base(db)
@@ -19,7 +15,7 @@ namespace Backend.Repository
         {
             var entity = await Db.Games
                 .Include(x => x.Deck)
-                    .ThenInclude(x => x.Cards)
+                    .ThenInclude(x => x.Cards).OrderBy(x => x.CardIndex)
                 .Include(x => x.Player)
                 .SingleAsync(x => x.Id == id);
             return entity;

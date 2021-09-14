@@ -16,7 +16,7 @@ namespace Backend.Models
                 Fill = Fill.Hollow,
                 Shape = Shape.Diamond,
                 NrOfShapes = 3,
-                DeckIndex = 0
+                CardIndex = 0
             };
 
             var deck = new Deck()

@@ -39,6 +39,6 @@ namespace Backend.Models
         [Required]
         public int NrOfShapes { get; set; }
         [Required]
-        public int DeckIndex { get; set; }
+        public int CardIndex { get; set; }
     }
 }

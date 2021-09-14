@@ -10,6 +10,6 @@ namespace Backend.Models
         //added extra/dummy property, mysql doesn't like tables with only a primary key 
         public string Name { get; set; }
         
-        public ICollection<Card> Cards { get; set; }
+        public IList<Card> Cards { get; set; }
     }
 }
