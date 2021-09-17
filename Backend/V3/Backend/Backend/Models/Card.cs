@@ -24,12 +24,7 @@ namespace Backend.Models
     {
         [Key]
         public int Id { get; set; }
-        
-        
-        public int DeckId { get; set; }
-        [Required]
-        public Deck Deck { get; set; }
-        
+
         [Required]
         public Shape Shape { get; set; }
         [Required]

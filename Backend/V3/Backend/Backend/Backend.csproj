@@ -7,8 +7,10 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.9" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
+        <PackageReference Include="morelinq" Version="3.3.2" />
         <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.5" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+        <PackageReference Include="YamlDotNet" Version="11.2.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -32,6 +34,15 @@
       </Compile>
       <Compile Update="Services\DeckService.cs">
         <DependentUpon>IDeckService.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Services\SeedService.cs">
+        <DependentUpon>ISeedService.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Services\TestSeedService.cs">
+        <DependentUpon>ISeedService.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Services\NormalSeedService.cs">
+        <DependentUpon>ISeedService.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 

@@ -31,7 +31,7 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SetContext>(options => 
+            services.AddDbContext<SetContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("Default"))
             );
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -41,23 +41,32 @@ namespace Backend
             services.AddScoped<IDeckRepository, DeckRepository>();
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
-            
+
             //Services
             services.AddScoped<IDeckService, DeckService>();
             services.AddScoped<IGameService, GameService>();
 
+            services.AddSingleton<ISeedService, NormalSeedService>();
+
             services.AddControllers()
-                .AddJsonOptions(x =>
-                    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
-            
+                .AddJsonOptions(opts =>
+                {
+                    var enumConverter = new JsonStringEnumConverter();
+                    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+                });
+
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Backend", Version = "v1"}); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SetContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SetContext db, 
+            ISeedService seedService, IGameService gameService, IPlayerRepository playerRepository)
         {
-            DbInitializer.Initialize(context);
+            db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
             
+            seedService.Seed(db, gameService, playerRepository);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

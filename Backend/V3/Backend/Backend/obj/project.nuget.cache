@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sx6kNykc0i2t6Ug5/mmVqTRnZh/h0mW4tsWkDUOaaWQo9gxtKOxY644Np6y3naEdeqnGjZDQ169K/rNseINssQ==",
+  "dgSpecHash": "GjnZXhgJq1TvXZGqSkURTuJ4IbtnUoWBe2dXyjqZbbyL+VOOdmOab2/8vJpRvJ/cjAHdzqJWNh6weisNou6JEA==",
   "success": true,
   "projectFilePath": "/Users/e2498/Dev/SetGame/Backend/V3/Backend/Backend/Backend.csproj",
   "expectedPackageFiles": [
@@ -27,6 +27,7 @@
     "/Users/e2498/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.win32.systemevents/4.7.0/microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/morelinq/3.3.2/morelinq.3.3.2.nupkg.sha512",
     "/Users/e2498/.nuget/packages/mysql.data/8.0.26/mysql.data.8.0.26.nupkg.sha512",
     "/Users/e2498/.nuget/packages/mysql.entityframeworkcore/5.0.5/mysql.entityframeworkcore.5.0.5.nupkg.sha512",
     "/Users/e2498/.nuget/packages/swashbuckle.aspnetcore/5.6.3/swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
@@ -46,7 +47,8 @@
     "/Users/e2498/.nuget/packages/system.security.permissions/4.7.0/system.security.permissions.4.7.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/system.security.principal.windows/4.7.0/system.security.principal.windows.4.7.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/system.text.encoding.codepages/4.4.0/system.text.encoding.codepages.4.4.0.nupkg.sha512",
-    "/Users/e2498/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512"
+    "/Users/e2498/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/yamldotnet/11.2.1/yamldotnet.11.2.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -34,7 +34,7 @@ namespace Backend.Controllers
             return await _gameService.StartNewGame(playerId);
         }
 
-        [HttpGet("[action]/{gameId:int}/{numberOfCards:int}")]
+        [HttpGet("[action]/{gameId:int}")]
         public Task<List<Card>> DrawCards(int gameId, int numberOfCards)
         {
             return _gameService.DrawCardsFromDeck(gameId, numberOfCards);
