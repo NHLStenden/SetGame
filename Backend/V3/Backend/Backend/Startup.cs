@@ -46,8 +46,8 @@ namespace Backend
             //Services
             services.AddScoped<IDeckService, DeckService>();
             services.AddScoped<IGameService, GameService>();
-
             services.AddSingleton<ISeedService, NormalSeedService>();
+            //services.AddSingleton<ISeedService, GenerateYamlSeedService>();
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
