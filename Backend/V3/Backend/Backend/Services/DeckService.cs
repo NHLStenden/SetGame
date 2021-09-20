@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
-using Backend.Utils;
 using MoreLinq;
 
 namespace Backend.Services
