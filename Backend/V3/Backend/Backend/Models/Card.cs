@@ -1,6 +1,7 @@
 
 
 using System.ComponentModel.DataAnnotations;
+using YamlDotNet.Serialization;
 
 namespace Backend.Models
 {
@@ -23,6 +24,7 @@ namespace Backend.Models
     public class Card : IEntity
     {
         [Key]
+        [YamlIgnore]
         public int Id { get; set; }
 
         [Required]
@@ -33,7 +35,5 @@ namespace Backend.Models
         public Color Color { get; set; }
         [Required]
         public int NrOfShapes { get; set; }
-        [Required]
-        public int CardIndex { get; set; }
     }
 }

@@ -18,9 +18,12 @@ namespace Backend.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            // modelBuilder.Entity<Card>()
-            //     .HasOne<Deck>()
-            //     .WithMany(x => x.Cards);
+            modelBuilder.Entity<CardDeck>()
+                .HasKey(cardDeck => new {cardDeck.DeckId, cardDeck.CardId});
+
+
+            modelBuilder.Entity<CardOnTable>()
+                .HasKey(cardOnTable => new {cardOnTable.GameId, cardOnTable.CardId});
         }
     }
 }

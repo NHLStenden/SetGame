@@ -31,13 +31,11 @@ namespace Backend.Services
 
             var game = new Game()
             {
-                Deck = _deckService.CreateDeck(),
+                Deck = await _deckService.CreateDeck(),
                 PlayerId = playerId
             };
 
             //print to yaml
-            
-            
             var success = await _gameRepository.AddAsync(game);
             
             string yaml = SeedService.ConvertToYaml(game);
@@ -63,66 +61,83 @@ namespace Backend.Services
             var deckCards = game.Deck.Cards.ToList().GetRange(game.CardIndex, endIndex - game.CardIndex);
             game.CardIndex = endIndex;
 
+            int order = 0;
+            if (game.CardsOnTable.Any())
+            {
+                order = game.CardsOnTable.Max(x => x.Order) + 1;    
+            }
+            foreach (var deckCard in deckCards)
+            {
+                game.CardsOnTable.Add(new CardOnTable()
+                {
+                    Card = deckCard.Card,
+                    Order = order
+                });
+                order++;
+            }
+            
             var success = await _gameRepository.UpdateAsync(game);
             if (!success)
                 throw new ArgumentException();
 
-            return deckCards;
+            var result = deckCards.Select(x => x.Card).ToList();
+            return result;
         }
 
         public async Task<SetResult> CheckSet(int gameId, int[] cardIds)
         {
-            if (cardIds.Length != 3)
-            {
-                throw new ArgumentException();
-            }
-            
-            var game = await _gameRepository.GetByIdWithRelated(gameId);
-
-            bool validIds = CheckIfCardsArePlayed(cardIds, game);
-            if (!validIds)
-            {
-                throw new AggregateException("Invalid cardid, card not played yet");
-            }
-
-            //Todo: refactor to GetCurrentCards();
-            var cards = game.Deck.Cards.Where(x => cardIds.Any(w => w == x.Id)).ToList();
-            
-            var firstCard = cards.First();
-            bool colorSame = cards.All(x => x.Color == firstCard.Color);
-            bool shapeSame = cards.All(x => x.Shape == firstCard.Shape);
-            bool fillSame = cards.All(x => x.Fill == firstCard.Fill);
-
-            bool colorDifferent = cards.DistinctBy(x => x.Color).Count() == 3;
-            bool shapeDifferent = cards.DistinctBy(x => x.Shape).Count() == 3;
-            bool fillDifferent = cards.DistinctBy(x => x.Fill).Count() == 3;
-            
-            var result = new SetResult()
-            {
-                ColorsCorrect = colorSame || colorDifferent,
-                ColorSame = colorSame,
-                ColorDifferent = colorDifferent,
-                
-                ShapeCorrect = shapeSame || shapeDifferent,
-                ShapeSame = shapeSame,
-                ShapeDifferent = shapeDifferent,
-                
-                FillCorrect = fillSame || fillDifferent,
-                FillSame = fillSame,
-                FillDifferent = fillDifferent
-            };
-
-            result.CorrectSet = result.ColorsCorrect && result.ShapeCorrect && result.FillCorrect;
-            
-            return result;
+            throw new NotImplementedException();
+            // if (cardIds.Length != 3)
+            // {
+            //     throw new ArgumentException();
+            // }
+            //
+            // var game = await _gameRepository.GetByIdWithRelated(gameId);
+            //
+            // bool validIds = CheckIfCardsArePlayed(cardIds, game);
+            // if (!validIds)
+            // {
+            //     throw new AggregateException("Invalid cardid, card not played yet");
+            // }
+            //
+            // //Todo: refactor to GetCurrentCards();
+            // var cards = game.Deck.Cards.Where(x => cardIds.Any(w => w == x.Id)).ToList();
+            //
+            // var firstCard = cards.First();
+            // bool colorSame = cards.All(x => x.Color == firstCard.Color);
+            // bool shapeSame = cards.All(x => x.Shape == firstCard.Shape);
+            // bool fillSame = cards.All(x => x.Fill == firstCard.Fill);
+            //
+            // bool colorDifferent = cards.DistinctBy(x => x.Color).Count() == 3;
+            // bool shapeDifferent = cards.DistinctBy(x => x.Shape).Count() == 3;
+            // bool fillDifferent = cards.DistinctBy(x => x.Fill).Count() == 3;
+            //
+            // var result = new SetResult()
+            // {
+            //     ColorsCorrect = colorSame || colorDifferent,
+            //     ColorSame = colorSame,
+            //     ColorDifferent = colorDifferent,
+            //     
+            //     ShapeCorrect = shapeSame || shapeDifferent,
+            //     ShapeSame = shapeSame,
+            //     ShapeDifferent = shapeDifferent,
+            //     
+            //     FillCorrect = fillSame || fillDifferent,
+            //     FillSame = fillSame,
+            //     FillDifferent = fillDifferent
+            // };
+            //
+            // result.CorrectSet = result.ColorsCorrect && result.ShapeCorrect && result.FillCorrect;
+            //
+            // return result;
         }
 
-        private static bool CheckIfCardsArePlayed(int[] cardIds, Game game)
-        {
-            var possibleCardsOnBoard = game.Deck.Cards.ToList().GetRange(0, game.CardIndex);
-            bool validIds = cardIds.All(cardId => possibleCardsOnBoard.Any(x => x.Id == cardId));
-            return validIds;
-        }
+        // private static bool CheckIfCardsArePlayed(int[] cardIds, Game game)
+        // {
+        //     var possibleCardsOnBoard = game.Deck.Cards.ToList().GetRange(0, game.CardIndex);
+        //     bool validIds = cardIds.All(cardId => possibleCardsOnBoard.Any(x => x.Id == cardId));
+        //     return validIds;
+        // }
     }
 
     public class SetResult

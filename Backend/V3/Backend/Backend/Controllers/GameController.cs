@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
@@ -25,7 +27,7 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public override async Task<Game> GetByIdAsync(int id)
         {
-            return await _gameRepository.GetByIdWithRelated(id);
+            return await _gameRepository.GetByIdWithRelated(id);;
         }
 
         [HttpGet("[action]/{playerId:int}")]

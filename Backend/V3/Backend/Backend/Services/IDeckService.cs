@@ -1,10 +1,12 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Backend.Models;
 
 namespace Backend.Services
 {
     public interface IDeckService
     {
-        Deck CreateDeck();
-        Deck GetById(int? deckId);
+        Task<Deck> CreateDeck();
+        Task<List<Card>> CreateCards();
     }
 }

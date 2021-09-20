@@ -3,6 +3,8 @@ using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Backend;
 using Backend.Models;
@@ -13,6 +15,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace TestBackend
 {
@@ -86,6 +89,12 @@ namespace TestBackend
 
             string json = await response.Content.ReadAsStringAsync();
 
+            // JsonSerializerOptions options = new System.Text.Json.JsonSerializerOptions()
+            // {
+            //     ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
+            // };
+
+            
             var objects = JsonConvert.DeserializeObject<T>(json);
             return objects;
         }

@@ -15,8 +15,10 @@ namespace Backend.Repository
         {
             var entity = await Db.Games
                 .Include(x => x.Deck)
-                    .ThenInclude(x => x.Cards).OrderBy(x => x.CardIndex)
+                    .ThenInclude(x => x.Cards.OrderBy(w => w.Order))
+                .ThenInclude(x => x.Card)
                 .Include(x => x.Player)
+                .Include(x => x.CardsOnTable)
                 .SingleAsync(x => x.Id == id);
             return entity;
         }

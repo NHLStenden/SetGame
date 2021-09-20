@@ -15,18 +15,30 @@ namespace Backend.Services
 
         public void Seed(SetContext db, IGameService gameService, IPlayerRepository playerRepository)
         {
-            var player = new Player()
-            {
-                Name = "Joris"
-            };
-            var b = playerRepository.AddAsync(player).Result;
-            var result = gameService.StartNewGame(player.Id).Result;
-            
+            string yamlInput = File.ReadAllText(GetDataPath());
+            Game game = YamlToObject<Game>(yamlInput);
+            db.Games.Add(game);
+            db.SaveChanges();
 
-            // string yaml = File.ReadAllText(GetDataPath());
-            // List<Game> games = YamlToObject<List<Game>>(yaml);
 
-            // db.Games.AddRange(games);
+            // //
+            // //
+            // var player = new Player()
+            // {
+            //     Name = "Joris"
+            // };
+            // var b = playerRepository.AddAsync(player).Result;
+            //
+            // var result = gameService.StartNewGame(player.Id).Result;
+            //
+            // var gameYaml = ConvertToYaml(result);
+
+
+            //
+            // db.Games.Add(game);
+            // db.SaveChanges();
+
+            // db.Games.AddRange(games);re
             // db.SaveChanges();
         }
 

@@ -30,32 +30,31 @@ namespace TestBackend
             cards.Should().HaveCount(3);
             cards.Should().OnlyHaveUniqueItems();
             
-            var expectedCards = new[]
+            var expectedCards = new Card[]
             {
                 new Card
                 {
-                    CardIndex = 39,
-                    Color = Color.Violet,
-                    Fill = Fill.Solid,
-                    Id = 1,
-                    NrOfShapes = 1,
-                    Shape = Shape.Wave
-                }, new Card
-                {
-                    CardIndex = 57,
-                    Color = Color.Violet,
+                    Id = 58,
+                    Shape = Shape.Wave,
                     Fill = Fill.Hollow,
-                    Id = 2,
-                    NrOfShapes = 3,
-                    Shape = Shape.Pill,
-                }, new Card
+                    Color = Color.Red,
+                    NrOfShapes = 2
+                },
+                new Card
                 {
-                    CardIndex = 56,
-                    Color = Color.Green,
-                    Fill = Fill.Solid,
-                    Id = 3,
-                    NrOfShapes = 2,
-                    Shape = Shape.Wave,                  
+                    Id = 57,
+                    Shape = Shape.Pill,
+                    Fill = Fill.Striped,
+                    Color = Color.Red,
+                    NrOfShapes = 3
+                },
+                new Card
+                {
+                    Id = 56,
+                    Shape = Shape.Diamond,
+                    Fill = Fill.Hollow,
+                    Color = Color.Red,
+                    NrOfShapes = 3
                 }
             };
 
@@ -65,7 +64,7 @@ namespace TestBackend
         [Fact]
         public async Task DrawCards_InvalidDeckId_Exception()
         {
-            int gameId = 1;
+            int gameId = -1;
             Func<Task> request = async () => await GetRequest<Card[]>($"/Game/DrawCards/{gameId}", new {numberOfCards = 41});
             await request.Should().ThrowAsync<InvalidOperationException>();
         }
