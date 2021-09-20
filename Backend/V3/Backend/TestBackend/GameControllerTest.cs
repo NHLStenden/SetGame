@@ -36,23 +36,23 @@ namespace TestBackend
                 {
                     Id = 58,
                     Shape = Shape.Wave,
-                    Fill = Fill.Hollow,
+                    Fill = Fill.Solid,
                     Color = Color.Red,
                     NrOfShapes = 2
                 },
                 new Card
                 {
                     Id = 57,
-                    Shape = Shape.Pill,
-                    Fill = Fill.Striped,
+                    Shape = Shape.Wave,
+                    Fill = Fill.Hollow,
                     Color = Color.Red,
-                    NrOfShapes = 3
+                    NrOfShapes = 2
                 },
                 new Card
                 {
                     Id = 56,
-                    Shape = Shape.Diamond,
-                    Fill = Fill.Hollow,
+                    Shape = Shape.Pill,
+                    Fill = Fill.Striped,
                     Color = Color.Red,
                     NrOfShapes = 3
                 }
