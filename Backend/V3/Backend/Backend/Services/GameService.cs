@@ -35,11 +35,14 @@ namespace Backend.Services
                 PlayerId = playerId
             };
 
-            //print to yaml
-            var success = await _gameRepository.AddAsync(game);
+            game.CardsOnTable = new List<CardOnTable>();
             
-            string yaml = SeedService.ConvertToYaml(game);
+            
 
+            var success = await _gameRepository.AddAsync(game);
+
+            
+            
             if (success)
             {
                 return game;
@@ -84,15 +87,23 @@ namespace Backend.Services
             return result;
         }
 
+        public async Task<List<Card>> GetCardsOnTable(int gameId)
+        {
+            return await _gameRepository.GetCardsOnTable(gameId);
+        }
+
         public async Task<SetResult> CheckSet(int gameId, int[] cardIds)
         {
+            if (cardIds.Length != 3)
+            {
+                throw new ArgumentException();
+            }
+
+            var cardsOnTable = await _gameRepository.GetCardsOnTable(gameId);
+            
+            
+
             throw new NotImplementedException();
-            // if (cardIds.Length != 3)
-            // {
-            //     throw new ArgumentException();
-            // }
-            //
-            // var game = await _gameRepository.GetByIdWithRelated(gameId);
             //
             // bool validIds = CheckIfCardsArePlayed(cardIds, game);
             // if (!validIds)

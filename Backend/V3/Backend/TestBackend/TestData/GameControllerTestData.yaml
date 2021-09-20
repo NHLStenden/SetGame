@@ -3,148 +3,148 @@ deck: &o0
   cards:
   - deck: *o0
     card:
-      shape: Wave
+      shape: Diamond
       fill: Solid
       color: Red
-      nrOfShapes: 2
+      nrOfShapes: 3
     order: 0
   - deck: *o0
     card:
-      shape: Wave
-      fill: Hollow
-      color: Red
-      nrOfShapes: 2
+      shape: Diamond
+      fill: Solid
+      color: Violet
+      nrOfShapes: 1
     order: 1
   - deck: *o0
     card:
-      shape: Pill
+      shape: Wave
       fill: Striped
-      color: Red
+      color: Green
       nrOfShapes: 3
     order: 2
   - deck: *o0
     card:
       shape: Pill
-      fill: Striped
-      color: Green
-      nrOfShapes: 1
+      fill: Solid
+      color: Violet
+      nrOfShapes: 2
     order: 3
   - deck: *o0
     card:
-      shape: Wave
-      fill: Solid
+      shape: Diamond
+      fill: Striped
       color: Red
-      nrOfShapes: 1
+      nrOfShapes: 2
     order: 4
-  - deck: *o0
-    card:
-      shape: Pill
-      fill: Hollow
-      color: Violet
-      nrOfShapes: 3
-    order: 5
-  - deck: *o0
-    card:
-      shape: Pill
-      fill: Striped
-      color: Red
-      nrOfShapes: 1
-    order: 6
-  - deck: *o0
-    card:
-      shape: Wave
-      fill: Striped
-      color: Violet
-      nrOfShapes: 1
-    order: 7
-  - deck: *o0
-    card:
-      shape: Pill
-      fill: Hollow
-      color: Red
-      nrOfShapes: 1
-    order: 8
-  - deck: *o0
-    card:
-      shape: Diamond
-      fill: Solid
-      color: Violet
-      nrOfShapes: 1
-    order: 9
-  - deck: *o0
-    card:
-      shape: Wave
-      fill: Hollow
-      color: Violet
-      nrOfShapes: 3
-    order: 10
-  - deck: *o0
-    card:
-      shape: Diamond
-      fill: Striped
-      color: Violet
-      nrOfShapes: 1
-    order: 11
   - deck: *o0
     card:
       shape: Diamond
       fill: Hollow
       color: Green
       nrOfShapes: 2
-    order: 12
+    order: 5
   - deck: *o0
     card:
       shape: Wave
+      fill: Solid
+      color: Red
+      nrOfShapes: 2
+    order: 6
+  - deck: *o0
+    card:
+      shape: Diamond
+      fill: Solid
+      color: Violet
+      nrOfShapes: 2
+    order: 7
+  - deck: *o0
+    card:
+      shape: Pill
       fill: Hollow
+      color: Violet
+      nrOfShapes: 3
+    order: 8
+  - deck: *o0
+    card:
+      shape: Pill
+      fill: Hollow
+      color: Violet
+      nrOfShapes: 2
+    order: 9
+  - deck: *o0
+    card:
+      shape: Wave
+      fill: Solid
+      color: Violet
+      nrOfShapes: 3
+    order: 10
+  - deck: *o0
+    card:
+      shape: Wave
+      fill: Solid
       color: Green
       nrOfShapes: 3
-    order: 13
+    order: 11
+  - deck: *o0
+    card:
+      shape: Diamond
+      fill: Solid
+      color: Green
+      nrOfShapes: 3
+    order: 12
   - deck: *o0
     card:
       shape: Pill
       fill: Solid
+      color: Green
+      nrOfShapes: 1
+    order: 13
+  - deck: *o0
+    card:
+      shape: Diamond
+      fill: Striped
       color: Violet
       nrOfShapes: 1
     order: 14
   - deck: *o0
     card:
       shape: Pill
-      fill: Striped
+      fill: Solid
       color: Violet
-      nrOfShapes: 2
+      nrOfShapes: 3
     order: 15
   - deck: *o0
     card:
-      shape: Pill
-      fill: Solid
-      color: Violet
+      shape: Diamond
+      fill: Striped
+      color: Green
       nrOfShapes: 3
     order: 16
   - deck: *o0
     card:
-      shape: Pill
-      fill: Solid
+      shape: Wave
+      fill: Striped
       color: Red
       nrOfShapes: 1
     order: 17
   - deck: *o0
     card:
-      shape: Diamond
-      fill: Striped
-      color: Red
-      nrOfShapes: 3
+      shape: Wave
+      fill: Hollow
+      color: Violet
+      nrOfShapes: 2
     order: 18
   - deck: *o0
     card:
       shape: Pill
-      fill: Solid
-      color: Green
-      nrOfShapes: 2
+      fill: Striped
+      color: Violet
+      nrOfShapes: 1
     order: 19
   - deck: *o0
     card:
-      shape: Pill
-      fill: Striped
+      shape: Wave
+      fill: Hollow
       color: Violet
       nrOfShapes: 1
     order: 20
@@ -159,41 +159,41 @@ deck: &o0
     card:
       shape: Wave
       fill: Solid
-      color: Violet
-      nrOfShapes: 3
+      color: Green
+      nrOfShapes: 2
     order: 22
   - deck: *o0
     card:
       shape: Wave
-      fill: Solid
-      color: Green
+      fill: Hollow
+      color: Red
       nrOfShapes: 3
     order: 23
   - deck: *o0
     card:
-      shape: Diamond
+      shape: Wave
       fill: Striped
-      color: Red
+      color: Green
       nrOfShapes: 1
     order: 24
   - deck: *o0
     card:
       shape: Wave
-      fill: Striped
-      color: Violet
-      nrOfShapes: 2
+      fill: Solid
+      color: Red
+      nrOfShapes: 3
     order: 25
   - deck: *o0
     card:
       shape: Diamond
-      fill: Hollow
+      fill: Solid
       color: Green
       nrOfShapes: 1
     order: 26
   - deck: *o0
     card:
       shape: Wave
-      fill: Striped
+      fill: Hollow
       color: Violet
       nrOfShapes: 3
     order: 27
@@ -201,322 +201,322 @@ deck: &o0
     card:
       shape: Pill
       fill: Hollow
-      color: Violet
-      nrOfShapes: 2
+      color: Red
+      nrOfShapes: 3
     order: 28
+  - deck: *o0
+    card:
+      shape: Pill
+      fill: Hollow
+      color: Green
+      nrOfShapes: 1
+    order: 29
   - deck: *o0
     card:
       shape: Pill
       fill: Hollow
       color: Violet
       nrOfShapes: 1
-    order: 29
-  - deck: *o0
-    card:
-      shape: Diamond
-      fill: Hollow
-      color: Red
-      nrOfShapes: 1
     order: 30
   - deck: *o0
     card:
-      shape: Wave
-      fill: Hollow
-      color: Green
-      nrOfShapes: 1
+      shape: Pill
+      fill: Striped
+      color: Red
+      nrOfShapes: 2
     order: 31
   - deck: *o0
     card:
       shape: Diamond
       fill: Hollow
       color: Red
-      nrOfShapes: 3
+      nrOfShapes: 1
     order: 32
   - deck: *o0
     card:
-      shape: Diamond
-      fill: Striped
+      shape: Pill
+      fill: Solid
       color: Green
-      nrOfShapes: 3
+      nrOfShapes: 2
     order: 33
   - deck: *o0
     card:
-      shape: Wave
+      shape: Diamond
       fill: Hollow
-      color: Red
-      nrOfShapes: 3
+      color: Green
+      nrOfShapes: 1
     order: 34
   - deck: *o0
     card:
-      shape: Diamond
+      shape: Pill
       fill: Hollow
-      color: Red
+      color: Green
       nrOfShapes: 2
     order: 35
   - deck: *o0
     card:
-      shape: Diamond
-      fill: Hollow
-      color: Violet
-      nrOfShapes: 2
+      shape: Pill
+      fill: Striped
+      color: Red
+      nrOfShapes: 3
     order: 36
   - deck: *o0
     card:
-      shape: Wave
-      fill: Solid
-      color: Violet
+      shape: Diamond
+      fill: Striped
+      color: Green
       nrOfShapes: 1
     order: 37
   - deck: *o0
     card:
-      shape: Wave
-      fill: Striped
-      color: Green
+      shape: Diamond
+      fill: Solid
+      color: Red
       nrOfShapes: 2
     order: 38
   - deck: *o0
     card:
-      shape: Pill
-      fill: Solid
-      color: Green
-      nrOfShapes: 1
+      shape: Wave
+      fill: Striped
+      color: Violet
+      nrOfShapes: 2
     order: 39
   - deck: *o0
     card:
-      shape: Wave
-      fill: Striped
+      shape: Pill
+      fill: Solid
       color: Red
-      nrOfShapes: 3
+      nrOfShapes: 2
     order: 40
   - deck: *o0
     card:
-      shape: Wave
+      shape: Pill
       fill: Solid
-      color: Green
+      color: Violet
       nrOfShapes: 1
     order: 41
   - deck: *o0
     card:
-      shape: Wave
-      fill: Hollow
-      color: Green
-      nrOfShapes: 2
+      shape: Diamond
+      fill: Solid
+      color: Violet
+      nrOfShapes: 3
     order: 42
   - deck: *o0
     card:
-      shape: Wave
+      shape: Diamond
       fill: Hollow
       color: Red
-      nrOfShapes: 1
+      nrOfShapes: 2
     order: 43
+  - deck: *o0
+    card:
+      shape: Diamond
+      fill: Hollow
+      color: Violet
+      nrOfShapes: 1
+    order: 44
   - deck: *o0
     card:
       shape: Pill
       fill: Striped
       color: Green
-      nrOfShapes: 2
-    order: 44
-  - deck: *o0
-    card:
-      shape: Diamond
-      fill: Striped
-      color: Violet
-      nrOfShapes: 2
+      nrOfShapes: 3
     order: 45
   - deck: *o0
     card:
-      shape: Diamond
-      fill: Solid
+      shape: Wave
+      fill: Striped
       color: Green
-      nrOfShapes: 3
+      nrOfShapes: 2
     order: 46
   - deck: *o0
     card:
-      shape: Wave
-      fill: Solid
+      shape: Pill
+      fill: Striped
       color: Green
       nrOfShapes: 2
     order: 47
   - deck: *o0
     card:
-      shape: Diamond
-      fill: Solid
+      shape: Pill
+      fill: Hollow
       color: Red
       nrOfShapes: 2
     order: 48
   - deck: *o0
     card:
-      shape: Diamond
-      fill: Solid
-      color: Green
-      nrOfShapes: 2
+      shape: Wave
+      fill: Striped
+      color: Red
+      nrOfShapes: 3
     order: 49
   - deck: *o0
     card:
-      shape: Diamond
+      shape: Wave
       fill: Solid
-      color: Red
+      color: Violet
       nrOfShapes: 1
     order: 50
   - deck: *o0
     card:
       shape: Wave
       fill: Striped
-      color: Red
-      nrOfShapes: 1
+      color: Violet
+      nrOfShapes: 3
     order: 51
   - deck: *o0
     card:
-      shape: Diamond
-      fill: Solid
-      color: Red
-      nrOfShapes: 3
+      shape: Wave
+      fill: Striped
+      color: Violet
+      nrOfShapes: 1
     order: 52
   - deck: *o0
     card:
-      shape: Wave
-      fill: Hollow
+      shape: Pill
+      fill: Striped
       color: Violet
       nrOfShapes: 2
     order: 53
   - deck: *o0
     card:
-      shape: Pill
-      fill: Hollow
-      color: Red
-      nrOfShapes: 2
+      shape: Wave
+      fill: Solid
+      color: Green
+      nrOfShapes: 1
     order: 54
   - deck: *o0
     card:
-      shape: Diamond
+      shape: Wave
       fill: Hollow
       color: Green
-      nrOfShapes: 3
+      nrOfShapes: 2
     order: 55
   - deck: *o0
     card:
       shape: Diamond
-      fill: Hollow
+      fill: Striped
       color: Violet
-      nrOfShapes: 1
+      nrOfShapes: 3
     order: 56
   - deck: *o0
     card:
       shape: Pill
-      fill: Hollow
+      fill: Solid
       color: Green
-      nrOfShapes: 1
+      nrOfShapes: 3
     order: 57
   - deck: *o0
     card:
-      shape: Pill
+      shape: Diamond
       fill: Striped
       color: Red
-      nrOfShapes: 2
+      nrOfShapes: 3
     order: 58
-  - deck: *o0
-    card:
-      shape: Pill
-      fill: Hollow
-      color: Green
-      nrOfShapes: 2
-    order: 59
   - deck: *o0
     card:
       shape: Wave
       fill: Striped
+      color: Red
+      nrOfShapes: 2
+    order: 59
+  - deck: *o0
+    card:
+      shape: Diamond
+      fill: Solid
       color: Green
-      nrOfShapes: 1
+      nrOfShapes: 2
     order: 60
   - deck: *o0
     card:
       shape: Diamond
       fill: Solid
-      color: Violet
-      nrOfShapes: 3
+      color: Red
+      nrOfShapes: 1
     order: 61
   - deck: *o0
     card:
-      shape: Pill
-      fill: Striped
-      color: Green
-      nrOfShapes: 3
-    order: 62
-  - deck: *o0
-    card:
-      shape: Pill
+      shape: Wave
       fill: Solid
       color: Violet
       nrOfShapes: 2
+    order: 62
+  - deck: *o0
+    card:
+      shape: Wave
+      fill: Hollow
+      color: Green
+      nrOfShapes: 3
     order: 63
+  - deck: *o0
+    card:
+      shape: Wave
+      fill: Hollow
+      color: Red
+      nrOfShapes: 1
+    order: 64
   - deck: *o0
     card:
       shape: Pill
       fill: Solid
       color: Red
-      nrOfShapes: 3
-    order: 64
-  - deck: *o0
-    card:
-      shape: Diamond
-      fill: Solid
-      color: Green
       nrOfShapes: 1
     order: 65
   - deck: *o0
     card:
-      shape: Wave
-      fill: Striped
-      color: Green
+      shape: Diamond
+      fill: Hollow
+      color: Violet
       nrOfShapes: 3
     order: 66
   - deck: *o0
     card:
       shape: Wave
-      fill: Striped
+      fill: Solid
       color: Red
-      nrOfShapes: 2
-    order: 67
-  - deck: *o0
-    card:
-      shape: Wave
-      fill: Hollow
-      color: Violet
       nrOfShapes: 1
-    order: 68
+    order: 67
   - deck: *o0
     card:
       shape: Diamond
       fill: Striped
       color: Green
       nrOfShapes: 2
+    order: 68
+  - deck: *o0
+    card:
+      shape: Wave
+      fill: Hollow
+      color: Red
+      nrOfShapes: 2
     order: 69
   - deck: *o0
     card:
       shape: Diamond
-      fill: Solid
-      color: Violet
-      nrOfShapes: 2
+      fill: Striped
+      color: Red
+      nrOfShapes: 1
     order: 70
   - deck: *o0
     card:
-      shape: Diamond
+      shape: Pill
       fill: Striped
       color: Green
       nrOfShapes: 1
     order: 71
   - deck: *o0
     card:
-      shape: Diamond
-      fill: Striped
-      color: Violet
+      shape: Pill
+      fill: Hollow
+      color: Green
       nrOfShapes: 3
     order: 72
   - deck: *o0
     card:
-      shape: Diamond
-      fill: Hollow
-      color: Violet
+      shape: Pill
+      fill: Solid
+      color: Red
       nrOfShapes: 3
     order: 73
   - deck: *o0
@@ -524,32 +524,32 @@ deck: &o0
       shape: Pill
       fill: Hollow
       color: Red
-      nrOfShapes: 3
+      nrOfShapes: 1
     order: 74
   - deck: *o0
     card:
-      shape: Wave
-      fill: Solid
+      shape: Diamond
+      fill: Hollow
       color: Red
       nrOfShapes: 3
     order: 75
   - deck: *o0
     card:
-      shape: Pill
-      fill: Solid
-      color: Red
+      shape: Diamond
+      fill: Hollow
+      color: Violet
       nrOfShapes: 2
     order: 76
   - deck: *o0
     card:
       shape: Diamond
       fill: Striped
-      color: Red
+      color: Violet
       nrOfShapes: 2
     order: 77
   - deck: *o0
     card:
-      shape: Pill
+      shape: Diamond
       fill: Hollow
       color: Green
       nrOfShapes: 3
@@ -557,18 +557,18 @@ deck: &o0
   - deck: *o0
     card:
       shape: Pill
-      fill: Solid
-      color: Green
-      nrOfShapes: 3
+      fill: Striped
+      color: Red
+      nrOfShapes: 1
     order: 79
   - deck: *o0
     card:
       shape: Wave
-      fill: Solid
-      color: Violet
-      nrOfShapes: 2
+      fill: Hollow
+      color: Green
+      nrOfShapes: 1
     order: 80
 cardIndex: 0
 player:
   name: Joris
-cardsOnTable: 
+cardsOnTable: []

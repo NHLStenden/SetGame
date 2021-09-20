@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
+using Backend.Services;
 using FluentAssertions;
 using Xunit;
 
@@ -25,40 +26,15 @@ namespace TestBackend
             int gameId = 1;
             int numberOfCards = 3;
             var cards = await GetRequest<Card[]>($"/Game/DrawCards/{gameId}", 
-                new {numberOfCards = 3});
+                new {numberOfCards = numberOfCards});
 
-            cards.Should().HaveCount(3);
+            cards.Should().HaveCount(numberOfCards);
             cards.Should().OnlyHaveUniqueItems();
-            
-            var expectedCards = new Card[]
-            {
-                new Card
-                {
-                    Id = 58,
-                    Shape = Shape.Wave,
-                    Fill = Fill.Solid,
-                    Color = Color.Red,
-                    NrOfShapes = 2
-                },
-                new Card
-                {
-                    Id = 57,
-                    Shape = Shape.Wave,
-                    Fill = Fill.Hollow,
-                    Color = Color.Red,
-                    NrOfShapes = 2
-                },
-                new Card
-                {
-                    Id = 56,
-                    Shape = Shape.Pill,
-                    Fill = Fill.Striped,
-                    Color = Color.Red,
-                    NrOfShapes = 3
-                }
-            };
 
-            cards.Should().BeEquivalentTo(expectedCards);
+            var expectedCards = new TestSeedService().GetGame().Deck.Cards.Select(x => x.Card).Take(numberOfCards);
+
+            cards.Should().BeEquivalentTo(expectedCards, options => 
+                options.Excluding(x => x.Id));
         }
 
         [Fact]
@@ -95,5 +71,29 @@ namespace TestBackend
             nextHand = await GetRequest<Card[]>($"/Game/DrawCards/{gameId}", new {numberOfCards = 3});
             nextHand.Should().HaveCount(0);
         }
+
+        [Fact]
+        public async Task GetCardsOnTable_NoCardsOnTable_CurrentCardsOnTable()
+        {
+            int gameId = 1;
+            var cardsOnTable = await GetRequest<Card[]>($"/Game/GetCardsOnTable/{gameId}", new {numberOfCards = 3});
+
+            cardsOnTable.Should().HaveCount(0);
+        }
+        
+        [Fact]
+        public async Task GetCardsOnTable_CardsOnTable_CurrentCardsOnTable()
+        {
+            int gameId = 1;
+            
+            var cards = await GetRequest<Card[]>($"/Game/DrawCards/{gameId}", new {numberOfCards = 3});
+            var cardsOnTable = await GetRequest<Card[]>($"/Game/GetCardsOnTable/{gameId}", new {numberOfCards = 3});
+
+            cards.Should().HaveCount(3);
+            cardsOnTable.Should().HaveCount(3);
+
+            cardsOnTable.Should().BeEquivalentTo(cards);
+        }
+        
     }
 }

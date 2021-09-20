@@ -22,6 +22,7 @@ namespace Backend.Services
             
             var result = gameService.StartNewGame(player.Id).Result;
             
+            
             var gameYaml = ConvertToYaml(result);
             
             string pathTestData = Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).FullName, "TestData",

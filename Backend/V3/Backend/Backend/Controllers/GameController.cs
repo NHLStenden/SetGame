@@ -41,7 +41,12 @@ namespace Backend.Controllers
         {
             return _gameService.DrawCardsFromDeck(gameId, numberOfCards);
         }
-        
+
+        [HttpGet("[action]/{gameId:int}")]
+        public Task<List<Card>> GetCardsOnTable(int gameId)
+        {
+            return _gameService.GetCardsOnTable(gameId);
+        }
   
      }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
@@ -21,6 +22,17 @@ namespace Backend.Repository
                 .Include(x => x.CardsOnTable)
                 .SingleAsync(x => x.Id == id);
             return entity;
+        }
+
+        public async Task<List<Card>> GetCardsOnTable(int gameId)
+        {
+            return await Db.Games.SelectMany(x => x.CardsOnTable.Select(w => w.Card)).ToListAsync();
+        }
+
+        public async Task<List<Card>> GetCardsOnTable(int gameId, int[] cardIds)
+        {
+            return await Db.Games.SelectMany(x => 
+                x.CardsOnTable.Where(w => cardIds.Contains(w.CardId)).Select(w => w.Card)).ToListAsync();
         }
     }
 }
