@@ -1,18 +1,21 @@
 
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Models
 {
+    
+    
     public class Game : IEntity
     {
         [Key]
         public int Id { get; set; }
         
-        [Required]
-        public int DeckId { get; set; }
-        [Required]
-        public Deck Deck { get; set; }
+        public ICollection<DeckGameCard> Deck { get; set; }
+        
+        public ICollection<TableGameCard> OnTable { get; set; }
         
         [Required]
         public int CardIndex { get; set; }

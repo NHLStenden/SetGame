@@ -25,16 +25,15 @@ namespace TestBackend
             int gameId = 1;
             int numberOfCards = 3;
             var cards = await GetRequest<Card[]>($"/Game/DrawCards/{gameId}", 
-                new {numberOfCards = 3});
+                new {numberOfCards = numberOfCards});
 
-            cards.Should().HaveCount(3);
+            cards.Should().HaveCount(numberOfCards);
             cards.Should().OnlyHaveUniqueItems();
             
             var expectedCards = new[]
             {
                 new Card
                 {
-                    CardIndex = 39,
                     Color = Color.Violet,
                     Fill = Fill.Solid,
                     Id = 1,
@@ -42,7 +41,6 @@ namespace TestBackend
                     Shape = Shape.Wave
                 }, new Card
                 {
-                    CardIndex = 57,
                     Color = Color.Violet,
                     Fill = Fill.Hollow,
                     Id = 2,
@@ -50,7 +48,6 @@ namespace TestBackend
                     Shape = Shape.Pill,
                 }, new Card
                 {
-                    CardIndex = 56,
                     Color = Color.Green,
                     Fill = Fill.Solid,
                     Id = 3,

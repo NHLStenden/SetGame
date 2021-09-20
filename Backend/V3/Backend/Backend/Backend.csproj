@@ -14,9 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Repository\DeckRepository.cs">
-        <DependentUpon>IDeckRepository.cs</DependentUpon>
-      </Compile>
       <Compile Update="Repository\GameRepository.cs">
         <DependentUpon>IGameRepository.cs</DependentUpon>
       </Compile>
@@ -31,9 +28,6 @@
       </Compile>
       <Compile Update="Services\GameService.cs">
         <DependentUpon>IGameService.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Services\DeckService.cs">
-        <DependentUpon>IDeckService.cs</DependentUpon>
       </Compile>
       <Compile Update="Services\SeedService.cs">
         <DependentUpon>ISeedService.cs</DependentUpon>

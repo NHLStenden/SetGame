@@ -14,8 +14,10 @@ namespace Backend.Repository
         public async Task<Game> GetByIdWithRelated(int id)
         {
             var entity = await Db.Games
-                .Include(x => x.Deck)
-                    .ThenInclude(x => x.Cards).OrderBy(x => x.CardIndex)
+                .Include(x => x.Deck.OrderBy(c => c.Order))
+                    .ThenInclude(x => x.Card)
+                // .Include(x => x.CardsOnTable.OrderBy(c => c.Order))
+                //     .ThenInclude(x => x.Card)
                 .Include(x => x.Player)
                 .SingleAsync(x => x.Id == id);
             return entity;

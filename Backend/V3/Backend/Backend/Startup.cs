@@ -38,12 +38,8 @@ namespace Backend
 
             //Repositories  
             services.AddScoped<ICardRepository, CardRepository>();
-            services.AddScoped<IDeckRepository, DeckRepository>();
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
-
-            //Services
-            services.AddScoped<IDeckService, DeckService>();
             services.AddScoped<IGameService, GameService>();
 
             services.AddSingleton<ISeedService, NormalSeedService>();
@@ -51,6 +47,7 @@ namespace Backend
             services.AddControllers()
                 .AddJsonOptions(opts =>
                 {
+                    opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
                     var enumConverter = new JsonStringEnumConverter();
                     opts.JsonSerializerOptions.Converters.Add(enumConverter);
                 });

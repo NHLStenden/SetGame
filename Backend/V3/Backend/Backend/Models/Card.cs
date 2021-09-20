@@ -1,5 +1,6 @@
 
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models
@@ -33,7 +34,9 @@ namespace Backend.Models
         public Color Color { get; set; }
         [Required]
         public int NrOfShapes { get; set; }
-        [Required]
-        public int CardIndex { get; set; }
+        
+        public ICollection<DeckGameCard> Deck { get; set; }
+        
+        public ICollection<TableGameCard> OnTable { get; set; }
     }
 }
