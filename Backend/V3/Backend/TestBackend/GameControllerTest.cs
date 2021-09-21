@@ -46,7 +46,7 @@ namespace TestBackend
         }
         
         [Fact]
-        public async Task DrawCards_UntilDeckIsEmpty_EmptyList()
+        public async Task DrawCards_DrawCardsUntilDeckIsEmpty_EmptyList()
         {
             int gameId = 1;
             var cards = await GetRequest<Card[]>($"/Game/DrawCards/{gameId}", new {numberOfCards = 41});
@@ -73,7 +73,7 @@ namespace TestBackend
         }
 
         [Fact]
-        public async Task GetCardsOnTable_NoCardsOnTable_CurrentCardsOnTable()
+        public async Task GetCardsOnTable_ValidGameWithoutCardsOnTable_NoCardsOnTable()
         {
             int gameId = 1;
             var cardsOnTable = await GetRequest<Card[]>($"/Game/GetCardsOnTable/{gameId}", new {numberOfCards = 3});
@@ -82,7 +82,7 @@ namespace TestBackend
         }
         
         [Fact]
-        public async Task GetCardsOnTable_CardsOnTable_CurrentCardsOnTable()
+        public async Task GetCardsOnTable_DrawCardsThenGetCardsOnTable_CurrentCardsOnTable()
         {
             int gameId = 1;
             
