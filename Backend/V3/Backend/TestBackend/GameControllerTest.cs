@@ -94,7 +94,23 @@ namespace TestBackend
 
             cardsOnTable.Should().BeEquivalentTo(cards);
         }
-        
+
+        [Fact]
+        public async Task StartNewGame_ValidPlayerId_GameObject()
+        {
+            int playerId = 1;
+
+            var game = await GetRequest<Game>($"/Game/StartNewGame/{playerId}");
+
+            game.Should().NotBeNull();
+
+            game.Id.Should().Be(2);
+            game.Deck.Cards.Should().HaveCount(81);
+            game.Deck.Complexity = 1;
+            game.CardsOnTable.Should().HaveCount(0);
+            game.PlayerId.Should().Be(1);
+            game.Player.Name.Should().Be("Joris");
+        }
         
         
     }

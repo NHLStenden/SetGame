@@ -31,7 +31,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("[action]/{playerId:int}")]
-        public async Task<Game> StartGame(int playerId)
+        public async Task<Game> StartNewGame(int playerId)
         {
             return await _gameService.StartNewGame(playerId);
         }

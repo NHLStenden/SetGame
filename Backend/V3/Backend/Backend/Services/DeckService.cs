@@ -13,10 +13,12 @@ namespace Backend.Services
         private int NUMBER_OF_CARDS = 81;
         
         private readonly ICardRepository _cardRepository;
+        private readonly ISetService _setService;
 
-        public DeckService(ICardRepository cardRepository)
+        public DeckService(ICardRepository cardRepository, ISetService setService)
         {
             _cardRepository = cardRepository;
+            _setService = setService;
         }
         
         public async Task<List<Card>> CreateCards()
@@ -64,20 +66,29 @@ namespace Backend.Services
 
             var deck = new Deck()
             {
-                Complexity = -1,
+                
                 Cards = new List<CardDeck>()
             };
-            
+
+            var cardsToCalculateComplexity = new List<Card>();
             for (int i = 0; i < NUMBER_OF_CARDS; i++)
             {
+                var cardAtRandomIndex = cards.ElementAt(randomIndexes[i]);
                 var cardDeck = new CardDeck()
                 {
-                    CardId = cards.ElementAt(randomIndexes[i]).Id,
+                    CardId = cardAtRandomIndex.Id,
                     Deck = deck,
                     Order = i
                 };
                 deck.Cards.Add(cardDeck);
+
+                if (i < 12)
+                {
+                    cardsToCalculateComplexity.Add(cardAtRandomIndex);
+                }
             }
+
+            deck.Complexity = _setService.FindAllSets(cardsToCalculateComplexity).Count;
             
             return deck;
         }
