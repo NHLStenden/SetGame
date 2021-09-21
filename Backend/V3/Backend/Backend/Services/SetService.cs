@@ -47,5 +47,22 @@ namespace Backend.Services
             
             return result;
         }
+
+        public List<IList<Card>> FindAllSets(IList<Card> cards)
+        {
+            var result = new List<IList<Card>>();
+            
+            var subsets = cards.Subsets(3);
+            foreach (var subset in subsets)
+            {
+                var setResult = Check(subset);
+                if (setResult.CorrectSet)
+                {
+                    result.Add(subset);
+                }
+            }
+
+            return result;
+        }
     }
 }

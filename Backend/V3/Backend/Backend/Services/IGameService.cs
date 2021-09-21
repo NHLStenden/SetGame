@@ -13,5 +13,7 @@ namespace Backend.Services
         
         Task<List<Card>> GetCardsOnTable(int gameId);
         Task<List<Card>> GetCardsOnTable(int gameId, int[] cardIds);
+        Task<List<IList<Card>>> FindAllSetsOnTable(int gameId);
+        Task<bool> SubmitSet(int gameId, int[] cardIds);
     }
 }

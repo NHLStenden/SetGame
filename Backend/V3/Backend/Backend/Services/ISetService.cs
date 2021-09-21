@@ -6,6 +6,8 @@ namespace Backend.Services
     public interface ISetService
     {
         public SetResult Check(IList<Card> cards);
+
+        public List<IList<Card>> FindAllSets(IList<Card> cards);
     }
 
     public class SetResult

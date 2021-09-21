@@ -53,6 +53,21 @@ namespace Backend.Controllers
         {
             return _gameService.CheckSet(gameId, gameIds);
         }
+
+        [HttpGet("[action]/{gameId:int}")]
+        public async Task<bool> SubmitSet(int gameId, [FromQuery] int[] cardIds)
+        {
+            return await _gameService.SubmitSet(gameId, cardIds);
+        }
+
+        [HttpGet("[action]/{gameId:int}")]
+        public Task<List<IList<Card>>> FindAllSetsOnTable(int gameId)
+        {
+            return _gameService.FindAllSetsOnTable(gameId);
+        }
+        
+
+        
   
      }
 }

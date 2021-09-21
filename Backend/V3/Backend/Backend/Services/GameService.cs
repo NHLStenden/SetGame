@@ -99,6 +99,23 @@ namespace Backend.Services
             return await _gameRepository.GetCardsOnTable(gameId, cardIds);
         }
 
+        public async Task<List<IList<Card>>> FindAllSetsOnTable(int gameId)
+        {
+            var cardsOnTable = await _gameRepository.GetCardsOnTable(gameId);
+            return _setService.FindAllSets(cardsOnTable);
+        }
+
+        public async Task<bool> SubmitSet(int gameId, int[] cardIds)
+        {
+            var checkSet = await CheckSet(gameId, cardIds);
+            if (!checkSet.CorrectSet) return false;
+            
+            var game = await _gameRepository.GetByIdWithRelated(gameId);
+            game.CardsOnTable = game.CardsOnTable.Where(x => !cardIds.Contains(x.CardId)).ToList();
+            var success = await _gameRepository.UpdateAsync(game);
+            return success;
+        }
+
         public async Task<SetResult> CheckSet(int gameId, int[] cardIds)
         {
             if (cardIds.Length != 3)
