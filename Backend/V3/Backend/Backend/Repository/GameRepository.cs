@@ -19,20 +19,26 @@ namespace Backend.Repository
                     .ThenInclude(x => x.Cards.OrderBy(w => w.Order))
                 .ThenInclude(x => x.Card)
                 .Include(x => x.Player)
-                .Include(x => x.CardsOnTable)
+                .Include(x => x.CardsOnTable.OrderBy(c => c.Order))
                 .SingleAsync(x => x.Id == id);
             return entity;
         }
 
         public async Task<List<Card>> GetCardsOnTable(int gameId)
         {
-            return await Db.Games.SelectMany(x => x.CardsOnTable.Select(w => w.Card)).ToListAsync();
+            return await 
+                Db.Games
+                    .SelectMany(x => x.CardsOnTable.OrderBy(w => w.Order))
+                    .Select(x => x.Card).ToListAsync();
         }
 
         public async Task<List<Card>> GetCardsOnTable(int gameId, int[] cardIds)
         {
-            return await Db.Games.SelectMany(x => 
-                x.CardsOnTable.Where(w => cardIds.Contains(w.CardId)).Select(w => w.Card)).ToListAsync();
+            return await Db.Games
+                .SelectMany(x => x.CardsOnTable.Where(w => cardIds.Contains(w.CardId))
+                .OrderBy(x => x.Order)
+                .Select(w => w.Card))
+                .ToListAsync();
         }
     }
 }

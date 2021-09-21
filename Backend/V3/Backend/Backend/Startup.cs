@@ -46,6 +46,8 @@ namespace Backend
             //Services
             services.AddScoped<IDeckService, DeckService>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<ISetService, SetService>();
+            
             // services.AddSingleton<ISeedService, NormalSeedService>();
             services.AddSingleton<ISeedService, GenerateYamlSeedService>();
 

@@ -10,6 +10,8 @@ namespace Backend.Services
         Task<List<Card>> DrawCardsFromDeck(int gameId, int numberOfCards);
 
         Task<SetResult> CheckSet(int gameId, int[] cardIds);
+        
         Task<List<Card>> GetCardsOnTable(int gameId);
+        Task<List<Card>> GetCardsOnTable(int gameId, int[] cardIds);
     }
 }

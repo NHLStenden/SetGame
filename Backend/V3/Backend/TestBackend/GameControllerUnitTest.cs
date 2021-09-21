@@ -17,7 +17,9 @@ namespace TestBackend
             var deckService = new Mock<IDeckService>();
             var gameRepository = new Mock<IGameRepository>();
             var playerRepository = new Mock<IPlayerRepository>();
-            var sut = new GameService(deckService.Object, gameRepository.Object, playerRepository.Object);
+            var setService = new Mock<ISetService>();
+            var sut = new GameService(deckService.Object, gameRepository.Object, 
+                                        playerRepository.Object, setService.Object);
             
             Func<Task> checkSet = async () => await sut.CheckSet(1, new []{1,2});
 
@@ -30,8 +32,11 @@ namespace TestBackend
             var deckService = new Mock<IDeckService>();
             var gameRepository = new Mock<IGameRepository>();
             var playerRepository = new Mock<IPlayerRepository>();
-            var sut = new GameService(deckService.Object, gameRepository.Object, playerRepository.Object);
-
+            var setService = new Mock<ISetService>();
+            var sut = new GameService(deckService.Object, gameRepository.Object, 
+                playerRepository.Object, setService.Object);
+            
+            
             
 
             // Func<Task> request = async () => await GetRequest<Card[]>($"/Game/DrawCards/{gameId}",

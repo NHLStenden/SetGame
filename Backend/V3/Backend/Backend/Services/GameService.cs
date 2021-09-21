@@ -13,12 +13,17 @@ namespace Backend.Services
         private readonly IDeckService _deckService;
         private readonly IGameRepository _gameRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly ISetService _setService;
 
-        public GameService(IDeckService deckService, IGameRepository gameRepository, IPlayerRepository playerRepository)
+        public GameService(IDeckService deckService, 
+                            IGameRepository gameRepository, 
+                            IPlayerRepository playerRepository, 
+                            ISetService setService)
         {
             _deckService = deckService;
             _gameRepository = gameRepository;
             _playerRepository = playerRepository;
+            _setService = setService;
         }
 
         public async Task<Game> StartNewGame(int playerId)
@@ -37,12 +42,7 @@ namespace Backend.Services
 
             game.CardsOnTable = new List<CardOnTable>();
 
-
-
             var success = await _gameRepository.AddAsync(game);
-
-
-
             if (success)
             {
                 return game;
@@ -88,9 +88,15 @@ namespace Backend.Services
             return result;
         }
 
-        public async Task<List<Card>> GetCardsOnTable(int gameId)
+
+        public Task<List<Card>> GetCardsOnTable(int gameId)
         {
-            return await _gameRepository.GetCardsOnTable(gameId);
+            return _gameRepository.GetCardsOnTable(gameId);
+        }
+
+        public async Task<List<Card>> GetCardsOnTable(int gameId, int[] cardIds)
+        {
+            return await _gameRepository.GetCardsOnTable(gameId, cardIds);
         }
 
         public async Task<SetResult> CheckSet(int gameId, int[] cardIds)
@@ -100,11 +106,15 @@ namespace Backend.Services
                 throw new ArgumentException();
             }
 
-            var cardsOnTable = await _gameRepository.GetCardsOnTable(gameId);
+            var cards = await _gameRepository.GetCardsOnTable(gameId, cardIds);
+            if (!cards.Any())
+            {
+                throw new Exception("No Cards Table");
+            }
 
+            var setResult = _setService.Check(cards);
 
-
-            throw new NotImplementedException();
+            return setResult;
         }
 
         // private static bool CheckIfCardsArePlayed(int[] cardIds, Game game)

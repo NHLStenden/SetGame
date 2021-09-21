@@ -47,6 +47,12 @@ namespace Backend.Controllers
         {
             return _gameService.GetCardsOnTable(gameId);
         }
+
+        [HttpGet("[action]/{gameId:int}")]
+        public Task<SetResult> CheckSet(int gameId, [FromQuery] int[] gameIds)
+        {
+            return _gameService.CheckSet(gameId, gameIds);
+        }
   
      }
 }

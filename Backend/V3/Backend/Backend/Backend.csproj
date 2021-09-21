@@ -49,6 +49,9 @@
       <Compile Update="Services\GenerateYamlSeedService.cs">
         <DependentUpon>ISeedService.cs</DependentUpon>
       </Compile>
+      <Compile Update="Services\SetService.cs">
+        <DependentUpon>ISetService.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>
