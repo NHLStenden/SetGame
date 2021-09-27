@@ -88,7 +88,7 @@ namespace Backend.Services
                 }
             }
 
-            deck.Complexity = _setService.FindAllSets(cardsToCalculateComplexity).Count;
+            deck.Complexity = _setService.CalculateComplexity(cardsToCalculateComplexity);
             
             return deck;
         }

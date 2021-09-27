@@ -28,12 +28,12 @@ namespace Backend.Models
         public int Id { get; set; }
 
         [Required]
-        public Shape Shape { get; set; }
+        public Shape Shape { get; init; }
         [Required]
-        public Fill Fill { get; set; }
+        public Fill Fill { get; init; }
         [Required]
-        public Color Color { get; set; }
+        public Color Color { get; init; }
         [Required]
-        public int NrOfShapes { get; set; }
+        public int NrOfShapes { get; init; }
     }
 }

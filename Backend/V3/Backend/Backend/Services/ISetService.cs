@@ -5,9 +5,11 @@ namespace Backend.Services
 {
     public interface ISetService
     {
-        public SetResult Check(IList<Card> cards);
+        public SetResult Check(IEnumerable<Card> cards);
 
-        public List<IList<Card>> FindAllSets(IList<Card> cards);
+        public List<IList<Card>> FindAllSets(IEnumerable<Card> cards);
+
+        public int CalculateComplexity(IEnumerable<Card> cards);
     }
 
     public class SetResult

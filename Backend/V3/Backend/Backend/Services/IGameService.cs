@@ -7,13 +7,12 @@ namespace Backend.Services
     public interface IGameService
     {
         Task<Game> StartNewGame(int playerId);
-        Task<List<Card>> DrawCardsFromDeck(int gameId, int numberOfCards);
-
+        Task<IList<Card>> DrawCardsFromDeck(int gameId, int numberOfCards);
         Task<SetResult> CheckSet(int gameId, int[] cardIds);
-        
-        Task<List<Card>> GetCardsOnTable(int gameId);
-        Task<List<Card>> GetCardsOnTable(int gameId, int[] cardIds);
-        Task<List<IList<Card>>> FindAllSetsOnTable(int gameId);
+        Task<IList<Card>> GetCardsOnTable(int gameId);
+        Task<IList<Card>> GetCardsOnTable(int gameId, int[] cardIds);
+        Task<IList<IList<Card>>> GetAllSetsOnTable(int gameId);
         Task<bool> SubmitSet(int gameId, int[] cardIds);
+        Task<int> CalculateComplexityForCardsOnTable(int game);
     }
 }

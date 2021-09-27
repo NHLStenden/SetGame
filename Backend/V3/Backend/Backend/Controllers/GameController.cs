@@ -37,21 +37,21 @@ namespace Backend.Controllers
         }
 
         [HttpGet("[action]/{gameId:int}")]
-        public Task<List<Card>> DrawCards(int gameId, int numberOfCards)
+        public Task<IList<Card>> DrawCards(int gameId, int numberOfCards)
         {
             return _gameService.DrawCardsFromDeck(gameId, numberOfCards);
         }
 
         [HttpGet("[action]/{gameId:int}")]
-        public Task<List<Card>> GetCardsOnTable(int gameId)
+        public Task<IList<Card>> GetCardsOnTable(int gameId)
         {
             return _gameService.GetCardsOnTable(gameId);
         }
 
         [HttpGet("[action]/{gameId:int}")]
-        public Task<SetResult> CheckSet(int gameId, [FromQuery] int[] gameIds)
+        public Task<SetResult> CheckSet(int gameId, [FromQuery] int[] cardIds)
         {
-            return _gameService.CheckSet(gameId, gameIds);
+            return _gameService.CheckSet(gameId, cardIds);
         }
 
         [HttpGet("[action]/{gameId:int}")]
@@ -61,13 +61,15 @@ namespace Backend.Controllers
         }
 
         [HttpGet("[action]/{gameId:int}")]
-        public Task<List<IList<Card>>> FindAllSetsOnTable(int gameId)
+        public Task<IList<IList<Card>>> GetAllSetsOnTable(int gameId)
         {
-            return _gameService.FindAllSetsOnTable(gameId);
+            return _gameService.GetAllSetsOnTable(gameId);
         }
-        
 
-        
-  
+        [HttpGet("[action]/{gameId:int}")]
+        public Task<int> CalculateComplexityForCardsOnTable(int gameId)
+        {
+            return _gameService.CalculateComplexityForCardsOnTable(gameId);
+        }
      }
 }

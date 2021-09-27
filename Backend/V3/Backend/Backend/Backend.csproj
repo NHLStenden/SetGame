@@ -16,9 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Repository\DeckRepository.cs">
-        <DependentUpon>IDeckRepository.cs</DependentUpon>
-      </Compile>
       <Compile Update="Repository\GameRepository.cs">
         <DependentUpon>IGameRepository.cs</DependentUpon>
       </Compile>

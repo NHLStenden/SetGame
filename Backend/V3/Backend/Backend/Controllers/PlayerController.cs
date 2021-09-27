@@ -9,7 +9,6 @@ namespace Backend.Controllers
     public class PlayerController : CrudController<Player>
     {
         public PlayerController(IPlayerRepository repository) : base(repository)
-        {
-        }
+        { }
     }
 }

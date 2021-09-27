@@ -53,7 +53,7 @@ namespace Backend.Services
             }
         }
 
-        public async Task<List<Card>> DrawCardsFromDeck(int gameId, int numberOfCards)
+        public async Task<IList<Card>> DrawCardsFromDeck(int gameId, int numberOfCards)
         {
             Game game = await _gameRepository.GetByIdWithRelated(gameId);
             if (game == null)
@@ -80,26 +80,32 @@ namespace Backend.Services
                 order++;
             }
 
+            
+            game.Deck.Complexity = _setService.CalculateComplexity(game.CardsOnTable.Select(x => x.Card));
+
             var success = await _gameRepository.UpdateAsync(game);
             if (!success)
                 throw new ArgumentException();
 
             var result = deckCards.Select(x => x.Card).ToList();
+            
+
+            
             return result;
         }
 
 
-        public Task<List<Card>> GetCardsOnTable(int gameId)
+        public Task<IList<Card>> GetCardsOnTable(int gameId)
         {
             return _gameRepository.GetCardsOnTable(gameId);
         }
 
-        public async Task<List<Card>> GetCardsOnTable(int gameId, int[] cardIds)
+        public async Task<IList<Card>> GetCardsOnTable(int gameId, int[] cardIds)
         {
             return await _gameRepository.GetCardsOnTable(gameId, cardIds);
         }
 
-        public async Task<List<IList<Card>>> FindAllSetsOnTable(int gameId)
+        public async Task<IList<IList<Card>>> GetAllSetsOnTable(int gameId)
         {
             var cardsOnTable = await _gameRepository.GetCardsOnTable(gameId);
             return _setService.FindAllSets(cardsOnTable);
@@ -114,6 +120,18 @@ namespace Backend.Services
             game.CardsOnTable = game.CardsOnTable.Where(x => !cardIds.Contains(x.CardId)).ToList();
             var success = await _gameRepository.UpdateAsync(game);
             return success;
+        }
+
+        public async Task<int> CalculateComplexityForCardsOnTable(int gameId)
+        {
+            var game = await _gameRepository.GetByIdWithRelated(gameId);
+            if (!game.CardsOnTable.Any() && game.CardsOnTable.Count < 3)
+                return -1;
+
+            var cardsOnTable = game.CardsOnTable.Select(x => x.Card).ToList();
+
+            var complexity = _setService.FindAllSets(cardsOnTable).Count;
+            return complexity;
         }
 
         public async Task<SetResult> CheckSet(int gameId, int[] cardIds)

@@ -8,9 +8,9 @@ namespace Backend.Services
 {
     public class SetService : ISetService
     {
-        public SetResult Check(IList<Card> cards)
+        public SetResult Check(IEnumerable<Card> cards)
         {
-            if (cards.Count != 3)
+            if (cards.Count() != 3)
                 throw new ArgumentException();
 
             var firstCard = cards.First();
@@ -48,7 +48,7 @@ namespace Backend.Services
             return result;
         }
 
-        public List<IList<Card>> FindAllSets(IList<Card> cards)
+        public List<IList<Card>> FindAllSets(IEnumerable<Card> cards)
         {
             var result = new List<IList<Card>>();
             
@@ -63,6 +63,12 @@ namespace Backend.Services
             }
 
             return result;
+        }
+
+        public int CalculateComplexity(IEnumerable<Card> cards)
+        {
+            int complexity = FindAllSets(cards).Count;
+            return complexity;
         }
     }
 }

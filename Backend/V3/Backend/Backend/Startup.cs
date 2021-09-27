@@ -7,7 +7,9 @@ using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Backend
 {
@@ -39,7 +42,6 @@ namespace Backend
 
             //Repositories  
             services.AddScoped<ICardRepository, CardRepository>();
-            services.AddScoped<IDeckRepository, DeckRepository>();
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
 
@@ -75,6 +77,26 @@ namespace Backend
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend v1"));
             }
+            else
+            {
+                app.UseExceptionHandler(builder => builder.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    context.Response.ContentType = "application/json";
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    if (contextFeature != null)
+                    {
+                        var error = new Error
+                        {
+                            StatusCode = context.Response.StatusCode,
+                            Message = "Internal Server Error"
+                        };
+
+                        var jsonError = JsonSerializer.Serialize(error);
+                        await context.Response.WriteAsync(jsonError);
+                    }
+                }));
+            }
 
             app.UseHttpsRedirection();
 
@@ -84,5 +106,11 @@ namespace Backend
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
+    }
+
+    public class Error
+    {
+        public int StatusCode { get; set; }
+        public string Message { get; set; }
     }
 }

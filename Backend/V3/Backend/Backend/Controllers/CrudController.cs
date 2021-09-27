@@ -60,7 +60,7 @@ namespace Backend.Controllers
 
             var success = await _repository.UpdateAsync(entity);
 
-            return success ? Ok() : NotFound();
+            return success ? entity : NotFound();
         }
     }
 }

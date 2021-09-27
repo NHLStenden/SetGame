@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -14,6 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MoreLinq;
 using Newtonsoft.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
@@ -50,7 +54,80 @@ namespace TestBackend
             _client = _server.CreateClient();
         }
         
-        protected async Task<T> GetRequest<T>(string apiPath, dynamic parameters = null)
+        protected async Task<T> GetRequestAsync<T>(string apiPath, dynamic parameters = null, bool ensureStatusCode = false)
+        {
+            var requestUri = CreateRequestUri<T>(apiPath, parameters);
+
+            var response = await _client.GetAsync(requestUri);
+
+            if (ensureStatusCode)
+            {
+                response.EnsureSuccessStatusCode();
+            }
+
+            string json = await response.Content.ReadAsStringAsync();
+            
+            var objects = JsonConvert.DeserializeObject<T>(json);
+            return objects;
+        }
+
+        protected async Task<(T? objects, dynamic response)> DeleteRequestAsync<T>(string apiPath, dynamic parameters = null)
+        {
+            var requestUri = CreateRequestUri<T>(apiPath, parameters);
+            
+            var response = await _client.DeleteAsync(requestUri);
+            
+            response.EnsureSuccessStatusCode();
+
+            string json = await response.Content.ReadAsStringAsync();
+            
+            var objects = JsonConvert.DeserializeObject<T>(json);
+            return (objects, response);
+        }
+        
+        protected async Task<T> PostRequestAsync<T>(string apiPath, Object objectToSendWithRequest, bool ensureStatusCodes = true, dynamic parameters = null)
+        {
+            var jsonString = JsonConvert.SerializeObject(objectToSendWithRequest);
+            
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            
+            var requestUri = CreateRequestUri<T>(apiPath, parameters);
+
+            var response = await _client.PostAsync(requestUri, content);
+
+            if (ensureStatusCodes)
+            {
+                response.EnsureSuccessStatusCode();    
+            }
+            
+            string json = await response.Content.ReadAsStringAsync();
+            
+            var objects = JsonConvert.DeserializeObject<T>(json);
+            return objects;
+        }
+        
+        protected async Task<T> PutRequestAsync<T>(string apiPath, Object objectToSendWithRequest, bool ensureStatusCodes = true, dynamic parameters = null)
+        {
+            var jsonString = JsonConvert.SerializeObject(objectToSendWithRequest);
+            
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            
+            var requestUri = CreateRequestUri<T>(apiPath, parameters);
+
+            var response = await _client.PutAsync(requestUri, content);
+
+            if (ensureStatusCodes)
+            {
+                response.EnsureSuccessStatusCode();    
+            }
+
+            string json = await response.Content.ReadAsStringAsync();
+            
+            var objects = JsonConvert.DeserializeObject<T>(json);
+            return objects;
+        }
+
+        private static string CreateRequestUri<T>(string apiPath, dynamic parameters)
         {
             if (apiPath.StartsWith("/"))
             {
@@ -64,11 +141,10 @@ namespace TestBackend
                 foreach (var parameter in parameters.GetType().GetProperties())
                 {
                     var propertyName = parameter.Name;
-                    var propretyValue = parameters.GetType().GetProperty(propertyName).GetValue(parameters, null);
+                    var propertyValue = parameters.GetType().GetProperty(propertyName).GetValue(parameters, null);
 
                     if (firstParameter)
                     {
-                    
                         requestUri += "?";
                     }
 
@@ -77,26 +153,23 @@ namespace TestBackend
                         requestUri += "&";
                     }
 
-                    requestUri += $"{propertyName}={propretyValue}";
-                
+                    if (propertyValue is IEnumerable)
+                    {
+                        var queryParameterParts = (propertyValue as IEnumerable).Cast<object>()
+                            .Select(item => $"{propertyName}={item.ToString()}");
+
+                        requestUri += string.Join("&", queryParameterParts);
+                    }
+                    else
+                    {
+                        requestUri += $"{propertyName}={propertyValue}";
+                    }
+
                     firstParameter = false;
                 }
             }
-            
-            var response = await _client.GetAsync(requestUri);
 
-            response.EnsureSuccessStatusCode();
-
-            string json = await response.Content.ReadAsStringAsync();
-
-            // JsonSerializerOptions options = new System.Text.Json.JsonSerializerOptions()
-            // {
-            //     ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
-            // };
-
-            
-            var objects = JsonConvert.DeserializeObject<T>(json);
-            return objects;
+            return requestUri;
         }
 
         public void Dispose()

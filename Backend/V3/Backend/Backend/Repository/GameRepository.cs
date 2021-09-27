@@ -24,7 +24,7 @@ namespace Backend.Repository
             return entity;
         }
 
-        public async Task<List<Card>> GetCardsOnTable(int gameId)
+        public async Task<IList<Card>> GetCardsOnTable(int gameId)
         {
             return await 
                 Db.Games
@@ -32,7 +32,7 @@ namespace Backend.Repository
                     .Select(x => x.Card).ToListAsync();
         }
 
-        public async Task<List<Card>> GetCardsOnTable(int gameId, int[] cardIds)
+        public async Task<IList<Card>> GetCardsOnTable(int gameId, int[] cardIds)
         {
             return await Db.Games
                 .SelectMany(x => x.CardsOnTable.Where(w => cardIds.Contains(w.CardId))
