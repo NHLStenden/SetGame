@@ -18,7 +18,7 @@ namespace Backend.Services
             {
                 Name = "Joris"
             };
-            var b = playerRepository.AddAsync(player).Result;
+            var _ = playerRepository.AddAsync(player).Result;
             
             var result = gameService.StartNewGame(player.Id).Result;
             

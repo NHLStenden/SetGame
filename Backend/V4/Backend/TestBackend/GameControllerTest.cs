@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +5,6 @@ using Backend;
 using Backend.Models;
 using Backend.Services;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
 namespace TestBackend
@@ -49,8 +47,6 @@ namespace TestBackend
             
             error.StatusCode.Should().Be(500);
             error.Message.Should().Be("Internal Server Error");
-            
-            
         }
         
         [Fact]
@@ -274,7 +270,6 @@ namespace TestBackend
         [Fact]
         public async Task CreateAndDeleteGame_CorrectGameId_CreatedAndDeleteGameWithDependecies()
         {
-
             int numberOfCards = 12;
             int playerId = 1;
 
@@ -283,9 +278,8 @@ namespace TestBackend
             var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{game.Id}", 
                 new {numberOfCards});
 
-            var (_, response) = await DeleteRequestAsync<IActionResult>($"/Game/{game.Id}");
-
-            ((System.Net.Http.HttpResponseMessage) response).ReasonPhrase.Should().Be("OK");
+            var response = await Client.DeleteAsync($"/Game/{game.Id}");
+            response.EnsureSuccessStatusCode();
         }
         
         [Fact]

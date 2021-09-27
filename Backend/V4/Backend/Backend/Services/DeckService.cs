@@ -52,7 +52,7 @@ namespace Backend.Services
         
         public async Task<Deck> CreateDeck()
         {
-            var cards = await _cardRepository.GetAllAsync();
+            var cards = (await _cardRepository.GetAllAsync()).ToList();
 
             if (!cards.Any())
             {

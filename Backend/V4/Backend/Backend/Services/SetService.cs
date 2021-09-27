@@ -8,7 +8,7 @@ namespace Backend.Services
 {
     public class SetService : ISetService
     {
-        public SetResult Check(IEnumerable<Card> cards)
+        public SetResult Check(IList<Card> cards)
         {
             if (cards.Count() != 3)
                 throw new ArgumentException();

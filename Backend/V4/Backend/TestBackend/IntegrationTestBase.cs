@@ -17,12 +17,12 @@ namespace TestBackend
 {
     public class IntegrationTest : IDisposable
     {
-        protected TestServer _server;
-        protected HttpClient _client;
+        protected readonly TestServer Server;
+        protected readonly HttpClient Client;
 
         public IntegrationTest()
         {
-            _server = new TestServer(new WebHostBuilder()
+            Server = new TestServer(new WebHostBuilder()
                 .ConfigureTestServices(services =>
                 {
                     
@@ -30,9 +30,9 @@ namespace TestBackend
                         d => d.ServiceType ==
                              typeof(DbContextOptions<SetContext>));
                     services.Remove(descriptorDb);
-                    services.AddDbContext<SetContext>((options, context) =>
+                    services.AddDbContext<SetContext>(builder =>
                     {
-                        context.UseMySQL("Server=localhost;Database=SetGame;Uid=root;Pwd=Test@1234!;");
+                        builder.UseMySQL("Server=localhost;Database=SetGame;Uid=root;Pwd=Test@1234!;");
                     });
                     
                     var descriptor = services.SingleOrDefault(
@@ -43,16 +43,16 @@ namespace TestBackend
                 })
                 .UseStartup<Startup>()
             );
-            _client = _server.CreateClient();
+            Client = Server.CreateClient();
         }
         
         
         
         protected async Task<T> GetRequestAsync<T>(string apiPath, dynamic parameters = null, bool ensureStatusCode = false)
         {
-            var requestUri = CreateRequestUri<T>(apiPath, parameters);
+            var requestUri = CreateRequestUri(apiPath, parameters);
 
-            var response = await _client.GetAsync(requestUri);
+            var response = await Client.GetAsync(requestUri);
 
             if (ensureStatusCode)
             {
@@ -64,20 +64,6 @@ namespace TestBackend
             var objects = JsonConvert.DeserializeObject<T>(json);
             return objects;
         }
-
-        protected async Task<(T? objects, dynamic response)> DeleteRequestAsync<T>(string apiPath, dynamic parameters = null)
-        {
-            var requestUri = CreateRequestUri<T>(apiPath, parameters);
-            
-            var response = await _client.DeleteAsync(requestUri);
-            
-            response.EnsureSuccessStatusCode();
-
-            string json = await response.Content.ReadAsStringAsync();
-            
-            var objects = JsonConvert.DeserializeObject<T>(json);
-            return (objects, response);
-        }
         
         protected async Task<T> PostRequestAsync<T>(string apiPath, Object objectToSendWithRequest, bool ensureStatusCodes = true, dynamic parameters = null)
         {
@@ -85,9 +71,9 @@ namespace TestBackend
             
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
             
-            var requestUri = CreateRequestUri<T>(apiPath, parameters);
+            var requestUri = CreateRequestUri(apiPath, parameters);
 
-            var response = await _client.PostAsync(requestUri, content);
+            var response = await Client.PostAsync(requestUri, content);
 
             if (ensureStatusCodes)
             {
@@ -106,9 +92,9 @@ namespace TestBackend
             
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
             
-            var requestUri = CreateRequestUri<T>(apiPath, parameters);
+            var requestUri = CreateRequestUri(apiPath, parameters);
 
-            var response = await _client.PutAsync(requestUri, content);
+            var response = await Client.PutAsync(requestUri, content);
 
             if (ensureStatusCodes)
             {
@@ -121,7 +107,7 @@ namespace TestBackend
             return objects;
         }
 
-        private static string CreateRequestUri<T>(string apiPath, dynamic parameters)
+        private static string CreateRequestUri(string apiPath, dynamic parameters)
         {
             if (apiPath.StartsWith("/"))
             {
@@ -150,7 +136,7 @@ namespace TestBackend
                     if (propertyValue is IEnumerable)
                     {
                         var queryParameterParts = (propertyValue as IEnumerable).Cast<object>()
-                            .Select(item => $"{propertyName}={item.ToString()}");
+                            .Select(item => $"{propertyName}={item}");
 
                         requestUri += string.Join("&", queryParameterParts);
                     }
@@ -168,8 +154,8 @@ namespace TestBackend
 
         public void Dispose()
         {
-            _client?.Dispose();
-            _server?.Dispose();
+            Client?.Dispose();
+            Server?.Dispose();
         }
     }
 }

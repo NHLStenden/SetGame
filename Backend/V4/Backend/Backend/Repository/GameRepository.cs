@@ -36,7 +36,7 @@ namespace Backend.Repository
         {
             return await Db.Games
                 .SelectMany(x => x.CardsOnTable.Where(w => cardIds.Contains(w.CardId))
-                .OrderBy(x => x.Order)
+                .OrderBy(o => o.Order)
                 .Select(w => w.Card))
                 .ToListAsync();
         }

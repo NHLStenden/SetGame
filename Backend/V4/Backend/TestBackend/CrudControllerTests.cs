@@ -50,7 +50,7 @@ namespace TestBackend
         [MemberData(nameof(GetInvalidInputAndProblemDetails))]
         public async Task CreatePlayer_InvalidInput_BadRequest(Player player, KeyValuePair<string, string> validator)
         {
-            var response = await _client.PostAsJsonAsync("/player", player);
+            var response = await Client.PostAsJsonAsync("/player", player);
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
