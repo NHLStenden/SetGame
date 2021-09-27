@@ -31,8 +31,13 @@ namespace Backend.Controllers
         }
 
         [HttpPost()]
-        public virtual async Task<IActionResult> CreateAsync(T entity)
+        public async Task<IActionResult> CreateAsync(T entity)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
             var success = await Repository.AddAsync(entity);
             if (!success)
             {
@@ -43,16 +48,21 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public virtual async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             var success = await Repository.DeleteAsync(id);
 
-            return success ? Ok() : NotFound();
+            return success ? 
+                Ok() : 
+                NotFound();
         }
 
         [HttpPut("{id}")]
         public virtual async Task<ActionResult<T>> UpdateAsync(int id, T entity)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             if (id != entity.Id)
             {
                 return BadRequest();

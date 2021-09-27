@@ -10,6 +10,9 @@
     &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.CreateAndDeleteGame_CorrectGameId_CreatedAndDeleteGameWithDependecies&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.StartNewGame_ValidPlayerId_GameObject&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerUnitTest.CheckSet_InvalidNumberOfCards_ArgumentException&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.SetServiceTests.CheckSet_IncorrectNumberOfCards_ThrowsArgumentException&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.SetServiceTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	
