@@ -1,10 +1,12 @@
-using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Backend;
 using Backend.Models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+
 using Xunit;
 
 namespace TestBackend
@@ -22,7 +24,7 @@ namespace TestBackend
         }
         
         [Fact]
-        public async Task GetAsync_CorrectPlayerId_Player()
+        public async Task GetAsync_None_Players()
         {
             var players = await GetRequestAsync<Player[]>($"/Player");
 
@@ -32,7 +34,7 @@ namespace TestBackend
         }
         
         [Fact]
-        public async Task CreateAndDeleteGame_CorrectGameId_CreatedAndDeleteGame()
+        public async Task Create_Player_CreatePlayer()
         {
             string name = "New Player";
             var player = await PostRequestAsync<Player>($"/Player/", new Player
@@ -43,7 +45,54 @@ namespace TestBackend
             player.Id.Should().Be(2);
             player.Name.Should().Be(name);
         }
-        
+
+        [Theory]
+        [MemberData(nameof(GetInvalidInputAndProblemDetails))]
+        public async Task CreatePlayer_InvalidInput_BadRequest(Player player, KeyValuePair<string, string> validator)
+        {
+            var response = await _client.PostAsJsonAsync("/player", player);
+
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+
+            problemDetails.Errors.Should().HaveCount(1);
+            problemDetails.Errors.Should().ContainKey(validator.Key);
+            problemDetails.Errors[validator.Key][0].Should().Be(validator.Value);
+        }
+
+        public static IEnumerable<object[]> GetInvalidInputAndProblemDetails()
+        {
+            var testData = new List<object[]>()
+            {
+                new object[]
+                {
+                    GetValidPlayer().CloneWith(x => x.Name = new string('c',51)),
+                    new KeyValuePair<string, string>("Name", "The field Name must be a string or array type with a maximum length of '50'.")
+                },
+                new object[]
+                {
+                    GetValidPlayer().CloneWith(x => x.Name = "J"),
+                    new KeyValuePair<string,string>("Name", "The field Name must be a string or array type with a minimum length of '2'.")
+                },
+                new object[]
+                {
+                    GetValidPlayer().CloneWith(x => x.Name = null),
+                    new KeyValuePair<string, string>("Name", "The Name field is required.")
+                }
+            };
+            return testData;
+        }
+
+        private static Player GetValidPlayer()
+        {
+            return new Player()
+            {
+                Name = "Joris"
+            };
+        }
+
+
         [Fact]
         public async Task CreateAndDeleteGame_IncorrectPlayer_BadRequest()
         {
@@ -84,6 +133,6 @@ namespace TestBackend
             }, ensureStatusCodes: false);
 
             error.StatusCode.Should().Be(400);
-        } 
+        }
     }
 }

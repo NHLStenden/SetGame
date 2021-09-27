@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using YamlDotNet.Serialization;
 
@@ -11,5 +12,14 @@ namespace Backend.Models
         
         [Required, MinLength(2), MaxLength(50)]
         public string Name { get; set; }
+
+        public Player CloneWith(Action<Player> changes)
+        {
+            var clone = MemberwiseClone() as Player;
+
+            changes(clone);
+            
+            return clone;
+        }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oto9d7CsnpEwkY32yZPD20+CPgBdf6t114QmFETzC+rMAPbDbpKAQbqG08zwtT1drm3MvGfgtz6krXo+lfUP9A==",
+  "dgSpecHash": "I11oiEkZmOjiRQbI8WZ9FufBW9R+Vxz8IxIrDwc7WhOKnwXAOWbjVvQDErdkZULCdxhOhkbhRccJYb7/EG1v5A==",
   "success": true,
-  "projectFilePath": "/Users/e2498/Dev/SetGame/Backend/V3/Backend/Backend/Backend.csproj",
+  "projectFilePath": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/Backend/Backend.csproj",
   "expectedPackageFiles": [
     "/Users/e2498/.nuget/packages/bouncycastle.netcore/1.8.5/bouncycastle.netcore.1.8.5.nupkg.sha512",
     "/Users/e2498/.nuget/packages/google.protobuf/3.14.0/google.protobuf.3.14.0.nupkg.sha512",

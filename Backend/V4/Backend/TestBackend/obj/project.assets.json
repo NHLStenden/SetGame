@@ -8204,11 +8204,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/e2498/Dev/SetGame/Backend/V3/Backend/TestBackend/TestBackend.csproj",
+      "projectUniqueName": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/TestBackend/TestBackend.csproj",
       "projectName": "TestBackend",
-      "projectPath": "/Users/e2498/Dev/SetGame/Backend/V3/Backend/TestBackend/TestBackend.csproj",
+      "projectPath": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/TestBackend/TestBackend.csproj",
       "packagesPath": "/Users/e2498/.nuget/packages/",
-      "outputPath": "/Users/e2498/Dev/SetGame/Backend/V3/Backend/TestBackend/obj/",
+      "outputPath": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/TestBackend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/e2498/.nuget/NuGet/NuGet.Config"
@@ -8224,8 +8224,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "/Users/e2498/Dev/SetGame/Backend/V3/Backend/Backend/Backend.csproj": {
-              "projectPath": "/Users/e2498/Dev/SetGame/Backend/V3/Backend/Backend/Backend.csproj"
+            "/Users/e2498/Dev/SetGame/Backend/V4/Backend/Backend/Backend.csproj": {
+              "projectPath": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/Backend/Backend.csproj"
             }
           }
         }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/e2498/Dev/SetGame/Backend/V3/Backend/Backend/Backend.csproj": {}
+    "/Users/e2498/Dev/SetGame/Backend/V4/Backend/Backend/Backend.csproj": {}
   },
   "projects": {
-    "/Users/e2498/Dev/SetGame/Backend/V3/Backend/Backend/Backend.csproj": {
+    "/Users/e2498/Dev/SetGame/Backend/V4/Backend/Backend/Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/e2498/Dev/SetGame/Backend/V3/Backend/Backend/Backend.csproj",
+        "projectUniqueName": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/Backend/Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "/Users/e2498/Dev/SetGame/Backend/V3/Backend/Backend/Backend.csproj",
+        "projectPath": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/Backend/Backend.csproj",
         "packagesPath": "/Users/e2498/.nuget/packages/",
-        "outputPath": "/Users/e2498/Dev/SetGame/Backend/V3/Backend/Backend/obj/",
+        "outputPath": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/Backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/e2498/.nuget/NuGet/NuGet.Config"

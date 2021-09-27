@@ -1,33 +1,25 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Backend;
 using Backend.Models;
 using Backend.Services;
-using FluentAssertions.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MoreLinq;
 using Newtonsoft.Json;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace TestBackend
 {
     public class IntegrationTest : IDisposable
     {
-        private TestServer _server;
-        private HttpClient _client;
-        
+        protected TestServer _server;
+        protected HttpClient _client;
+
         public IntegrationTest()
         {
             _server = new TestServer(new WebHostBuilder()
@@ -53,6 +45,8 @@ namespace TestBackend
             );
             _client = _server.CreateClient();
         }
+        
+        
         
         protected async Task<T> GetRequestAsync<T>(string apiPath, dynamic parameters = null, bool ensureStatusCode = false)
         {

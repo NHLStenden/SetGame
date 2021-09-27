@@ -9,31 +9,31 @@ namespace Backend.Controllers
 {
     public class CrudController<T> : ControllerBase where T : class, IEntity, new()
     {
-        private readonly IGenericRepository<T> _repository;
+        protected readonly IGenericRepository<T> Repository;
 
         public CrudController(IGenericRepository<T> repository)
         {
-            _repository = repository;
+            Repository = repository;
         }
         
         [HttpGet()]
-        public async Task<IEnumerable<T>> GetAsync()
+        public virtual async Task<IEnumerable<T>> GetAsync()
         {
-            var result = await _repository.GetAllAsync();
+            var result = await Repository.GetAllAsync();
             return result;
         }
         
         [HttpGet("{id}")]
         public virtual async Task<T> GetByIdAsync(int id)
         {
-            var entity = await _repository.GetByIdAsync(id);
+            var entity = await Repository.GetByIdAsync(id);
             return entity;
         }
 
         [HttpPost()]
-        public async Task<IActionResult> CreateAsync(T entity)
+        public virtual async Task<IActionResult> CreateAsync(T entity)
         {
-            var success = await _repository.AddAsync(entity);
+            var success = await Repository.AddAsync(entity);
             if (!success)
             {
                 return BadRequest();
@@ -43,22 +43,22 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public virtual async Task<IActionResult> DeleteAsync(int id)
         {
-            var success = await _repository.DeleteAsync(id);
+            var success = await Repository.DeleteAsync(id);
 
             return success ? Ok() : NotFound();
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<T>> UpdateAsync(int id, T entity)
+        public virtual async Task<ActionResult<T>> UpdateAsync(int id, T entity)
         {
             if (id != entity.Id)
             {
                 return BadRequest();
             }
 
-            var success = await _repository.UpdateAsync(entity);
+            var success = await Repository.UpdateAsync(entity);
 
             return success ? entity : NotFound();
         }
