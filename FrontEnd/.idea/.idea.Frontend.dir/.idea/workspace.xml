@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cba0c062-70d8-465b-bce1-05434d57ff47" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Backend/V4/Backend/Backend.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/V4/Backend/Backend.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/V4/Backend/Backend/Controllers/GameController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/V4/Backend/Backend/Controllers/GameController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/V4/Backend/Backend/Services/GameService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/V4/Backend/Backend/Services/GameService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/V4/Backend/Backend/Services/IGameService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/V4/Backend/Backend/Services/IGameService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/V4/Backend/Backend/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/V4/Backend/Backend/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/V12/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/V12/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/V12/src/app/services/http.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/V12/src/app/services/http.service.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1yoaAFwIVv5zv1QX9bxwfMvntti" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cba0c062-70d8-465b-bce1-05434d57ff47" name="Default Changelist" comment="" />
+      <created>1632920250259</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1632920250259</updated>
+      <workItem from="1632920259155" duration="14000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
