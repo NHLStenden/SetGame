@@ -44,9 +44,12 @@ namespace Backend.Controllers
         }
 
         [HttpGet("[action]/{playerId:int}")]
-        public async Task<Game> StartNewGame(int playerId)
+        public async Task<GameViewModel> StartNewGame(int playerId)
         {
-            return await _gameService.StartNewGame(playerId);
+            var game = await _gameService.StartNewGame(playerId);
+
+            var gameViewModel = _mapper.Map<GameViewModel>(game);
+            return gameViewModel;
         }
 
         [HttpGet("[action]/{gameId:int}")]

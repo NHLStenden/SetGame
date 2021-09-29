@@ -56,6 +56,9 @@ namespace Backend
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+
+            services.AddCors();
+            
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
@@ -64,6 +67,8 @@ namespace Backend
 
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Backend", Version = "v1"}); });
         }
+
+        readonly string CORSDevelopmentPolicy = "Cors Development Policy, don't use in production!";
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SetContext db, 
@@ -101,9 +106,17 @@ namespace Backend
                 }));
             }
 
-            app.UseHttpsRedirection();
+           
 
             app.UseRouting();
+            
+            app.UseCors(builder => builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+            );
+            
+            app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
