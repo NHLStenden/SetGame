@@ -39,7 +39,7 @@ namespace TestBackend
         public async Task Create_Player_CreatePlayer()
         {
             string name = "New Player";
-            var player = await PostRequestAsync<Player>($"/Player/", new PlayerCreateModel()
+            var player = await PostRequestAsync<Player>($"/Player", new PlayerCreateModel()
             {
                 Name = name, Email = "test@test.com", EmailValidate = "test@test.com"
             });
@@ -52,7 +52,7 @@ namespace TestBackend
         [MemberData(nameof(GetInvalidInputAndProblemDetails))]
         public async Task CreatePlayer_InvalidInput_BadRequest(PlayerCreateModel playerCreateModel, KeyValuePair<string, string> validator)
         {
-            var response = await Client.PostAsJsonAsync("/player", playerCreateModel);
+            var response = await Client.PostAsJsonAsync("/Player", playerCreateModel);
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
