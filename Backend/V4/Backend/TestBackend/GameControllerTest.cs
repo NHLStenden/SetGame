@@ -10,6 +10,7 @@ using Xunit;
 
 namespace TestBackend
 {
+    [Collection("IntegrationTests")]
     public class GameControllerTests : IntegrationTest
     {
         [Fact]

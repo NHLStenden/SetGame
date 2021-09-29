@@ -13,6 +13,7 @@ using Xunit;
 
 namespace TestBackend
 {
+    [Collection("IntegrationTests")]
     public class CrudControllerTests : IntegrationTest
     {
         [Fact]
