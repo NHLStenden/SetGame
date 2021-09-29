@@ -51,6 +51,11 @@ namespace Backend.Services
         public List<IList<Card>> FindAllSets(IEnumerable<Card> cards)
         {
             var result = new List<IList<Card>>();
+
+            if (cards.Any() && cards.Count() < 3)
+            {
+                return new List<IList<Card>>();
+            }
             
             var subsets = cards.Subsets(3);
             foreach (var subset in subsets)

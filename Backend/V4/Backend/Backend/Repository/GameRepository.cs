@@ -12,15 +12,16 @@ namespace Backend.Repository
         {
         }
 
-        public async Task<Game> GetByIdWithRelated(int id)
+        public async Task<Game> GetByIdWithRelated(int gameId)
         {
             var entity = await Db.Games
+                .Where(x => x.Id == gameId)
                 .Include(x => x.Deck)
                     .ThenInclude(x => x.Cards.OrderBy(w => w.Order))
                 .ThenInclude(x => x.Card)
                 .Include(x => x.Player)
                 .Include(x => x.CardsOnTable.OrderBy(c => c.Order))
-                .SingleAsync(x => x.Id == id);
+                .SingleAsync(x => x.Id == gameId);
             return entity;
         }
 
@@ -28,6 +29,7 @@ namespace Backend.Repository
         {
             return await 
                 Db.Games
+                    .Where(x => x.Id == gameId)
                     .SelectMany(x => x.CardsOnTable.OrderBy(w => w.Order))
                     .Select(x => x.Card).ToListAsync();
         }
@@ -35,6 +37,7 @@ namespace Backend.Repository
         public async Task<IList<Card>> GetCardsOnTable(int gameId, int[] cardIds)
         {
             return await Db.Games
+                .Where(x => x.Id == gameId)
                 .SelectMany(x => x.CardsOnTable.Where(w => cardIds.Contains(w.CardId))
                 .OrderBy(o => o.Order)
                 .Select(w => w.Card))
