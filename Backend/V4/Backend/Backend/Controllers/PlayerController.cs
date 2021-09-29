@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
 using Backend.Models;
@@ -43,8 +44,9 @@ namespace Backend.Controllers
         }
         
         [HttpPost]
+        [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PlayerViewModel))]
         public async Task<IActionResult> CreateAsync(PlayerCreateModel playerCreateModel)
         {
             if (!ModelState.IsValid)
@@ -60,11 +62,17 @@ namespace Backend.Controllers
                 return BadRequest();
             }
 
-            return CreatedAtAction("Get", new { id = entity.Id }, entity);
+            var createPlayerVm = _mapper.Map<PlayerViewModel>(entity);
+
+            return CreatedAtAction("Get", new { id = entity.Id }, createPlayerVm);
         }
         
         [HttpPut("{id}")]
-        public async Task<ActionResult<Player>> UpdateAsync(int id, PlayerUpdateModel playerCreateModel)
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayerViewModel))]
+        public async Task<ActionResult<PlayerViewModel>> UpdateAsync(int id, PlayerUpdateModel playerCreateModel)
         {
             if (id != playerCreateModel.Id)
             {
@@ -78,10 +86,14 @@ namespace Backend.Controllers
             
             var success = await _repository.UpdateAsync(player);
 
-            return success ? player : NotFound();
+            var playerViewModel = _mapper.Map<PlayerViewModel>(player);
+            
+            return success ? playerViewModel : NotFound();
         }
         
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var success = await _repository.DeleteAsync(id);
