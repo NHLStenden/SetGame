@@ -12,6 +12,9 @@ namespace Backend.Models
         
         [Required, MinLength(2), MaxLength(50)]
         public string Name { get; set; }
+        
+        [Required]
+        public string Email { get; set;  }
 
         public Player CloneWith(Action<Player> changes)
         {

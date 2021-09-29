@@ -1,29 +1,46 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
+using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class GameController : CrudController<Game>
+    public class GameController : ControllerBase
     {
         private readonly IGameRepository _gameRepository;
         private readonly IGameService _gameService;
+        private readonly IMapper _mapper;
 
-        public GameController(IGameRepository gameRepository, IGameService gameService) : base(gameRepository)
+
+        public GameController(IGameRepository gameRepository, IGameService gameService, IMapper mapper)
         {
             _gameRepository = gameRepository;
             _gameService = gameService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
-        public override async Task<Game> GetByIdAsync(int id)
+        public async Task<GameViewModel> GetByIdAsync(int id)
         {
-            return await _gameRepository.GetByIdWithRelated(id);
+            var game = await _gameRepository.GetByIdWithRelated(id);
+            var gameViewModel = _mapper.Map<GameViewModel>(game);
+            return gameViewModel;
+        }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var success = await _gameRepository.DeleteAsync(id);
+
+            return success ? 
+                Ok() : 
+                NotFound();
         }
 
         [HttpGet("[action]/{playerId:int}")]

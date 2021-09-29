@@ -29,22 +29,22 @@ namespace Backend.Controllers
             return entity;
         }
 
-        [HttpPost()]
-        public async Task<IActionResult> CreateAsync(T entity)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
-            var success = await Repository.AddAsync(entity);
-            if (!success)
-            {
-                return BadRequest();
-            }
-
-            return CreatedAtAction("Get", new { id = entity.Id }, entity);
-        }
+        // [HttpPost()]
+        // public async Task<IActionResult> CreateAsync(T entity)
+        // {
+        //     if (!ModelState.IsValid)
+        //     {
+        //         return BadRequest(ModelState);
+        //     }
+        //     
+        //     var success = await Repository.AddAsync(entity);
+        //     if (!success)
+        //     {
+        //         return BadRequest();
+        //     }
+        //
+        //     return CreatedAtAction("Get", new { id = entity.Id }, entity);
+        // }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)

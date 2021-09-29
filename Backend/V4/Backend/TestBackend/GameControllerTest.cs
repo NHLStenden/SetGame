@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Backend;
 using Backend.Models;
 using Backend.Services;
+using Backend.ViewModels;
 using FluentAssertions;
 using Xunit;
 
@@ -121,14 +122,11 @@ namespace TestBackend
         {
             int gameId = 1;
             
-            var game = await GetRequestAsync<Game>($"/Game/{gameId}");
-
-            game.Deck.Cards.Should().HaveCount(81);
-            game.Deck.Cards.Should().BeInAscendingOrder(x => x.Order);
-            game.Player.Name.Should().Be("Joris");
-            game.CardIndex.Should().Be(0);
+            var game = await GetRequestAsync<GameViewModel>($"/Game/{gameId}");
+            
+            game.PlayerName.Should().Be("Joris");
             game.CardsOnTable.Should().HaveCount(0);
-            game.Deck.Complexity.Should().Be(-1);
+            game.Complexity.Should().Be(-1);
         }
 
         [Fact]
@@ -136,8 +134,8 @@ namespace TestBackend
         {
             int gameId = 1;
             
-            var game = await GetRequestAsync<Game>($"/Game/{gameId}");
-            game.Deck.Complexity.Should().Be(-1);
+            var game = await GetRequestAsync<GameViewModel>($"/Game/{gameId}");
+            game.Complexity.Should().Be(-1);
 
             int complexity = await GetRequestAsync<int>($"/Game/CalculateComplexityForCardsOnTable/{gameId}");
             complexity.Should().Be(-1);
@@ -146,8 +144,8 @@ namespace TestBackend
             var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
                 new {numberOfCards});
             
-            game = await GetRequestAsync<Game>($"/Game/{gameId}");
-            game.Deck.Complexity.Should().Be(1);
+            game = await GetRequestAsync<GameViewModel>($"/Game/{gameId}");
+            game.Complexity.Should().Be(1);
             
             complexity = await GetRequestAsync<int>($"/Game/CalculateComplexityForCardsOnTable/{gameId}");
             complexity.Should().Be(1);            
@@ -158,8 +156,8 @@ namespace TestBackend
         {
             int gameId = 1;
             
-            var game = await GetRequestAsync<Game>($"/Game/{gameId}");
-            game.Deck.Complexity.Should().Be(-1);
+            var game = await GetRequestAsync<GameViewModel>($"/Game/{gameId}");
+            game.Complexity.Should().Be(-1);
 
             int complexity = await GetRequestAsync<int>($"/Game/CalculateComplexityForCardsOnTable/{gameId}");
             complexity.Should().Be(-1);
@@ -168,8 +166,8 @@ namespace TestBackend
             var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
                 new {numberOfCards});
             
-            game = await GetRequestAsync<Game>($"/Game/{gameId}");
-            game.Deck.Complexity.Should().Be(1);
+            game = await GetRequestAsync<GameViewModel>($"/Game/{gameId}");
+            game.Complexity.Should().Be(1);
             
             complexity = await GetRequestAsync<int>($"/Game/CalculateComplexityForCardsOnTable/{gameId}");
             complexity.Should().Be(1);            
@@ -273,7 +271,7 @@ namespace TestBackend
             int numberOfCards = 12;
             int playerId = 1;
 
-            var game = await GetRequestAsync<Game>($"/Game/StartNewGame/{playerId}");
+            var game = await GetRequestAsync<GameViewModel>($"/Game/StartNewGame/{playerId}");
             
             var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{game.Id}", 
                 new {numberOfCards});

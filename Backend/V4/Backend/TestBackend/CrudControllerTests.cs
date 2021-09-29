@@ -3,7 +3,9 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Backend;
+using Backend.Controllers;
 using Backend.Models;
+using Backend.ViewModels;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,9 +39,9 @@ namespace TestBackend
         public async Task Create_Player_CreatePlayer()
         {
             string name = "New Player";
-            var player = await PostRequestAsync<Player>($"/Player/", new Player
+            var player = await PostRequestAsync<Player>($"/Player/", new PlayerCreateModel()
             {
-                Name = name
+                Name = name, Email = "test@test.com", EmailValidate = "test@test.com"
             });
 
             player.Id.Should().Be(2);
@@ -48,9 +50,9 @@ namespace TestBackend
 
         [Theory]
         [MemberData(nameof(GetInvalidInputAndProblemDetails))]
-        public async Task CreatePlayer_InvalidInput_BadRequest(Player player, KeyValuePair<string, string> validator)
+        public async Task CreatePlayer_InvalidInput_BadRequest(PlayerCreateModel playerCreateModel, KeyValuePair<string, string> validator)
         {
-            var response = await Client.PostAsJsonAsync("/player", player);
+            var response = await Client.PostAsJsonAsync("/player", playerCreateModel);
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -67,72 +69,57 @@ namespace TestBackend
             {
                 new object[]
                 {
-                    GetValidPlayer().CloneWith(x => x.Name = new string('c',51)),
+                    GetValidPlayerInputModel().CloneWith(x => x.Name = new string('c',51)),
                     new KeyValuePair<string, string>("Name", "The field Name must be a string or array type with a maximum length of '50'.")
                 },
                 new object[]
                 {
-                    GetValidPlayer().CloneWith(x => x.Name = "J"),
+                    GetValidPlayerInputModel().CloneWith(x => x.Name = "J"),
                     new KeyValuePair<string,string>("Name", "The field Name must be a string or array type with a minimum length of '2'.")
                 },
                 new object[]
                 {
-                    GetValidPlayer().CloneWith(x => x.Name = null),
+                    GetValidPlayerInputModel().CloneWith(x => x.Name = null),
                     new KeyValuePair<string, string>("Name", "The Name field is required.")
-                }
+                },
+                new object[]
+                {
+                GetValidPlayerInputModel().CloneWith(x =>
+                {
+                    x.Email = "joris@joris.com";
+                    x.EmailValidate = "joris@joris.nl";
+                }),
+                new KeyValuePair<string, string>("EmailValidate", "'EmailValidate' and 'Email' do not match.")
+            }
             };
             return testData;
         }
 
-        private static Player GetValidPlayer()
+        private static PlayerCreateModel GetValidPlayerInputModel()
         {
-            return new Player()
+            return new PlayerCreateModel()
             {
-                Name = "Joris"
+                Name = "Joris",
+                Email = "joris@joris.nl",
+                EmailValidate = "joris@joris.nl"
             };
         }
 
-
-        [Fact]
-        public async Task CreateAndDeleteGame_IncorrectPlayer_BadRequest()
-        {
-            string name = "New Player";
-            var error = await PostRequestAsync<Error>($"/Player/", new Player
-            {
-                Id = 1,
-                Name = name
-            }, ensureStatusCodes: false);
-
-            error.StatusCode.Should().Be(500);
-            error.Message.Should().Be("Internal Server Error");
-        }
-        
         [Fact]
         public async Task UpdatePlayer_CorrectPlayerNameAndId_UpdatedPlayerName()
         {
             string name = "Updated Player Name";
             int playerId = 1;
-            var player = await PutRequestAsync<Player>($"/Player/{playerId}", new Player
+            var player = await PutRequestAsync<Player>($"/Player/{playerId}", new PlayerUpdateModel()
             {
                 Id = playerId,
-                Name = name
+                Name = name,
+                Email = "updateEmail@updateEmail",
+                EmailValidate = "updateEmail@updateEmail"
             });
 
             player.Id.Should().Be(1);
             player.Name.Should().Be(name);
-        }
-        
-        [Fact]
-        public async Task UpdatePlayer_IncorrectPlayer_BadRequest()
-        {
-            string name = "New Player";
-            var error = await PutRequestAsync<BadRequestResult>($"/Player/1", new Player
-            {
-                Id = 2,
-                Name = name
-            }, ensureStatusCodes: false);
-
-            error.StatusCode.Should().Be(400);
         }
     }
 }

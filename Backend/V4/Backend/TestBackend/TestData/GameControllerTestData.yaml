@@ -571,4 +571,5 @@ deck: &o0
 cardIndex: 0
 player:
   name: Joris
+  email: joris@joris.nl
 cardsOnTable: []

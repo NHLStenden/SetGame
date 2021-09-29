@@ -1,6 +1,8 @@
+using AutoMapper;
 using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
+using Backend.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -44,6 +46,15 @@ namespace Backend
             
             services.AddSingleton<ISeedService, NormalSeedService>();
             // services.AddSingleton<ISeedService, GenerateYamlSeedService>();
+            
+            //configure automapping
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>

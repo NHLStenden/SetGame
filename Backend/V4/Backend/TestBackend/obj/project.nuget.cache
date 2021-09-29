@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "vum38s5uiLFsSguYuth7fmRnmYxSk5VXgz/bb+3pc4k2ZNYizyGoatyE9GRqe8yVocdx97qLqgVfBziBgPc3FA==",
+  "dgSpecHash": "ZMlBifiwEmhHn4moyBz++hKQfbicHp3VZ69th2op81m9KLm/eZsRtutgyt0rFwUG6oZUkxudmUUHKzhfsA/ijA==",
   "success": true,
   "projectFilePath": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/TestBackend/TestBackend.csproj",
   "expectedPackageFiles": [
+    "/Users/e2498/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/8.1.1/automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "/Users/e2498/.nuget/packages/bouncycastle.netcore/1.8.5/bouncycastle.netcore.1.8.5.nupkg.sha512",
     "/Users/e2498/.nuget/packages/castle.core/4.4.0/castle.core.4.4.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/coverlet.collector/3.0.2/coverlet.collector.3.0.2.nupkg.sha512",
@@ -106,7 +108,7 @@
     "/Users/e2498/.nuget/packages/system.net.sockets/4.3.0/system.net.sockets.4.3.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/system.objectmodel/4.3.0/system.objectmodel.4.3.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/system.reflection/4.3.0/system.reflection.4.3.0.nupkg.sha512",
-    "/Users/e2498/.nuget/packages/system.reflection.emit/4.3.0/system.reflection.emit.4.3.0.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/system.reflection.emit/4.7.0/system.reflection.emit.4.7.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/system.reflection.emit.ilgeneration/4.3.0/system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/system.reflection.emit.lightweight/4.3.0/system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/system.reflection.extensions/4.3.0/system.reflection.extensions.4.3.0.nupkg.sha512",
