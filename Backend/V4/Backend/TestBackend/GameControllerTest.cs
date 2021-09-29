@@ -106,16 +106,16 @@ namespace TestBackend
         {
             int playerId = 1;
 
-            var game = await GetRequestAsync<Game>($"/Game/StartNewGame/{playerId}");
+            var game = await GetRequestAsync<GameViewModel>($"/Game/StartNewGame/{playerId}");
 
             game.Should().NotBeNull();
 
             game.Id.Should().Be(2);
-            game.Deck.Cards.Should().HaveCount(81);
-            game.Deck.Complexity = 1;
+            //game.Deck.Cards.Should().HaveCount(81);
+            game.Complexity = 1;
             game.CardsOnTable.Should().HaveCount(0);
             game.PlayerId.Should().Be(1);
-            game.Player.Name.Should().Be("Joris");
+            game.PlayerName.Should().Be("Joris");
         }
 
         [Fact]

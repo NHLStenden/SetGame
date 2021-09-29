@@ -8,6 +8,7 @@ namespace Backend.Services
     {
         public override string GetDataPath()
         {
+            //Todo: add more testdata to the yaml file!
             string path = Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName,
                 "TestData",
                 "GameControllerTestData.yaml");
