@@ -28,7 +28,8 @@ export class BoardControllerService {
     this.checkedForSelection$ = new EventEmitter<SetCheckResult>();
 
     this.http.getNewDeck().subscribe( (data: any) => {
-      this.idDeck = data.deckId;
+      console.log(`idDeck: ${data.id}`);
+      this.idDeck = data.id;
       this.addCardsToBoard(12);
     });
   }// constructor

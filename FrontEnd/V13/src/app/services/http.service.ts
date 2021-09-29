@@ -41,9 +41,14 @@ export class HttpService {
    *
    */
   getOneCardFromDeck(id: number): Observable<Card> {
-    return this.getRequest<Card>(`/Game/DrawCards/${id}?numberOfCards=1`)
+    return this.getRequest<Card[]>(`/Game/DrawCards/${id}?numberOfCards=1`)
       .pipe(
-        map(data => new Card(data.fill, data.color, data.shape, data.nrOfShapes))
+        map(data => {
+            let card = data[0];
+            return new Card(card.fill, card.color, card.shape, card.nrOfShapes)
+          }
+
+        )
       );
   }
 
