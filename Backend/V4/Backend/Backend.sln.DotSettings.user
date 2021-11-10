@@ -1,6 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/Highlighting/SweaWarningsMode/@EntryValue">ShowAndRun</s:String>
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/e2498/Library/Caches/JetBrains/Rider2020.3/resharper-host/temp/Rider/vAny/CoverageData/_Backend.-300035189/Snapshot/snapshot.utdcvr</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=37801565_002Dc74f_002D431a_002Dba2f_002D4faa6e886366/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CrudControllerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.CrudControllerTests&lt;/TestId&gt;

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity, new()
+    public class GenericRepository<T> : IGenericRepository<T> where T : class, new()
     {
         protected readonly SetContext Db;
 

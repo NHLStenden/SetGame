@@ -20,7 +20,6 @@ namespace Backend.Models
         Red, Green, Violet
     }
     
-
     public class Card : IEntity
     {
         [Key]

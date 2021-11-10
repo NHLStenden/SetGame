@@ -18,6 +18,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Backend
 {
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -39,7 +40,8 @@ namespace Backend
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
-
+            
+            
             //Services
             services.AddScoped<IDeckService, DeckService>();
             services.AddScoped<IGameService, GameService>();
@@ -69,8 +71,6 @@ namespace Backend
 
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Backend", Version = "v1"}); });
         }
-
-        readonly string CORSDevelopmentPolicy = "Cors Development Policy, don't use in production!";
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SetContext db, 

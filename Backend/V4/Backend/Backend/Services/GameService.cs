@@ -15,7 +15,7 @@ namespace Backend.Services
         private readonly IPlayerRepository _playerRepository;
         private readonly ISetService _setService;
 
-        public GameService(IDeckService deckService, 
+        public GameService( IDeckService deckService, 
                             IGameRepository gameRepository, 
                             IPlayerRepository playerRepository, 
                             ISetService setService)
@@ -114,11 +114,17 @@ namespace Backend.Services
         public async Task<bool> SubmitSet(int gameId, int[] cardIds)
         {
             var checkSet = await CheckSet(gameId, cardIds);
+            
+            //Todo: return NoContent
             if (!checkSet.CorrectSet) return false;
             
+            
             var game = await _gameRepository.GetByIdWithRelated(gameId);
+            //removes card from cardOnTable 
             game.CardsOnTable = game.CardsOnTable.Where(x => !cardIds.Contains(x.CardId)).ToList();
             var success = await _gameRepository.UpdateAsync(game);
+            
+            //Todo: return new cards instead of boolean 
             return success;
         }
 
