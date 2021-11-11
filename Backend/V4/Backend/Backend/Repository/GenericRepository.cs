@@ -45,7 +45,7 @@ namespace Backend.Repository
 
         public async Task<bool> UpdateAsync(T entity)
         {
-            DbSet.Attach(entity);
+            // DbSet.Attach(entity); //not sure if this is really needed
             DbSet.Update(entity);
             var numRowsEffected = await Db.SaveChangesAsync();
             return numRowsEffected > 0;
