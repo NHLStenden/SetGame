@@ -26,29 +26,28 @@ namespace Backend.Controllers
         }
         
         [HttpGet("{id}")]
-        public virtual async Task<PlayerViewDto> GetByIdAsync(int id)
+        public virtual async Task<PlayerDto> GetByIdAsync(int id)
         {
             var entity = await _playerRepository.GetByIdAsync(id);
             
-            var playerVm = _mapper.Map<PlayerViewDto>(entity);
+            var playerDto = _mapper.Map<PlayerDto>(entity);
             
-            return playerVm;
+            return playerDto;
         }
         
         [HttpGet]
-        public async Task<IEnumerable<PlayerViewDto>> GetAsync()
+        public async Task<IEnumerable<PlayerDto>> GetAsync()
         {
             var players = await _playerRepository.GetAllAsync();
 
-            var playerVms = _mapper.Map<IEnumerable<PlayerViewDto>>(players);
-            
-            return playerVms;
+            var playerDtos = _mapper.Map<IEnumerable<PlayerDto>>(players);
+            return playerDtos;
         }
         
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PlayerViewDto))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PlayerDto))]
         public async Task<IActionResult> CreateAsync(PlayerCreateDto playerCreateDto)
         {
             if (!ModelState.IsValid)
@@ -64,17 +63,17 @@ namespace Backend.Controllers
                 return BadRequest();
             }
 
-            var createPlayerVm = _mapper.Map<PlayerViewDto>(entity);
+            var createPlayerDto = _mapper.Map<PlayerDto>(entity);
 
-            return CreatedAtAction("Get", new { id = entity.Id }, createPlayerVm);
+            return CreatedAtAction("Get", new { id = entity.Id }, createPlayerDto);
         }
         
         [HttpPut("{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayerViewDto))]
-        public async Task<ActionResult<PlayerViewDto>> UpdateAsync(int id, PlayerUpdateDto playerCreateDto)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayerDto))]
+        public async Task<ActionResult<PlayerDto>> UpdateAsync(int id, PlayerUpdateDto playerCreateDto)
         {
             if (id != playerCreateDto.Id)
             {
@@ -88,9 +87,9 @@ namespace Backend.Controllers
             
             var success = await _playerRepository.UpdateAsync(player);
 
-            var playerViewModel = _mapper.Map<PlayerViewDto>(player);
+            var playerDto = _mapper.Map<PlayerDto>(player);
             
-            return success ? playerViewModel : NotFound();
+            return success ? playerDto : NotFound();
         }
         
         [HttpDelete]
@@ -113,10 +112,9 @@ namespace Backend.Controllers
                 return NotFound();
             
             var games = await _gameRepository.GetGamesForPlayer(playerId);
+            var gameDtos = _mapper.Map<GameDto>(games);
 
-            var gameViewModels = _mapper.Map<GameDto>(games);
-
-            return Ok(gameViewModels);
+            return Ok(gameDtos);
         }
 
         [HttpGet("{playerId:int}/Games/{gameId:int}")]
@@ -128,9 +126,9 @@ namespace Backend.Controllers
 
             var game = await _gameRepository.GetByIdAsync(gameId);
 
-            var gameViewModel = _mapper.Map<GameDto>(game);
+            var gameDto = _mapper.Map<GameDto>(game);
             
-            return Ok(gameViewModel);
+            return Ok(gameDto);
         }
     }
 }

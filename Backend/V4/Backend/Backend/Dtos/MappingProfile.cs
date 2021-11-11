@@ -7,7 +7,7 @@ namespace Backend.DTOs
     public class MappingProfile : Profile {
         public MappingProfile()
         {
-            CreateMap<Player, PlayerViewDto>();
+            CreateMap<Player, PlayerDto>();
             CreateMap<PlayerCreateDto, Player>();
             CreateMap<PlayerUpdateDto, Player>();
 

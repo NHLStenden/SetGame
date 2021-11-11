@@ -1,6 +1,6 @@
 namespace Backend.DTOs
 {
-    public class PlayerViewDto
+    public class PlayerDto
     {
         public int Id { get; set; }
         

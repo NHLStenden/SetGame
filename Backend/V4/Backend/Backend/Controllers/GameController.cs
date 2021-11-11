@@ -17,7 +17,6 @@ namespace Backend.Controllers
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
 
-
         public GameController(IGameRepository gameRepository, IGameService gameService, IMapper mapper)
         {
             _gameRepository = gameRepository;
@@ -29,8 +28,8 @@ namespace Backend.Controllers
         public async Task<GameDto> GetByIdAsync(int id)
         {
             var game = await _gameRepository.GetByIdWithRelated(id);
-            var gameViewModel = _mapper.Map<GameDto>(game);
-            return gameViewModel;
+            var gameDto = _mapper.Map<GameDto>(game);
+            return gameDto;
         }
 
         [HttpDelete("{id}")]
@@ -48,8 +47,8 @@ namespace Backend.Controllers
         {
             var game = await _gameService.StartNewGame(playerId);
 
-            var gameViewModel = _mapper.Map<GameDto>(game);
-            return gameViewModel;
+            var gameDto = _mapper.Map<GameDto>(game);
+            return gameDto;
         }
 
         [HttpGet("[action]/{gameId:int}")]
