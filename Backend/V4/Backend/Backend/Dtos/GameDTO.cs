@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Backend.Models;
 
-namespace Backend.ViewModels
+namespace Backend.DTOs
 {
-    public class GameViewModel
+    public class GameDto
     {
         public int Id { get; set; }
         

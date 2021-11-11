@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Backend.Models;
 
-namespace Backend.ViewModels
+namespace Backend.DTOs
 {
-    public class PlayerCreateViewModel 
+    public class PlayerCreateDto 
     {
         [Required, MinLength(2), MaxLength(50)]
         public string Name { get; set; }
@@ -13,10 +14,19 @@ namespace Backend.ViewModels
         
         [Required, EmailAddress, Compare(nameof(Email))]
         public string EmailValidate { get; set; }
-        
-        public PlayerCreateViewModel CloneWith(Action<PlayerCreateViewModel> changes)
+
+        public Player ToPlayer()
         {
-            var clone = MemberwiseClone() as PlayerCreateViewModel;
+            return new Player()
+            {
+                Name = Name,
+                Email = Email
+            };
+        }
+        
+        public PlayerCreateDto CloneWith(Action<PlayerCreateDto> changes)
+        {
+            var clone = MemberwiseClone() as PlayerCreateDto;
 
             changes(clone);
             

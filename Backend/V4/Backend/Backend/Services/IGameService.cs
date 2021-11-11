@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend.Models;
-using Backend.ViewModels;
 
 namespace Backend.Services
 {
