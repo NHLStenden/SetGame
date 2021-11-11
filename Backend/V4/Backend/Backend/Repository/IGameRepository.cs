@@ -9,5 +9,7 @@ namespace Backend.Repository
         Task<Game> GetByIdWithRelated(int gameId);
         Task<IList<Card>> GetCardsOnTable(int gameId);
         Task<IList<Card>> GetCardsOnTable(int gameId, int[] cardIds);
+
+        Task<IEnumerable<Game>> GetGamesForPlayer(int playerId);
     }
 }

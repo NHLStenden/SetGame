@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Backend.DTOs;
 using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
-using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -26,13 +26,13 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<GameViewModel> GetByIdAsync(int id)
+        public async Task<GameDto> GetByIdAsync(int id)
         {
             var game = await _gameRepository.GetByIdWithRelated(id);
-            var gameViewModel = _mapper.Map<GameViewModel>(game);
+            var gameViewModel = _mapper.Map<GameDto>(game);
             return gameViewModel;
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -44,11 +44,11 @@ namespace Backend.Controllers
         }
 
         [HttpGet("[action]/{playerId:int}")]
-        public async Task<GameViewModel> StartNewGame(int playerId)
+        public async Task<GameDto> StartNewGame(int playerId)
         {
             var game = await _gameService.StartNewGame(playerId);
 
-            var gameViewModel = _mapper.Map<GameViewModel>(game);
+            var gameViewModel = _mapper.Map<GameDto>(game);
             return gameViewModel;
         }
 

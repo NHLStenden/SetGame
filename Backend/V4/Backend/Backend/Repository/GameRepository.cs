@@ -43,5 +43,13 @@ namespace Backend.Repository
                 .Select(w => w.Card))
                 .ToListAsync();
         }
+        
+        public async Task<IEnumerable<Game>> GetGamesForPlayer(int playerId)
+        {
+            return await Db.Games
+                .Include(x => x.Player)
+                .Where(x => x.Player.Id == playerId)
+                .ToListAsync();
+        }
     }
 }

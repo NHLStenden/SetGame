@@ -1,8 +1,8 @@
 using AutoMapper;
+using Backend.DTOs;
 using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
-using Backend.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;

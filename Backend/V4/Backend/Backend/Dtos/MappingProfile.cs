@@ -1,18 +1,17 @@
 using System.Linq;
 using AutoMapper;
-using Backend.Controllers;
 using Backend.Models;
 
-namespace Backend.ViewModels
+namespace Backend.DTOs
 {
     public class MappingProfile : Profile {
         public MappingProfile()
         {
-            CreateMap<Player, PlayerViewModel>();
-            CreateMap<PlayerCreateViewModel, Player>();
-            CreateMap<PlayerUpdateViewModel, Player>();
+            CreateMap<Player, PlayerViewDto>();
+            CreateMap<PlayerCreateDto, Player>();
+            CreateMap<PlayerUpdateDto, Player>();
 
-            CreateMap<Game, GameViewModel>()
+            CreateMap<Game, GameDto>()
                 .ForMember(x => x.Complexity,
                     act =>
                         act.MapFrom(g => g.Deck.Complexity))
@@ -20,7 +19,9 @@ namespace Backend.ViewModels
                     act =>
                         act.MapFrom(g => g.Player.Name))
                 .ForMember(x => x.CardsOnTable, act => 
-                    act.MapFrom(g => g.CardsOnTable.OrderBy(w => w.Order).Select(w => w.Card)));
+                    act.MapFrom(g => 
+                        g.CardsOnTable.OrderBy(w => w.Order)
+                            .Select(w => w.Card)));
         }
     }
 }
