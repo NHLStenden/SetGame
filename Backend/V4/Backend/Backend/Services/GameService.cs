@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {

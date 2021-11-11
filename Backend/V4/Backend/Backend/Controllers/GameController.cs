@@ -6,7 +6,6 @@ using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
