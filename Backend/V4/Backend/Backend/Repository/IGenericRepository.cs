@@ -8,8 +8,8 @@ namespace Backend.Repository
     {
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
-        Task<bool> DeleteAsync(int id);
-        Task<bool> AddAsync(T t);
-        Task<bool> UpdateAsync(T t);
+        Task DeleteAsync(int id);
+        Task AddAsync(T t);
+        Task UpdateAsync(T t);
     }
 }

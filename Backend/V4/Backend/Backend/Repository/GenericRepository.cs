@@ -28,27 +28,21 @@ namespace Backend.Repository
             return entities;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var entityToDelete = await GetByIdAsync(id);
             DbSet.Remove(entityToDelete);
-            int numRowEffected = await Db.SaveChangesAsync();
-            return numRowEffected > 0;
         }
 
-        public async Task<bool> AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
             await DbSet.AddAsync(entity);
-            var numRowsEffected = await Db.SaveChangesAsync();
-            return numRowsEffected > 0;
         }
 
-        public async Task<bool> UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
             // DbSet.Attach(entity); //not sure if this is really needed
             DbSet.Update(entity);
-            var numRowsEffected = await Db.SaveChangesAsync();
-            return numRowsEffected > 0;
         }
     }
 }

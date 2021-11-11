@@ -7,6 +7,7 @@ using Backend.Models;
 using Backend.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -14,12 +15,14 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class PlayerController : ControllerBase
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IPlayerRepository _playerRepository;
         private readonly IGameRepository _gameRepository;
         private readonly IMapper _mapper;
 
-        public PlayerController(IPlayerRepository playerRepository, IGameRepository gameRepository, IMapper mapper)
+        public PlayerController(IUnitOfWork unitOfWork, IPlayerRepository playerRepository, IGameRepository gameRepository, IMapper mapper)
         {
+            _unitOfWork = unitOfWork;
             _playerRepository = playerRepository;
             _gameRepository = gameRepository;
             _mapper = mapper;
@@ -31,7 +34,6 @@ namespace Backend.Controllers
             var entity = await _playerRepository.GetByIdAsync(id);
             
             var playerDto = _mapper.Map<PlayerDto>(entity);
-            
             return playerDto;
         }
         
@@ -57,11 +59,8 @@ namespace Backend.Controllers
             
             var entity = _mapper.Map<Player>(playerCreateDto);
             
-            var success = await _playerRepository.AddAsync(entity);
-            if (!success)
-            {
-                return BadRequest();
-            }
+            await _playerRepository.AddAsync(entity);
+            await _unitOfWork.SaveChangesAsync();
 
             var createPlayerDto = _mapper.Map<PlayerDto>(entity);
 
@@ -85,23 +84,23 @@ namespace Backend.Controllers
 
             var player = _mapper.Map<Player>(playerCreateDto);
             
-            var success = await _playerRepository.UpdateAsync(player);
+            await _playerRepository.UpdateAsync(player);
+            await _unitOfWork.SaveChangesAsync();
 
             var playerDto = _mapper.Map<PlayerDto>(player);
-            
-            return success ? playerDto : NotFound();
+            return playerDto;
+
         }
         
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)] //Todo: implement
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var success = await _playerRepository.DeleteAsync(id);
+            await _playerRepository.DeleteAsync(id);
+            await _unitOfWork.SaveChangesAsync();
 
-            return success ? 
-                Ok() : 
-                NotFound();
+            return Ok();
         }
 
         [HttpGet("{playerId:int}/Games")]
@@ -112,6 +111,7 @@ namespace Backend.Controllers
                 return NotFound();
             
             var games = await _gameRepository.GetGamesForPlayer(playerId);
+            
             var gameDtos = _mapper.Map<GameDto>(games);
 
             return Ok(gameDtos);

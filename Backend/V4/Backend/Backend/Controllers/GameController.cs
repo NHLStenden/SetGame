@@ -6,6 +6,7 @@ using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -13,12 +14,14 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class GameController : ControllerBase
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IGameRepository _gameRepository;
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
 
-        public GameController(IGameRepository gameRepository, IGameService gameService, IMapper mapper)
+        public GameController(IUnitOfWork unitOfWork, IGameRepository gameRepository, IGameService gameService, IMapper mapper)
         {
+            _unitOfWork = unitOfWork;
             _gameRepository = gameRepository;
             _gameService = gameService;
             _mapper = mapper;
@@ -28,18 +31,20 @@ namespace Backend.Controllers
         public async Task<GameDto> GetByIdAsync(int id)
         {
             var game = await _gameRepository.GetByIdWithRelated(id);
+            
             var gameDto = _mapper.Map<GameDto>(game);
+            
             return gameDto;
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var success = await _gameRepository.DeleteAsync(id);
+            await _gameRepository.DeleteAsync(id);
 
-            return success ? 
-                Ok() : 
-                NotFound();
+            await _unitOfWork.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpGet("[action]/{playerId:int}")]
@@ -47,7 +52,10 @@ namespace Backend.Controllers
         {
             var game = await _gameService.StartNewGame(playerId);
 
+            await _unitOfWork.SaveChangesAsync();
+            
             var gameDto = _mapper.Map<GameDto>(game);
+
             return gameDto;
         }
 

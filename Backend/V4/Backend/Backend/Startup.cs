@@ -36,11 +36,13 @@ namespace Backend
             );
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            //Unit of Work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             //Repositories  
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
-            
             
             //Services
             services.AddScoped<IDeckService, DeckService>();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
+using Microsoft.EntityFrameworkCore;
 using MoreLinq;
 
 namespace Backend.Services
@@ -11,12 +12,14 @@ namespace Backend.Services
     public class DeckService : IDeckService
     {
         private int NUMBER_OF_CARDS = 81;
-        
+
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ICardRepository _cardRepository;
         private readonly ISetService _setService;
 
-        public DeckService(ICardRepository cardRepository, ISetService setService)
+        public DeckService(IUnitOfWork unitOfWork, ICardRepository cardRepository, ISetService setService)
         {
+            _unitOfWork = unitOfWork;
             _cardRepository = cardRepository;
             _setService = setService;
         }
@@ -47,6 +50,7 @@ namespace Backend.Services
                 }
             }
 
+            await _unitOfWork.SaveChangesAsync();
             return cards;
         }
         
@@ -89,7 +93,7 @@ namespace Backend.Services
             }
 
             deck.Complexity = _setService.CalculateComplexity(cardsToCalculateComplexity);
-            
+            await _unitOfWork.SaveChangesAsync();
             return deck;
         }
     }

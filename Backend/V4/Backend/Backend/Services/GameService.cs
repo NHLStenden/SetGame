@@ -4,21 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {
     public class GameService : IGameService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IDeckService _deckService;
         private readonly IGameRepository _gameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ISetService _setService;
 
-        public GameService( IDeckService deckService, 
+        public GameService( IUnitOfWork unitOfWork,
+                            IDeckService deckService, 
                             IGameRepository gameRepository, 
                             IPlayerRepository playerRepository, 
                             ISetService setService)
         {
+            _unitOfWork = unitOfWork;
             _deckService = deckService;
             _gameRepository = gameRepository;
             _playerRepository = playerRepository;
@@ -33,23 +38,16 @@ namespace Backend.Services
                 throw new ArgumentException("Player doesn't exists");
             }
 
-            var game = new Game()
+            var game = new Game
             {
                 Deck = await _deckService.CreateDeck(),
-                PlayerId = playerId
+                PlayerId = playerId,
+                CardsOnTable = new List<CardOnTable>()
             };
 
-            game.CardsOnTable = new List<CardOnTable>();
-
-            var success = await _gameRepository.AddAsync(game);
-            if (success)
-            {
-                return game;
-            }
-            else
-            {
-                throw new Exception();
-            }
+            await _gameRepository.AddAsync(game);
+            await _unitOfWork.SaveChangesAsync();
+            return game;
         }
 
         public async Task<IList<Card>> DrawCardsFromDeck(int gameId, int numberOfCards)
@@ -82,15 +80,11 @@ namespace Backend.Services
             
             game.Deck.Complexity = _setService.CalculateComplexity(game.CardsOnTable.Select(x => x.Card));
 
-            var success = await _gameRepository.UpdateAsync(game);
-            if (!success)
-                throw new ArgumentException();
-
-            var result = deckCards.Select(x => x.Card).ToList();
-            
-
-            
-            return result;
+           await _gameRepository.UpdateAsync(game);
+           await _unitOfWork.SaveChangesAsync();
+           
+           var result = deckCards.Select(x => x.Card).ToList();
+           return result;
         }
 
 
@@ -121,10 +115,10 @@ namespace Backend.Services
             var game = await _gameRepository.GetByIdWithRelated(gameId);
             //removes card from cardOnTable 
             game.CardsOnTable = game.CardsOnTable.Where(x => !cardIds.Contains(x.CardId)).ToList();
-            var success = await _gameRepository.UpdateAsync(game);
-            
+            await _gameRepository.UpdateAsync(game);
+            await _unitOfWork.SaveChangesAsync();
             //Todo: return new cards instead of boolean 
-            return success;
+            return true;
         }
 
         public async Task<int> CalculateComplexityForCardsOnTable(int gameId)
@@ -156,12 +150,5 @@ namespace Backend.Services
 
             return setResult;
         }
-
-        // private static bool CheckIfCardsArePlayed(int[] cardIds, Game game)
-        // {
-        //     var possibleCardsOnBoard = game.Deck.Cards.ToList().GetRange(0, game.CardIndex);
-        //     bool validIds = cardIds.All(cardId => possibleCardsOnBoard.Any(x => x.Id == cardId));
-        //     return validIds;
-        // }
     }
 }

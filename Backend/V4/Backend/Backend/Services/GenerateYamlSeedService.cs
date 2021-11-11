@@ -18,7 +18,8 @@ namespace Backend.Services
             {
                 Name = "Joris"
             };
-            var _ = playerRepository.AddAsync(player).Result;
+            
+            playerRepository.AddAsync(player);
             
             var result = gameService.StartNewGame(player.Id).Result;
             
@@ -34,6 +35,8 @@ namespace Backend.Services
                 "GameControllerTestData.yaml");
             
             File.WriteAllText(pathGameControllerTestData, gameYaml);
+
+            db.SaveChangesAsync();
         }
     }
 }
