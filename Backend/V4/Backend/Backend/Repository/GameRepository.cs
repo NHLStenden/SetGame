@@ -14,7 +14,7 @@ namespace Backend.Repository
 
         public async Task<Game> GetByIdWithRelated(int gameId)
         {
-            var entity = await Db.Games
+            var entity = await DbSet
                 .Where(x => x.Id == gameId)
                 .Include(x => x.Deck)
                     .ThenInclude(x => x.Cards.OrderBy(w => w.Order))
@@ -27,16 +27,15 @@ namespace Backend.Repository
 
         public async Task<IList<Card>> GetCardsOnTable(int gameId)
         {
-            return await 
-                Db.Games
-                    .Where(x => x.Id == gameId)
-                    .SelectMany(x => x.CardsOnTable.OrderBy(w => w.Order))
-                    .Select(x => x.Card).ToListAsync();
+            return await DbSet
+                .Where(x => x.Id == gameId)
+                .SelectMany(x => x.CardsOnTable.OrderBy(w => w.Order))
+                .Select(x => x.Card).ToListAsync();
         }
 
         public async Task<IList<Card>> GetCardsOnTable(int gameId, int[] cardIds)
         {
-            return await Db.Games
+            return await DbSet
                 .Where(x => x.Id == gameId)
                 .SelectMany(x => x.CardsOnTable.Where(w => cardIds.Contains(w.CardId))
                 .OrderBy(o => o.Order)
@@ -46,7 +45,7 @@ namespace Backend.Repository
         
         public async Task<IEnumerable<Game>> GetGamesForPlayer(int playerId)
         {
-            return await Db.Games
+            return await DbSet
                 .Include(x => x.Player)
                 .Where(x => x.Player.Id == playerId)
                 .ToListAsync();
