@@ -1,9 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Controllers
+namespace Backend.ViewModels
 {
-    public class PlayerCreateModel 
+    public class PlayerCreateViewModel 
     {
         [Required, MinLength(2), MaxLength(50)]
         public string Name { get; set; }
@@ -14,9 +14,9 @@ namespace Backend.Controllers
         [Required, EmailAddress, Compare(nameof(Email))]
         public string EmailValidate { get; set; }
         
-        public PlayerCreateModel CloneWith(Action<PlayerCreateModel> changes)
+        public PlayerCreateViewModel CloneWith(Action<PlayerCreateViewModel> changes)
         {
-            var clone = MemberwiseClone() as PlayerCreateModel;
+            var clone = MemberwiseClone() as PlayerCreateViewModel;
 
             changes(clone);
             

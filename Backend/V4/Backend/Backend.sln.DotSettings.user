@@ -1,20 +1,8 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/Highlighting/SweaWarningsMode/@EntryValue">ShowAndRun</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=37801565_002Dc74f_002D431a_002Dba2f_002D4faa6e886366/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CrudControllerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.CrudControllerTests&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.SubmitSet_CorrectSet_CorrectSetResult&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.SubmitSet_IncorrectSet_SuccessIsFalseAndCardsOnTableIsUnchanged&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.SubmitSet_CorrectSet_SuccessIsTrueAndRemoveSetFromCardsOnTable&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.FindAllSets_CorrectGameId_OneSetFound&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.CreateAndDeleteGame_CorrectGameId_CreatedAndDeleteGameWithDependecies&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.StartNewGame_ValidPlayerId_GameObject&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerUnitTest.CheckSet_InvalidNumberOfCards_ArgumentException&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.SetServiceTests.CheckSet_IncorrectNumberOfCards_ThrowsArgumentException&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.SetServiceTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=37801565_002Dc74f_002D431a_002Dba2f_002D4faa6e886366/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CrudControllerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/e2498/Dev/SetGame/Backend/V4/Backend/TestBackend" Presentation="&amp;lt;TestBackend&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=679e7410_002D6317_002D4ce8_002Dbb1d_002Dfd4b2d4acd24/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GameControllerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
@@ -33,7 +21,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d569c82d_002Dc18b_002D4b2e_002Dad13_002D7e705553e38c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetCardsFrom_Deck_ThreeCards" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/Users/e2498/Dev/SetGame/Backend/V3/Backend/TestBackend" Presentation="&amp;lt;TestBackend&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fcea642a_002D67cd_002D4cb2_002Dbc86_002D2feb8cf87f8e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fcea642a_002D67cd_002D4cb2_002Dbc86_002D2feb8cf87f8e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.CrudControllerTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.SubmitSet_CorrectSet_CorrectSetResult&lt;/TestId&gt;

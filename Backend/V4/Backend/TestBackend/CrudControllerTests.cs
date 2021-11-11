@@ -40,7 +40,7 @@ namespace TestBackend
         public async Task Create_Player_CreatePlayer()
         {
             string name = "New Player";
-            var player = await PostRequestAsync<Player>($"/Player", new PlayerCreateModel()
+            var player = await PostRequestAsync<Player>($"/Player", new PlayerCreateViewModel()
             {
                 Name = name, Email = "test@test.com", EmailValidate = "test@test.com"
             });
@@ -51,9 +51,9 @@ namespace TestBackend
 
         [Theory]
         [MemberData(nameof(GetInvalidInputAndProblemDetails))]
-        public async Task CreatePlayer_InvalidInput_BadRequest(PlayerCreateModel playerCreateModel, KeyValuePair<string, string> validator)
+        public async Task CreatePlayer_InvalidInput_BadRequest(PlayerCreateViewModel playerCreateViewModel, KeyValuePair<string, string> validator)
         {
-            var response = await Client.PostAsJsonAsync("/Player", playerCreateModel);
+            var response = await Client.PostAsJsonAsync("/Player", playerCreateViewModel);
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -96,9 +96,9 @@ namespace TestBackend
             return testData;
         }
 
-        private static PlayerCreateModel GetValidPlayerInputModel()
+        private static PlayerCreateViewModel GetValidPlayerInputModel()
         {
-            return new PlayerCreateModel()
+            return new PlayerCreateViewModel()
             {
                 Name = "Joris",
                 Email = "joris@joris.nl",
@@ -111,7 +111,7 @@ namespace TestBackend
         {
             string name = "Updated Player Name";
             int playerId = 1;
-            var player = await PutRequestAsync<Player>($"/Player/{playerId}", new PlayerUpdateModel()
+            var player = await PutRequestAsync<Player>($"/Player/{playerId}", new PlayerUpdateViewModel()
             {
                 Id = playerId,
                 Name = name,

@@ -9,8 +9,8 @@ namespace Backend.ViewModels
         public MappingProfile()
         {
             CreateMap<Player, PlayerViewModel>();
-            CreateMap<PlayerCreateModel, Player>();
-            CreateMap<PlayerUpdateModel, Player>();
+            CreateMap<PlayerCreateViewModel, Player>();
+            CreateMap<PlayerUpdateViewModel, Player>();
 
             CreateMap<Game, GameViewModel>()
                 .ForMember(x => x.Complexity,

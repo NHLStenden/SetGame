@@ -47,14 +47,14 @@ namespace Backend.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PlayerViewModel))]
-        public async Task<IActionResult> CreateAsync(PlayerCreateModel playerCreateModel)
+        public async Task<IActionResult> CreateAsync(PlayerCreateViewModel playerCreateViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             
-            var entity = _mapper.Map<Player>(playerCreateModel);
+            var entity = _mapper.Map<Player>(playerCreateViewModel);
             
             var success = await _repository.AddAsync(entity);
             if (!success)
@@ -72,9 +72,9 @@ namespace Backend.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayerViewModel))]
-        public async Task<ActionResult<PlayerViewModel>> UpdateAsync(int id, PlayerUpdateModel playerCreateModel)
+        public async Task<ActionResult<PlayerViewModel>> UpdateAsync(int id, PlayerUpdateViewModel playerCreateViewModel)
         {
-            if (id != playerCreateModel.Id)
+            if (id != playerCreateViewModel.Id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace Backend.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var player = _mapper.Map<Player>(playerCreateModel);
+            var player = _mapper.Map<Player>(playerCreateViewModel);
             
             var success = await _repository.UpdateAsync(player);
 

@@ -3,7 +3,7 @@ using Backend.Controllers;
 
 namespace Backend.ViewModels
 {
-    public class PlayerUpdateModel : PlayerCreateModel
+    public class PlayerUpdateViewModel : PlayerCreateViewModel
     {
         [Required]
         public int Id { get; set; }
