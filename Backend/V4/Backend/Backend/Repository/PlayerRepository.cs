@@ -1,7 +1,4 @@
-using System.Linq;
-using System.Threading.Tasks;
 using Backend.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repository
 {
@@ -10,7 +7,5 @@ namespace Backend.Repository
         public PlayerRepository(SetContext db) : base(db)
         {
         }
-
-
     }
 }

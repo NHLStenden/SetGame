@@ -1,9 +1,4 @@
-using System;
 using System.Threading.Tasks;
-using Backend.Repository;
-using Backend.Services;
-using FluentAssertions;
-using Moq;
 using Xunit;
 
 namespace TestBackend
