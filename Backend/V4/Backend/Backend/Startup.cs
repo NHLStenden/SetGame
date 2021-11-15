@@ -36,6 +36,9 @@ namespace Backend
             );
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.AddAuthentication();
+            services.ConfigureIdentity(); //See ServiceExtensions.cs
+            
             //Unit of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             

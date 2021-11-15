@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Models
 {
-    public class SetContext : DbContext
+    public class SetContext : IdentityDbContext<ApiUser>
     {
         public SetContext(DbContextOptions options) : base(options)
         {
