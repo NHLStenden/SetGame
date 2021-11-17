@@ -46,7 +46,7 @@ namespace Backend.Controllers
             return Ok();
         }
 
-        [HttpGet("[action]/{playerId:int}")]
+        [HttpPost("[action]/{playerId:int}")]
         public async Task<GameDto> StartNewGame(int playerId)
         {
             var game = await _gameService.StartNewGame(playerId);
@@ -58,7 +58,7 @@ namespace Backend.Controllers
             return gameDto;
         }
 
-        [HttpGet("[action]/{gameId:int}")]
+        [HttpPost("[action]/{gameId:int}")]
         public Task<IList<Card>> DrawCards(int gameId, int numberOfCards)
         {
             return _gameService.DrawCardsFromDeck(gameId, numberOfCards);
@@ -76,7 +76,7 @@ namespace Backend.Controllers
             return _gameService.CheckSet(gameId, cardIds);
         }
 
-        [HttpGet("[action]/{gameId:int}")]
+        [HttpPost("[action]/{gameId:int}")]
         public async Task<bool> SubmitSet(int gameId, [FromQuery] int[] cardIds)
         {
             return await _gameService.SubmitSet(gameId, cardIds);
