@@ -1,8 +1,14 @@
 
+using System;
 using System.Text;
+using System.Text.Json;
 using Backend.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -48,7 +54,39 @@ namespace Backend
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
                 };
             });
+        }
 
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app)
+        {
+            app.UseExceptionHandler(builder => builder.Run(async context => {
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                context.Response.ContentType = "application/json";
+                var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                if (contextFeature != null)
+                {
+                    //Todo: in a real application write error to some logfile (or other useful resource)
+                    Console.WriteLine($"ContextFeature: {contextFeature.Error}");   
+                        
+                    var error = new Error
+                    {
+                        StatusCode = context.Response.StatusCode,
+                        Message = "Internal Server Error"
+                    };
+
+                    var jsonError = JsonSerializer.Serialize(error);
+                    await context.Response.WriteAsync(jsonError); 
+                }
+            }));
+        }
+
+        public static void ConfigureVersioning(this IServiceCollection services)
+        {
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(0, 1);
+            });
         }
     }
 }

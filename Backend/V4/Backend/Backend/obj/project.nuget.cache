@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9yQ/lEDN46gYJic9rqhHVQsCmjCXJ1HA/Dk/OAUL6qIaG7bDYj7rqYiSnr3ksiLBSmH1ZIxV6wxO2333ahlhUg==",
+  "dgSpecHash": "Kbf7MOh6pZxMP/o3dCYTypMAUX9V9g1wM/pxEcVu7oKgC39Bw5/mGx0d+hgcf0A4QsOAxtcHDstsY4zO/H2UOA==",
   "success": true,
   "projectFilePath": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/Backend/Backend.csproj",
   "expectedPackageFiles": [
@@ -18,6 +18,7 @@
     "/Users/e2498/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/5.0.12/microsoft.aspnetcore.identity.entityframeworkcore.5.0.12.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.aspnetcore.jsonpatch/5.0.12/microsoft.aspnetcore.jsonpatch.5.0.12.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/5.0.12/microsoft.aspnetcore.mvc.newtonsoftjson.5.0.12.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/microsoft.aspnetcore.mvc.versioning/5.0.0/microsoft.aspnetcore.mvc.versioning.5.0.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.entityframeworkcore/5.0.12/microsoft.entityframeworkcore.5.0.12.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.entityframeworkcore.abstractions/5.0.12/microsoft.entityframeworkcore.abstractions.5.0.12.nupkg.sha512",

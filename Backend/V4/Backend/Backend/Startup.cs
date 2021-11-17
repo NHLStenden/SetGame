@@ -69,6 +69,8 @@ namespace Backend
             services.AddScoped<IAuthManager, AuthManager>();
 
             services.AddCors();
+
+            services.ConfigureVersioning(); //See ServiceExtensions.cs
             
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
@@ -97,25 +99,7 @@ namespace Backend
             }
             else
             {
-                app.UseExceptionHandler(builder => builder.Run(async context => {
-                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                    context.Response.ContentType = "application/json";
-                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                    if (contextFeature != null)
-                    {
-                        //Todo: in a real application write error to some logfile (or other useful resource)
-                        Console.WriteLine($"ContextFeature: {contextFeature.Error}");   
-                        
-                        var error = new Error
-                        {
-                            StatusCode = context.Response.StatusCode,
-                            Message = "Internal Server Error"
-                        };
-
-                        var jsonError = JsonSerializer.Serialize(error);
-                        await context.Response.WriteAsync(jsonError); 
-                    }
-                }));
+                app.ConfigureExceptionHandler(); //See ServiceExtension.cs 
             }
 
             app.UseRouting();

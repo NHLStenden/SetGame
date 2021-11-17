@@ -63,6 +63,10 @@
               "target": "Package",
               "version": "[5.0.12, )"
             },
+            "Microsoft.AspNetCore.Mvc.Versioning": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.12, )"
