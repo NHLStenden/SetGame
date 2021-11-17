@@ -113,7 +113,22 @@ namespace Backend.Controllers
             
             var games = await _gameRepository.GetGamesForPlayer(playerId);
             
-            var gameDtos = _mapper.Map<GameDto>(games);
+            var gameDtos = _mapper.Map<IEnumerable<GameDto>>(games);
+
+            return Ok(gameDtos);
+        }
+        
+        [ResponseCache(Duration = 20)]
+        [HttpGet("{playerId:int}/GetGamesCache")]
+        public async Task<ActionResult<IEnumerable<GameDto>>> GetGamesCache(int playerId)
+        {
+            var player = _playerRepository.GetByIdAsync(playerId);
+            if (player == null)
+                return NotFound();
+            
+            var games = await _gameRepository.GetGamesForPlayer(playerId);
+            
+            var gameDtos = _mapper.Map<IEnumerable<GameDto>>(games);
 
             return Ok(gameDtos);
         }
