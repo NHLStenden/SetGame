@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Backend.DTOs;
 using Backend.Models;
@@ -96,13 +97,15 @@ namespace Backend
             }
             else
             {
-                app.UseExceptionHandler(builder => builder.Run(async context =>
-                {
+                app.UseExceptionHandler(builder => builder.Run(async context => {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                     context.Response.ContentType = "application/json";
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
+                        //Todo: in a real application write error to some logfile (or other useful resource)
+                        Console.WriteLine($"ContextFeature: {contextFeature.Error}");   
+                        
                         var error = new Error
                         {
                             StatusCode = context.Response.StatusCode,
@@ -110,7 +113,7 @@ namespace Backend
                         };
 
                         var jsonError = JsonSerializer.Serialize(error);
-                        await context.Response.WriteAsync(jsonError);
+                        await context.Response.WriteAsync(jsonError); 
                     }
                 }));
             }
