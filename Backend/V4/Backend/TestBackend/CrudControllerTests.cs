@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Backend;
-using Backend.Controllers;
 using Backend.DTOs;
 using Backend.Models;
 using FluentAssertions;

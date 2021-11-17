@@ -11,6 +11,11 @@ namespace Backend.DTOs
             CreateMap<PlayerCreateDto, Player>();
             CreateMap<PlayerUpdateDto, Player>();
 
+            CreateMap<PlayerCreateDto, ApiUser>()
+                .ForMember(x => x.UserName, act =>
+                    act.MapFrom(x => x.Email)
+                );
+
             CreateMap<Game, GameDto>()
                 .ForMember(x => x.Complexity,
                     act =>

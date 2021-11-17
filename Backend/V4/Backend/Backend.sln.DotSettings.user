@@ -22,14 +22,5 @@
   &lt;Project Location="/Users/e2498/Dev/SetGame/Backend/V3/Backend/TestBackend" Presentation="&amp;lt;TestBackend&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fcea642a_002D67cd_002D4cb2_002Dbc86_002D2feb8cf87f8e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.CrudControllerTests&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.SubmitSet_CorrectSet_CorrectSetResult&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.SubmitSet_IncorrectSet_SuccessIsFalseAndCardsOnTableIsUnchanged&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.SubmitSet_CorrectSet_SuccessIsTrueAndRemoveSetFromCardsOnTable&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.FindAllSets_CorrectGameId_OneSetFound&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.CreateAndDeleteGame_CorrectGameId_CreatedAndDeleteGameWithDependecies&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests.StartNewGame_ValidPlayerId_GameObject&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2BCD916F-F796-46E0-B396-7D91B511CF71::net5.0::TestBackend.GameControllerTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+  &lt;Project Location="/Users/e2498/Dev/SetGame/Backend/V4/Backend/TestBackend" Presentation="&amp;lt;TestBackend&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
