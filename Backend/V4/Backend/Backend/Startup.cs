@@ -38,6 +38,7 @@ namespace Backend
 
             services.AddAuthentication();
             services.ConfigureIdentity(); //See ServiceExtensions.cs
+            services.ConfigureJwt(Configuration); //See ServiceExtensions.cs
             
             //Unit of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -64,6 +65,7 @@ namespace Backend
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+            services.AddScoped<IAuthManager, AuthManager>();
 
             services.AddCors();
             
@@ -123,6 +125,7 @@ namespace Backend
             
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

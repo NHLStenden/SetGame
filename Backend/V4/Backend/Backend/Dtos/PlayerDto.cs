@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Backend.DTOs
 {
     public class PlayerDto
@@ -7,5 +9,7 @@ namespace Backend.DTOs
         public string Name { get; set; }
         
         public string Email { get; set;  }
+        
+
     }
 }

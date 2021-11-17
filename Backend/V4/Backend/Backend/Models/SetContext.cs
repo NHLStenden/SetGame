@@ -1,3 +1,5 @@
+using Backend.Configurations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,16 +16,48 @@ namespace Backend.Models
         public DbSet<Game> Games { get; set; }
         public DbSet<Deck> Deck { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            modelBuilder.Entity<CardDeck>()
+            //seed database with roll data
+            builder.ApplyConfiguration(new RollConfiguration());
+            
+            builder.Entity<CardDeck>()
                 .HasKey(cardDeck => new {cardDeck.DeckId, cardDeck.CardId});
-
-
-            modelBuilder.Entity<CardOnTable>()
+            
+            builder.Entity<CardOnTable>()
                 .HasKey(cardOnTable => new {cardOnTable.GameId, cardOnTable.CardId});
+            
+            //to prevent a bug in mysql: https://stackoverflow.com/questions/48678495/net-core-2-0-with-mysql-specified-key-was-too-long-max-key-length-is-3072-byt
+                int maxKeySize = 255;
+                
+                builder.Entity<IdentityUserLogin<string>>()
+                    .Property(u => u.LoginProvider)
+                    .HasMaxLength(maxKeySize);
+                builder.Entity<IdentityUserLogin<string>>()
+                    .Property(u => u.ProviderKey)
+                    .HasMaxLength(maxKeySize);
+
+                builder.Entity<IdentityUserRole<string>>()
+                    .Property(ur => ur.UserId)
+                    .HasMaxLength(maxKeySize);
+
+                builder.Entity<IdentityUserRole<string>>()
+                    .Property(ur => ur.RoleId)
+                    .HasMaxLength(maxKeySize);
+
+                builder.Entity<IdentityUserToken<string>>()
+                    .Property(ut => ut.LoginProvider)
+                    .HasMaxLength(maxKeySize);
+                
+                builder.Entity<IdentityUserToken<string>>()
+                    .Property(ut => ut.UserId)
+                    .HasMaxLength(maxKeySize);
+                
+                builder.Entity<IdentityUserToken<string>>()
+                    .Property(ut => ut.Name)
+                    .HasMaxLength(maxKeySize);
         }
     }
 }

@@ -5,6 +5,7 @@ using AutoMapper;
 using Backend.DTOs;
 using Backend.Models;
 using Backend.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -91,6 +92,7 @@ namespace Backend.Controllers
 
         }
         
+        [Authorize]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)] //Todo: implement

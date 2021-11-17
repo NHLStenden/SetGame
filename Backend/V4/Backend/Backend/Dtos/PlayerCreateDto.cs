@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Backend.Models;
 
@@ -15,14 +16,13 @@ namespace Backend.DTOs
         [Required, EmailAddress, Compare(nameof(Email))]
         public string EmailValidate { get; set; }
 
-        public Player ToPlayer()
-        {
-            return new Player()
-            {
-                Name = Name,
-                Email = Email
-            };
-        }
+        [Required, MinLength(8), MaxLength(25)]
+        public string Password { get; set; }
+        
+        [Required, MinLength(8), MaxLength(25), Compare(nameof(Password))]
+        public string PasswordValidate { get; set; }
+        
+        public ICollection<string> Roles { get; set; }
         
         public PlayerCreateDto CloneWith(Action<PlayerCreateDto> changes)
         {
