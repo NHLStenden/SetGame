@@ -10,6 +10,7 @@ using Backend.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
@@ -23,6 +24,10 @@ namespace TestBackend
         public IntegrationTest()
         {
             Server = new TestServer(new WebHostBuilder()
+                .ConfigureAppConfiguration((context, builder) =>
+                {
+                    builder.AddJsonFile("appsettings.json");
+                })
                 .ConfigureTestServices(services =>
                 {
                     
@@ -65,7 +70,7 @@ namespace TestBackend
             return objects;
         }
         
-        protected async Task<T> PostRequestAsync<T>(string apiPath, Object objectToSendWithRequest, bool ensureStatusCodes = true, dynamic parameters = null)
+        protected async Task<T> PostRequestAsync<T>(string apiPath, Object objectToSendWithRequest = null, bool ensureStatusCodes = true, dynamic parameters = null)
         {
             var jsonString = JsonConvert.SerializeObject(objectToSendWithRequest);
             

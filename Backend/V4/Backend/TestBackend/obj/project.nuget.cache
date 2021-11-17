@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "e5tC/FfHriQqHGnruHftMogJCnuQQAwTZKzseXqxmSLuhv9aBgXByD7C2Zm5FgY3FGKQfb3USN7QalrXgHAR8w==",
+  "dgSpecHash": "I2VVc5+ZUtHtOgvHlZntdN8R6VG3YudRfERTw8U6VMwgp0f8oEKwpGYINByTZAvJhbIefXKVTXJ0M/eluauWoQ==",
   "success": true,
   "projectFilePath": "/Users/e2498/Dev/SetGame/Backend/V4/Backend/TestBackend/TestBackend.csproj",
   "expectedPackageFiles": [
@@ -21,6 +21,7 @@
     "/Users/e2498/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/5.0.12/microsoft.aspnetcore.identity.entityframeworkcore.5.0.12.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.aspnetcore.jsonpatch/5.0.12/microsoft.aspnetcore.jsonpatch.5.0.12.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/5.0.12/microsoft.aspnetcore.mvc.newtonsoftjson.5.0.12.nupkg.sha512",
+    "/Users/e2498/.nuget/packages/microsoft.aspnetcore.mvc.versioning/5.0.0/microsoft.aspnetcore.mvc.versioning.5.0.0.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.aspnetcore.testhost/5.0.10/microsoft.aspnetcore.testhost.5.0.10.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.codecoverage/16.9.4/microsoft.codecoverage.16.9.4.nupkg.sha512",
     "/Users/e2498/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",

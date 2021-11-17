@@ -14,23 +14,23 @@ namespace TestBackend
     public class GameControllerTests : IntegrationTest
     {
         [Fact]
-        public async Task GetCardFrom_Deck_InvalidNumberOfCards()
+        public async Task DrawCardFrom_Deck_InvalidNumberOfCards()
         {
             int gameId = 1;
-            var error = await GetRequestAsync<Error>($"/Game/DrawCards/{gameId}",
-                new {numberOfCards = -1});
+            var error = await PostRequestAsync<Error>($"/Game/DrawCards/{gameId}",
+                parameters: new {numberOfCards = -1}, ensureStatusCodes: false);
 
             error.StatusCode.Should().Be(500);
             error.Message.Should().Be("Internal Server Error");
         }
         
         [Fact]
-        public async Task GetCardsFrom_Deck_ThreeCards()
+        public async Task DrawCardsFrom_Deck_ThreeCards()
         {
             int gameId = 1;
             int numberOfCards = 3;
-            var cards = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
-                new {numberOfCards});
+            var cards = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards});
 
             cards.Should().HaveCount(numberOfCards);
             cards.Should().OnlyHaveUniqueItems();
@@ -45,7 +45,8 @@ namespace TestBackend
         public async Task DrawCards_InvalidDeckId_Exception()
         {
             int gameId = -1;
-            var error = await GetRequestAsync<Error>($"/Game/DrawCards/{gameId}", new {numberOfCards = 41});
+            var error = await PostRequestAsync<Error>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards = 41}, ensureStatusCodes: false);
             
             error.StatusCode.Should().Be(500);
             error.Message.Should().Be("Internal Server Error");
@@ -55,11 +56,13 @@ namespace TestBackend
         public async Task DrawCards_DrawCardsUntilDeckIsEmpty_EmptyList()
         {
             int gameId = 1;
-            var cards = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", new {numberOfCards = 41});
+            var cards = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards = 41});
             cards.Should().HaveCount(41);
             cards.Should().OnlyHaveUniqueItems();
 
-            var nextHand = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", new {numberOfCards = 38});
+            var nextHand = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards = 38});
             nextHand.Should().HaveCount(38);
             nextHand.Should().OnlyHaveUniqueItems();
             
@@ -67,14 +70,16 @@ namespace TestBackend
             allCards.Should().HaveCount(41+38);
             allCards.Should().OnlyHaveUniqueItems();
 
-            nextHand = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", new {numberOfCards = 3});
+            nextHand = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards = 3});
             nextHand.Should().HaveCount(2);
 
             allCards = allCards.Concat(nextHand).ToList();
             allCards.Should().HaveCount(81);
             allCards.Should().OnlyHaveUniqueItems();
             
-            nextHand = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", new {numberOfCards = 3});
+            nextHand = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards = 3});
             nextHand.Should().HaveCount(0);
         }
 
@@ -92,7 +97,8 @@ namespace TestBackend
         {
             int gameId = 1;
             
-            var cards = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", new {numberOfCards = 3});
+            var cards = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards = 3});
             var cardsOnTable = await GetRequestAsync<Card[]>($"/Game/GetCardsOnTable/{gameId}");
 
             cards.Should().HaveCount(3);
@@ -106,7 +112,7 @@ namespace TestBackend
         {
             int playerId = 1;
 
-            var game = await GetRequestAsync<GameDto>($"/Game/StartNewGame/{playerId}");
+            var game = await PostRequestAsync<GameDto>($"/Game/StartNewGame/{playerId}");
 
             game.Should().NotBeNull();
 
@@ -142,8 +148,8 @@ namespace TestBackend
             complexity.Should().Be(-1);
             
             int numberOfCards = 12;
-            var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
-                new {numberOfCards});
+            var _ = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards});
             
             game = await GetRequestAsync<GameDto>($"/Game/{gameId}");
             game.Complexity.Should().Be(1);
@@ -164,8 +170,8 @@ namespace TestBackend
             complexity.Should().Be(-1);
             
             int numberOfCards = 12;
-            var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
-                new {numberOfCards});
+            var _ = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards});
             
             game = await GetRequestAsync<GameDto>($"/Game/{gameId}");
             game.Complexity.Should().Be(1);
@@ -196,13 +202,12 @@ namespace TestBackend
         {
             int gameId = 1;
             int numberOfCards = 12;
-            var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
-                new {numberOfCards});
+            var _ = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards}
+            );
             var setResult = await GetRequestAsync<SetResult>($"/Game/CheckSet/{gameId}", 
-                new
-            {
-                cardIds = new List<int>() {48, 51, 56}
-            });
+                new {  cardIds = new List<int>() {48, 51, 56} }
+            );
             
             var expected = new SetResult
             {
@@ -229,14 +234,15 @@ namespace TestBackend
         {
             int gameId = 1;
             int numberOfCards = 12;
-            var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
-                new {numberOfCards});
+            var _ = await PostRequestAsync<Card[]>(
+                $"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards}
+            );
             var cardIds = new List<int>() {48, 51, 56};
-            var success = await GetRequestAsync<bool>($"/Game/SubmitSet/{gameId}", 
-                new
-                {
-                    cardIds
-                });
+            var success = await PostRequestAsync<bool>(
+                $"/Game/SubmitSet/{gameId}", 
+                parameters: new { cardIds }
+            );
 
             success.Should().BeTrue();
             
@@ -251,14 +257,15 @@ namespace TestBackend
         {
             int gameId = 1;
             int numberOfCards = 12;
-            var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
-                new {numberOfCards});
+            var _ = await PostRequestAsync<Card[]>(
+                $"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards}
+            );
             var cardIds = new List<int>() {48, 53, 56};
-            var success = await GetRequestAsync<bool>($"/Game/SubmitSet/{gameId}", 
-                new
-                {
-                    cardIds
-                });
+            var success = await PostRequestAsync<bool>(
+                $"/Game/SubmitSet/{gameId}", 
+                parameters: new { cardIds }
+            );
 
             success.Should().BeFalse();
             
@@ -272,10 +279,10 @@ namespace TestBackend
             int numberOfCards = 12;
             int playerId = 1;
 
-            var game = await GetRequestAsync<GameDto>($"/Game/StartNewGame/{playerId}");
+            var game = await PostRequestAsync<GameDto>($"/Game/StartNewGame/{playerId}");
             
-            var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{game.Id}", 
-                new {numberOfCards});
+            var _ = await PostRequestAsync<Card[]>($"/Game/DrawCards/{game.Id}", 
+                parameters: new {numberOfCards});
 
             var response = await Client.DeleteAsync($"/Game/{game.Id}");
             response.EnsureSuccessStatusCode();
@@ -286,8 +293,8 @@ namespace TestBackend
         {
             int gameId = 1;
             int numberOfCards = 12;
-            var _ = await GetRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
-                new {numberOfCards});
+            var _ = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
+                parameters: new {numberOfCards});
             var cardIds = new List<int>() {48, 53, 56};
             var success = await GetRequestAsync<List<List<Card>>>($"/Game/GetAllSetsOnTable/{gameId}", 
                 new

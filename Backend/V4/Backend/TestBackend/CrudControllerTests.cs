@@ -37,14 +37,25 @@ namespace TestBackend
         [Fact]
         public async Task Create_Player_CreatePlayer()
         {
-            string name = "New Player";
-            var player = await PostRequestAsync<Player>($"/Player", new PlayerCreateDto()
+            PlayerCreateDto inputCreatePlayerDto = new ()
             {
-                Name = name, Email = "test@test.com", EmailValidate = "test@test.com"
-            });
+                Name = "Joris", Email = "test@test.com", EmailValidate = "test@test.com", Password = "Test@1234!",
+                PasswordValidate = "Test@1234!",
+                Roles = new List<string>()
+                {
+                    "User"
+                }
+            };
 
-            player.Id.Should().Be(2);
-            player.Name.Should().Be(name);
+            // var expectedPlayer = new Player()
+            // {
+            //     Name = "Joris", Email = "test@test.com"
+            // };
+            
+            var player = await PostRequestAsync<Player>($"/Player", inputCreatePlayerDto);
+
+            player.Name.Should().Be("Joris");
+            player.Email.Should().Be("test@test.com");
         }
 
         [Theory]

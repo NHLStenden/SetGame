@@ -65,7 +65,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("[action]/{gameId:int}")]
-        public Task<IList<Card>> GetCardsOnTable(int gameId)
+        public Task<IList<Card>> GetCardsOnTable(int gameId) //Todo: change the name
         {
             return _gameService.GetCardsOnTable(gameId);
         }
