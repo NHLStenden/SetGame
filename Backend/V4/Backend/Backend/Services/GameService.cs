@@ -83,20 +83,19 @@ namespace Backend.Services
                 });
                 order++;
             }
-
             
             game.Deck.Complexity = _setService.CalculateComplexity(game.CardsOnTable.Select(x => x.Card));
 
-           await _gameRepository.UpdateAsync(game);
-           await _unitOfWork.SaveChangesAsync();
-           
-           var result = deckCards.Select(x => x.Card).ToList();
-           
-           gameMutex.ReleaseMutex();
-           
-           //Todo: remove mutex for Mutexes to prevent memory leak (watch out to create critical code section again)
+            await _gameRepository.UpdateAsync(game);
+            await _unitOfWork.SaveChangesAsync();
 
-           return result;
+            var result = deckCards.Select(x => x.Card).ToList();
+
+            gameMutex.ReleaseMutex();
+
+            //Todo: remove mutex for Mutexes to prevent memory leak (watch out to create critical code section again)
+
+            return result;
         }
 
 

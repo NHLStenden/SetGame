@@ -92,7 +92,7 @@ namespace Backend.Controllers
 
         }
         
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)] //Todo: implement
