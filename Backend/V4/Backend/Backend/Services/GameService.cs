@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper.Internal;
 using Backend.Models;
 using Backend.Repository;
 
@@ -47,16 +50,23 @@ namespace Backend.Services
             await _unitOfWork.SaveChangesAsync();
             return game;
         }
+        
+        private static ConcurrentDictionary<int, Mutex> _mutexes = new ConcurrentDictionary<int, Mutex>();
 
         public async Task<IList<Card>> DrawCardsFromDeck(int gameId, int numberOfCards)
         {
+            var gameMutex = _mutexes.GetOrAdd(gameId, _ => new Mutex());
+            gameMutex.WaitOne();
+            
             Game game = await _gameRepository.GetByIdWithRelated(gameId);
             if (game == null)
                 throw new ArgumentException("game doesn't exists");
 
             int endIndex = Math.Min(81, game.CardIndex + numberOfCards);
 
-            var deckCards = game.Deck.Cards.ToList().GetRange(game.CardIndex, endIndex - game.CardIndex);
+            var deckCards = game.Deck.Cards
+                .OrderBy(x => x.Order)
+                .ToList().GetRange(game.CardIndex, endIndex - game.CardIndex);
             game.CardIndex = endIndex;
 
             int order = 0;
@@ -82,6 +92,9 @@ namespace Backend.Services
            await _unitOfWork.SaveChangesAsync();
            
            var result = deckCards.Select(x => x.Card).ToList();
+           
+           gameMutex.ReleaseMutex();
+           
            return result;
         }
 
