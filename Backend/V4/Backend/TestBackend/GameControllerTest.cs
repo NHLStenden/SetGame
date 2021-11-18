@@ -10,6 +10,10 @@ using Xunit;
 
 namespace TestBackend
 {
+    //Todo: add concurrency test (DrawCards) in GameService.cs
+    //Todo: add concurrency test
+    //Todo: add test that uses different games (gameIds)
+    
     [Collection("IntegrationTests")]
     public class GameControllerTests : IntegrationTest
     {
