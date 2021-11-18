@@ -94,6 +94,8 @@ namespace Backend.Services
            
            gameMutex.ReleaseMutex();
            
+           //Todo: remove mutex for Mutexes to prevent memory leak (watch out to create critical code section again)
+
            return result;
         }
 
