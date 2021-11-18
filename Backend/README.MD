@@ -11,7 +11,7 @@ Als database wordt MySQL gebruikt.
 Het is aan te raden de volgende producten te installeren:
 - MySQL versie >= 8.0.23 
 - >= NET5.0 
-- Een IDE naar keuze:
+- Een IDE naar keuze, enkele mogelijkheden:
   - Rider (als student kan je dit gratis gebruiken m.b.v. een Educational Licentie: https://www.jetbrains.com/community/education/#students).
   - Visual Studio.
   - Visual Studio Code (dan moet je nog wel een paar extensie installeren).
@@ -33,5 +33,5 @@ CREATE DATABASE IF NOT EXISTS SetGame;
 ## Opstarten
 
 Als het goed is moet je nu op de play button kunnen drukken in je favoriete IDE (Rider).
-Het kan even duren maar als het goed is moet je een webpagina te zien krijgen waarin Swagger alle API methoden documenteerd. 
+Het kan even duren maar als het goed is moet je een webpagina te zien krijgen waarin Swagger alle API-methoden documenteert. 
 
