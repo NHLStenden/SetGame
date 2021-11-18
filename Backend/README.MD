@@ -18,8 +18,8 @@ Het is aan te raden de volgende producten te installeren:
 
 In appsettings.json wordt de connectionstring aangemaakt die gebruikt wordt voor de verbinding met MySQL.
 Maak een acoount aan met de volgende gegevens (of pas de connectiestring aan voor een bestaand account):
--username: root
--password: Test@1234!
+- username: root
+- password: Test@1234!
 
 ```
 CREATE USER 'root'@'localhost' IDENTIFIED BY 'Test@1234!';
