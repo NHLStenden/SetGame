@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Backend.DTOs
 {
     public class PlayerDto
