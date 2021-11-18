@@ -50,11 +50,11 @@ namespace Backend.Services
             return game;
         }
         
-        private static ConcurrentDictionary<int, Mutex> _mutexes = new ConcurrentDictionary<int, Mutex>();
+        private static readonly ConcurrentDictionary<int, Mutex> Mutexes = new ConcurrentDictionary<int, Mutex>();
 
         public async Task<IList<Card>> DrawCardsFromDeck(int gameId, int numberOfCards)
         {
-            var gameMutex = _mutexes.GetOrAdd(gameId, _ => new Mutex());
+            var gameMutex = Mutexes.GetOrAdd(gameId, _ => new Mutex());
             gameMutex.WaitOne();
             
             Game game = await _gameRepository.GetByIdWithRelated(gameId);
