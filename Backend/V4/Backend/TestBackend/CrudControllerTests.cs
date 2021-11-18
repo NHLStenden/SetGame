@@ -94,13 +94,22 @@ namespace TestBackend
                 },
                 new object[]
                 {
-                GetValidPlayerInputModel().CloneWith(x =>
+                    GetValidPlayerInputModel().CloneWith(x =>
+                    {
+                        x.Email = "joris@joris.com";
+                        x.EmailValidate = "joris@joris.nl";
+                    }),
+                    new KeyValuePair<string, string>("EmailValidate", "'EmailValidate' and 'Email' do not match.") 
+                },
+                new object[] 
                 {
-                    x.Email = "joris@joris.com";
-                    x.EmailValidate = "joris@joris.nl";
-                }),
-                new KeyValuePair<string, string>("EmailValidate", "'EmailValidate' and 'Email' do not match.")
-            }
+                    GetValidPlayerInputModel().CloneWith(x =>
+                    {
+                        x.Password = "Test@1234!";
+                        x.PasswordValidate = "!Test@1234";
+                    }),
+                    new KeyValuePair<string, string>("PasswordValidate", "'PasswordValidate' and 'Password' do not match.")
+                }
             };
             return testData;
         }
@@ -111,7 +120,9 @@ namespace TestBackend
             {
                 Name = "Joris",
                 Email = "joris@joris.nl",
-                EmailValidate = "joris@joris.nl"
+                EmailValidate = "joris@joris.nl",
+                Password = "Test@1234!",
+                PasswordValidate = "Test@1234!"
             };
         }
 
@@ -120,16 +131,32 @@ namespace TestBackend
         {
             string name = "Updated Player Name";
             int playerId = 1;
-            var player = await PutRequestAsync<Player>($"/Player/{playerId}", new PlayerUpdateDto()
+
+            var input = new PlayerUpdateDto()
             {
                 Id = playerId,
                 Name = name,
                 Email = "updateEmail@updateEmail",
-                EmailValidate = "updateEmail@updateEmail"
-            });
+                EmailValidate = "updateEmail@updateEmail",
+                Password = "Test@1234!New",
+                PasswordValidate = "Test@1234!New",
+                Roles = new List<string>
+                {
+                    "User", "Admin"
+                }
+            };
 
-            player.Id.Should().Be(1);
-            player.Name.Should().Be(name);
+            var expected = new Player()
+            {
+                Id = playerId,
+                Name = name,
+                Email = "updateEmail@updateEmail"
+            };
+            
+            var player = await PutRequestAsync<Player>($"/Player/{playerId}", input);
+
+            player.Should().BeEquivalentTo(expected);
+
         }
     }
 }
