@@ -19,12 +19,16 @@ export class HttpService {
     return this.http.get<T>(this.baseURL + url);
   }
 
+  postRequest<T>(url: string, body: any = null): Observable<T> {
+    return this.http.post<T>(this.baseURL + url, body);
+  }
+
   /**
    * @returns Promise
    *
    */
   getNewDeck()  {
-    return this.getRequest('/Game/StartNewGame/1');
+    return this.postRequest('/Game/StartNewGame/1');
   }
 
   /**
@@ -41,7 +45,7 @@ export class HttpService {
    *
    */
   getOneCardFromDeck(id: number): Observable<Card> {
-    return this.getRequest<Card[]>(`/Game/DrawCards/${id}?numberOfCards=1`)
+    return this.postRequest<Card[]>(`/Game/DrawCards/${id}?numberOfCards=1`)
       .pipe(
         map(data => {
             let card = data[0];
