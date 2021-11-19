@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Models
 {
-    public class SetContext : IdentityDbContext<ApiUser>
+    public class SetContext : IdentityDbContext<Player, IdentityRole<int>, int>
     {
         public SetContext(DbContextOptions options) : base(options)
         {
@@ -32,30 +32,30 @@ namespace Backend.Models
             //to prevent a bug in mysql: https://stackoverflow.com/questions/48678495/net-core-2-0-with-mysql-specified-key-was-too-long-max-key-length-is-3072-byt
                 int maxKeySize = 255;
                 
-                builder.Entity<IdentityUserLogin<string>>()
+                builder.Entity<IdentityUserLogin<int>>()
                     .Property(u => u.LoginProvider)
                     .HasMaxLength(maxKeySize);
-                builder.Entity<IdentityUserLogin<string>>()
+                builder.Entity<IdentityUserLogin<int>>()
                     .Property(u => u.ProviderKey)
                     .HasMaxLength(maxKeySize);
 
-                builder.Entity<IdentityUserRole<string>>()
-                    .Property(ur => ur.UserId)
-                    .HasMaxLength(maxKeySize);
-
-                builder.Entity<IdentityUserRole<string>>()
-                    .Property(ur => ur.RoleId)
-                    .HasMaxLength(maxKeySize);
-
-                builder.Entity<IdentityUserToken<string>>()
+                // builder.Entity<IdentityUserRole<string>>()
+                //     .Property(ur => ur.UserId)
+                //     .HasMaxLength(maxKeySize);
+                //
+                // builder.Entity<IdentityUserRole<string>>()
+                //     .Property(ur => ur.RoleId)
+                //     .HasMaxLength(maxKeySize);
+                //
+                builder.Entity<IdentityUserToken<int>>()
                     .Property(ut => ut.LoginProvider)
                     .HasMaxLength(maxKeySize);
                 
-                builder.Entity<IdentityUserToken<string>>()
+                builder.Entity<IdentityUserToken<int>>()
                     .Property(ut => ut.UserId)
                     .HasMaxLength(maxKeySize);
                 
-                builder.Entity<IdentityUserToken<string>>()
+                builder.Entity<IdentityUserToken<int>>()
                     .Property(ut => ut.Name)
                     .HasMaxLength(maxKeySize);
         }

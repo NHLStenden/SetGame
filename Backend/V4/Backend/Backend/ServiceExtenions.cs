@@ -19,17 +19,24 @@ namespace Backend
     {
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            var builder = services.AddIdentityCore<ApiUser>(q =>
-            {
-                q.User.RequireUniqueEmail = true;
-                q.SignIn.RequireConfirmedAccount = false;
-                q.SignIn.RequireConfirmedEmail = false;
-                q.SignIn.RequireConfirmedPhoneNumber = false;
-            });
-            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), services);
-            builder
-                .AddEntityFrameworkStores<SetContext>()
-                .AddDefaultTokenProviders();
+            // services.AddDbContext<ApplicationDbContext>(options =>
+            //     options.UseSqlServer(
+            //         Configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDefaultIdentity<IdentityUser>()
+            //     .AddRoles<IdentityRole>()
+            //     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityCore<Player>(q =>
+                {
+                    q.User.RequireUniqueEmail = true;
+                    q.SignIn.RequireConfirmedAccount = false;
+                    q.SignIn.RequireConfirmedEmail = false;
+                    q.SignIn.RequireConfirmedPhoneNumber = false;
+                })
+
+                .AddRoles<IdentityRole<int>>()
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<SetContext>();
         }
 
         public static void ConfigureJwt(this IServiceCollection services, IConfiguration configuration)

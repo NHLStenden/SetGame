@@ -11,7 +11,7 @@ namespace Backend.DTOs
             CreateMap<PlayerCreateDto, Player>();
             CreateMap<PlayerUpdateDto, Player>();
 
-            CreateMap<PlayerCreateDto, ApiUser>()
+            CreateMap<PlayerCreateDto, Player>()
                 .ForMember(x => x.UserName, act =>
                     act.MapFrom(x => x.Email)
                 );

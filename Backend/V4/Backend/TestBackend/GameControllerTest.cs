@@ -299,7 +299,7 @@ namespace TestBackend
             int numberOfCards = 12;
             var _ = await PostRequestAsync<Card[]>($"/Game/DrawCards/{gameId}", 
                 parameters: new {numberOfCards});
-            var cardIds = new List<int>() {48, 53, 56};
+            var cardIds = new List<int>() {49, 51, 57};
             var success = await GetRequestAsync<List<List<Card>>>($"/Game/GetAllSetsOnTable/{gameId}", 
                 new
                 {

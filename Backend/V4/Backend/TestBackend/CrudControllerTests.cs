@@ -126,6 +126,7 @@ namespace TestBackend
             };
         }
 
+        //Todo: fix test (something to do with merge of Player with IdentityUser?)
         [Fact]
         public async Task UpdatePlayer_CorrectPlayerNameAndId_UpdatedPlayerName()
         {

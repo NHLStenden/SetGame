@@ -12,12 +12,12 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<ApiUser> _userManager;
+        private readonly UserManager<Player> _userManager;
         private readonly IMapper _mapper;
         private readonly IAuthManager _authManager;
 
         public AccountController(
-            UserManager<ApiUser> userManager, 
+            UserManager<Player> userManager, 
             IMapper mapper,
             IAuthManager authManager)
         {
@@ -34,7 +34,7 @@ namespace Backend.Controllers
                 return BadRequest(ModelState);
             }
 
-            var apiUser = _mapper.Map<ApiUser>(playerCreateDto);
+            var apiUser = _mapper.Map<Player>(playerCreateDto);
             // apiUser.UserName = playerCreateDto.Email; //handle by automapper see MappingProfile.cs
 
             var createUserResult = await _userManager.CreateAsync(apiUser, playerCreateDto.Password);

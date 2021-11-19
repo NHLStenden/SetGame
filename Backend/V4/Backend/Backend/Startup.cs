@@ -5,6 +5,7 @@ using Backend.Repository;
 using Backend.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -80,10 +81,13 @@ namespace Backend
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SetContext db, 
-            ISeedService seedService, IGameService gameService, IPlayerRepository playerRepository)
+            ISeedService seedService, IGameService gameService, IPlayerRepository playerRepository, RoleManager<IdentityRole<int>> roleManager)
         {
             db.Database.EnsureDeleted();
             db.Database.EnsureCreated();
+
+            roleManager.CreateAsync(new IdentityRole<int>("User"));
+            roleManager.CreateAsync(new IdentityRole<int>("Administrator"));
             
             seedService.Seed(db, gameService, playerRepository);
 
