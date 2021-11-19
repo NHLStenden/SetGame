@@ -10,7 +10,7 @@ Als database wordt MySQL gebruikt.
 
 Het is aan te raden de volgende producten te installeren:
 - MySQL versie >= 8.0.23 
-- >= NET5.0 
+- NET5.0 of nieuwer
 - Een IDE naar keuze, enkele mogelijkheden:
   - Rider (als student kan je dit gratis gebruiken m.b.v. een Educational Licentie: https://www.jetbrains.com/community/education/#students).
   - Visual Studio.
@@ -18,8 +18,8 @@ Het is aan te raden de volgende producten te installeren:
 
 In appsettings.json wordt de connectionstring aangemaakt die gebruikt wordt voor de verbinding met MySQL.
 Maak een acoount aan met de volgende gegevens (of pas de connectiestring aan voor een bestaand account):
--username: root
--password: Test@1234!
+- username: root
+- password: Test@1234!
 
 ```
 CREATE USER 'root'@'localhost' IDENTIFIED BY 'Test@1234!';
@@ -34,4 +34,28 @@ CREATE DATABASE IF NOT EXISTS SetGame;
 
 Als het goed is moet je nu op de play button kunnen drukken in je favoriete IDE (Rider).
 Het kan even duren maar als het goed is moet je een webpagina te zien krijgen waarin Swagger alle API-methoden documenteert. 
+
+## Authentication (wie is het) & Authorization (wat mag wie)
+ 
+De meeste API-methoden zijn aan te roepen zonder gebruik van Authentication & Authorization, dit om het gebruik makkelijk te houden.
+
+Er wordt gebruikt gemaakt van JSON Web Tokens (https://jwt.io/introduction). 
+
+Het registeren & inloggen van een account gebeurt m.b.v. AccountController.cs met respectievelijk de `Register` en `Login` method.
+Daarna kan de methode Delete (DeleteAsync) van de PlayerController worden aangeroepen.
+
+Om dit proces makkelijker te maken zijn staat er in de directory TestBackend/Postman een bestand (Set Backend.postman_collection.json) dat kan worden ingeladen in Postman (https://www.postman.com/downloads/).
+
+Volg de volgende stappen:
+-Importeer het bestand "Set Backend.postman_collection.json" bestand in Postman (deze staat in de directory TestBackend/Postman).
+-In de Folder "Authentication Authorization" staan de uit te voeren request.
+-Voer de register request uit
+-Voer het login script uit. Deze retourneert een JSON Web Token in de repsonse. Kopieer deze. 
+-Selecteer e Delete Authorized Request, selecteer het tabblad Authorization en selecteer als Type: Bearer Token. Plak de token in de daarvoor bestemde input. Voer de request uit. 
+
+## Testen
+
+In de map TestBackend staan test (veelal integration test) voor de backend.
+Deze zijn gebaseerd op xUnit.NET framework. In de meeste IDE's werkt dit out of the box. 
+Mocht je toch andere database settings hebben pas dan de appsetting.json aan.
 
