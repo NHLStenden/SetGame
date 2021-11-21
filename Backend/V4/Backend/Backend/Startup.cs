@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using AutoMapper;
 using Backend.DTOs;
+using Backend.Filters;
 using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
@@ -76,7 +79,35 @@ namespace Backend
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                 });
 
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Backend", Version = "v1"}); });
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Backend", Version = "v1"});
+                
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Description = "JWT Authorization header using the bearer schema",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+                
+                options.OperationFilter<AuthResponsesOperationFilter>();
+
+                // options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                // {
+                //     {
+                //         new OpenApiSecurityScheme
+                //         {
+                //             Reference = new OpenApiReference
+                //             {
+                //                 Type = ReferenceType.SecurityScheme,
+                //                 Id = "Bearer"
+                //             }
+                //         },
+                //         Array.Empty<string>()
+                //     }
+                // });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,7 +126,12 @@ namespace Backend
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend v1"));
+                app.UseSwaggerUI(swagger =>
+                {
+                    swagger.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend v1");
+                });
+                
+                
             }
             else
             {
