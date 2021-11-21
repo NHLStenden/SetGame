@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using AutoMapper;
 using Backend.DTOs;
+using Backend.Filters;
 using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
@@ -76,7 +79,27 @@ namespace Backend
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                 });
 
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Backend", Version = "v1"}); });
+            
+            
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Backend", Version = "v1"});
+                
+                
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()  
+                {  
+                    Name = "Authorization",  
+                    Type = SecuritySchemeType.Http,  
+                    Scheme = "Bearer",  
+                    BearerFormat = "JWT",  
+                    In = ParameterLocation.Header,  
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter token (Use the Login (and Register) method to obtain a token) in the text input below."  
+                });  
+                
+                //add the locks in swagger to methods that needs a JWT authorization
+                //Todo: the APIKeyExampleController is not included (has a lock in the documentation)
+                options.OperationFilter<AuthResponsesOperationFilter>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,7 +118,12 @@ namespace Backend
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend v1"));
+                app.UseSwaggerUI(swagger =>
+                {
+                    swagger.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend v1");
+                });
+                
+                
             }
             else
             {
