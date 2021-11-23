@@ -47,11 +47,11 @@ Daarna kan de methode Delete (DeleteAsync) van de PlayerController worden aanger
 Om dit proces makkelijker te maken zijn staat er in de directory TestBackend/Postman een bestand (Set Backend.postman_collection.json) dat kan worden ingeladen in Postman (https://www.postman.com/downloads/).
 
 Volg de volgende stappen:
--Importeer het bestand "Set Backend.postman_collection.json" bestand in Postman (deze staat in de directory TestBackend/Postman).
--In de Folder "Authentication Authorization" staan de uit te voeren request.
--Voer de register request uit
--Voer het login script uit. Deze retourneert een JSON Web Token in de repsonse. Kopieer deze. 
--Selecteer e Delete Authorized Request, selecteer het tabblad Authorization en selecteer als Type: Bearer Token. Plak de token in de daarvoor bestemde input. Voer de request uit. 
+- Importeer het bestand "Set Backend.postman_collection.json" bestand in Postman (deze staat in de directory TestBackend/Postman).
+- In de Folder "Authentication Authorization" staan de uit te voeren request.
+- Voer de Register request uit
+- Voer de Login request uit. Deze retourneert een JSON Web Token (JWT) in de repsonse. Kopieer deze. 
+- Voer een request uit waarvoor ingelogd moet worden (zie methoden in de (Backend/Controllers/AccountController.cs), selecteer het tabblad Authorization en selecteer als Type: Bearer Token. Plak de token in de daarvoor bestemde input. Voer de request uit. 
 
 ## Testen
 
