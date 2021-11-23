@@ -17,11 +17,11 @@ namespace Backend.Services
         private readonly IPlayerRepository _playerRepository;
         private readonly ISetService _setService;
 
-        public GameService( IUnitOfWork unitOfWork,
-                            IDeckService deckService, 
-                            IGameRepository gameRepository, 
-                            IPlayerRepository playerRepository, 
-                            ISetService setService)
+        public GameService(IUnitOfWork unitOfWork,
+            IDeckService deckService,
+            IGameRepository gameRepository,
+            IPlayerRepository playerRepository,
+            ISetService setService)
         {
             _unitOfWork = unitOfWork;
             _deckService = deckService;
@@ -49,53 +49,60 @@ namespace Backend.Services
             await _unitOfWork.SaveChangesAsync();
             return game;
         }
-        
-        private static readonly ConcurrentDictionary<int, Mutex> Mutexes = new ConcurrentDictionary<int, Mutex>();
+
+        private static readonly ConcurrentDictionary<int, SemaphoreSlim> Semaphores =
+            new ConcurrentDictionary<int, SemaphoreSlim>();
 
         public async Task<IList<Card>> DrawCardsFromDeck(int gameId, int numberOfCards)
         {
-            var gameMutex = Mutexes.GetOrAdd(gameId, _ => new Mutex());
-            gameMutex.WaitOne();
-            
-            Game game = await _gameRepository.GetByIdWithRelated(gameId);
-            if (game == null)
-                throw new ArgumentException("game doesn't exists");
+            SemaphoreSlim sem = Semaphores.GetOrAdd(gameId, ent => new SemaphoreSlim(1, 1));
 
-            int endIndex = Math.Min(81, game.CardIndex + numberOfCards);
+            await sem.WaitAsync();
 
-            var deckCards = game.Deck.Cards
-                .OrderBy(x => x.Order)
-                .ToList().GetRange(game.CardIndex, endIndex - game.CardIndex);
-            game.CardIndex = endIndex;
-
-            int order = 0;
-            if (game.CardsOnTable.Any())
+            try
             {
-                order = game.CardsOnTable.Max(x => x.Order) + 1;
-            }
+                Game game = await _gameRepository.GetByIdWithRelated(gameId);
+                if (game == null)
+                    throw new ArgumentException("game doesn't exists");
 
-            foreach (var deckCard in deckCards)
-            {
-                game.CardsOnTable.Add(new CardOnTable()
+                int endIndex = Math.Min(81, game.CardIndex + numberOfCards);
+
+                var deckCards = game.Deck.Cards
+                    .OrderBy(x => x.Order)
+                    .ToList().GetRange(game.CardIndex, endIndex - game.CardIndex);
+                game.CardIndex = endIndex;
+
+                int order = 0;
+                if (game.CardsOnTable.Any())
                 {
-                    Card = deckCard.Card,
-                    Order = order
-                });
-                order++;
+                    order = game.CardsOnTable.Max(x => x.Order) + 1;
+                }
+
+                foreach (var deckCard in deckCards)
+                {
+                    game.CardsOnTable.Add(new CardOnTable()
+                    {
+                        Card = deckCard.Card,
+                        Order = order
+                    });
+                    order++;
+                }
+
+                game.Deck.Complexity = _setService.CalculateComplexity(game.CardsOnTable.Select(x => x.Card));
+
+                await _gameRepository.UpdateAsync(game);
+                await _unitOfWork.SaveChangesAsync();
+
+                var result = deckCards.Select(x => x.Card).ToList();
+                return result;
             }
-            
-            game.Deck.Complexity = _setService.CalculateComplexity(game.CardsOnTable.Select(x => x.Card));
-
-            await _gameRepository.UpdateAsync(game);
-            await _unitOfWork.SaveChangesAsync();
-
-            var result = deckCards.Select(x => x.Card).ToList();
-
-            gameMutex.ReleaseMutex();
-
-            //Todo: remove mutex for Mutexes to prevent memory leak (watch out to create critical code section again)
-
-            return result;
+            finally
+            {
+                if (sem != null)
+                {
+                    sem.Release();
+                }
+            }
         }
 
 
@@ -118,11 +125,11 @@ namespace Backend.Services
         public async Task<bool> SubmitSet(int gameId, int[] cardIds)
         {
             var checkSet = await CheckSet(gameId, cardIds);
-            
+
             //Todo: return NoContent
             if (!checkSet.CorrectSet) return false;
-            
-            
+
+
             var game = await _gameRepository.GetByIdWithRelated(gameId);
             //removes card from cardOnTable 
             game.CardsOnTable = game.CardsOnTable.Where(x => !cardIds.Contains(x.CardId)).ToList();

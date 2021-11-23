@@ -210,7 +210,7 @@ namespace TestBackend
                 parameters: new {numberOfCards}
             );
             var setResult = await GetRequestAsync<SetResult>($"/Game/CheckSet/{gameId}", 
-                new {  cardIds = new List<int>() {48, 51, 56} }
+                new {  cardIds = new List<int>() {49, 51, 57} }
             );
             
             var expected = new SetResult
@@ -242,7 +242,7 @@ namespace TestBackend
                 $"/Game/DrawCards/{gameId}", 
                 parameters: new {numberOfCards}
             );
-            var cardIds = new List<int>() {48, 51, 56};
+            var cardIds = new List<int>() {49, 51, 57};
             var success = await PostRequestAsync<bool>(
                 $"/Game/SubmitSet/{gameId}", 
                 parameters: new { cardIds }

@@ -5,7 +5,6 @@ using AutoMapper;
 using Backend.DTOs;
 using Backend.Models;
 using Backend.Repository;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -67,6 +66,7 @@ namespace Backend.Controllers
             return CreatedAtAction("Get", new { id = entity.Id }, createPlayerDto);
         }
         
+        //Todo: add authorized with UserId (HttpContext.GetUserId()) Or with role Administrator
         [HttpPut("{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -92,7 +92,6 @@ namespace Backend.Controllers
 
         }
         
-        [Authorize(Roles = "Administrator")]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)] //Todo: implement

@@ -11,11 +11,111 @@
 				{
 					"name": "Login",
 					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"joris@joris.com\",\n  \"password\": \"Test@1234!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/Account/Login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"Account",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiam9yaXNAam9yaXMuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsImp0aSI6IjIiLCJleHAiOjE2Mzc2NzcyOTgsImlzcyI6IlNldEdhbWVCYWNrZW5kQVBJIn0.pRkD4Ezke24UpM9rJ7tdqFPi0_UE4PoH2wC09qEl7hI\",\n    \"refreshToken\": \"a951a715-0396-4b40-6ac5-08d9ae8c7598\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/Account/Refresh",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"Account",
+								"Refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DisplayClaims",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiam9yaXNAam9yaXMuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIlVzZXJJZCI6IjIiLCJleHAiOjE2Mzc1OTQ3NjMsImlzcyI6IlNldEdhbWVCYWNrZW5kQVBJIn0.nXliOcnR2RPSpHizohZ3glxdw768Ftq9ZJuHXjLeZu8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"email\": \"joris@joris.com\",\n  \"password\": \"Test@1234!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/Account/DisplayClaims",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"Account",
+								"DisplayClaims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Joris Lops\",\n  \"email\": \"joris@joris.com\",\n  \"emailValidate\": \"joris@joris.com\",\n  \"password\": \"Test@1234!\",\n  \"passwordValidate\": \"Test@1234!\",\n  \"roles\": [\n    \"Administrator\"\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -38,20 +138,87 @@
 					"response": []
 				},
 				{
-					"name": "Register",
+					"name": "ApiKeyAuthorization nokey",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "https://localhost:5001/Secret",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"Secret"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ApiKeyAuthorization withkey",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-ApiKey",
+								"value": "MySecret",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:5001/Secret?=",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"Secret"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Delete Authorized",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiam9yaXNAam9yaXMuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW5pc3RyYXRvciIsIlVzZXJJZCI6IjIiLCJleHAiOjE2Mzc1OTQyODQsImlzcyI6IlNldEdhbWVCYWNrZW5kQVBJIn0.jGAgSa7PACZNcBL0dyWYu8km-gC8AG9__ioXagrXyAI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "https://localhost:5001/Player?id=1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"Player"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -60,18 +227,82 @@
 		{
 			"name": "/Game/DrawCards",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "https://localhost:5001/Game/DrawCards/1?numberOfCards=12",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"Game",
+						"DrawCards",
+						"1"
+					],
+					"query": [
+						{
+							"key": "numberOfCards",
+							"value": "12"
+						}
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "SubmitSet",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": [],
-				"url": null
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-mySecretInfo",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/Game/SubmitSet/1?cardIds=2&cardIds=36",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"Game",
+						"SubmitSet",
+						"1"
+					],
+					"query": [
+						{
+							"key": "cardIds",
+							"value": "2"
+						},
+						{
+							"key": "cardIds",
+							"value": "36"
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -80,7 +311,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "https://localhost:5001/Player",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"Player"
+					]
+				}
 			},
 			"response": []
 		}

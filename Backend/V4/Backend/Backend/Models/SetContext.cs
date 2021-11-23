@@ -16,6 +16,8 @@ namespace Backend.Models
         public DbSet<Game> Games { get; set; }
         public DbSet<Deck> Deck { get; set; }
 
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

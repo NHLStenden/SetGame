@@ -1,11 +1,10 @@
-using System;
-using System.Collections;
 using AutoMapper;
 using Backend.DTOs;
 using Backend.Filters;
 using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
+using Backend.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -56,6 +55,10 @@ namespace Backend
             
             services.AddSingleton<ISeedService, NormalSeedService>();
             // services.AddSingleton<ISeedService, GenerateYamlSeedService>();
+
+            var jwtSettings = new JwtSettings();
+            Configuration.Bind("JWT", jwtSettings);
+            services.AddSingleton(jwtSettings);
             
             //configure automapping
             var mapperConfig = new MapperConfiguration(mc =>
@@ -78,8 +81,6 @@ namespace Backend
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                 });
-
-            
             
             services.AddSwaggerGen(options =>
             {

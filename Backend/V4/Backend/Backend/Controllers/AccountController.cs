@@ -1,8 +1,14 @@
+using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Backend.Dtos;
 using Backend.DTOs;
+using Backend.Extensions;
 using Backend.Models;
 using Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +22,7 @@ namespace Backend.Controllers
         private readonly IMapper _mapper;
         private readonly IAuthManager _authManager;
 
-        public AccountController(
-            UserManager<Player> userManager, 
-            IMapper mapper,
-            IAuthManager authManager)
+        public AccountController(UserManager<Player> userManager, IMapper mapper, IAuthManager authManager)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -63,19 +66,70 @@ namespace Backend.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginUserDto loginUserDto)
+        public async Task<ActionResult<AuthenticationResult>> Login(LoginUserDto loginUserDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var validateUserResult = await _authManager.ValidateUser(loginUserDto);
-            if (!validateUserResult)
+            var validateUserResult = await _authManager.ValidateUserAsync(loginUserDto);
+            if (validateUserResult == null)
                 return Unauthorized();
 
-            var token = await _authManager.CreateToken();
-            return Accepted(new { Token = token });
+            var token = await _authManager.CreateTokenAsync();
+            return Accepted(token);
+        }
+
+        [HttpPost("Refresh")]
+        public async Task<AuthenticationResult> Refresh([FromBody] RefreshTokenRequest request)
+        {
+            var authenticationResult = await _authManager.RefreshTokenAsync(request.Token, request.RefreshToken);
+
+            return authenticationResult;
+        }
+
+        [HttpGet("DisplayClaims")]
+        public async Task<IActionResult> DisplayClaims()
+        {
+            //long? userId = HttpContext.GetUserId();
+
+            return Ok(HttpContext.User.Claims.Select( x => new {Type = x.Type, Value = x.Value}));
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpGet(nameof(MethodThatNeedsAdminRole))]
+        public async Task<IActionResult> MethodThatNeedsAdminRole()
+        {
+            var result = await CreateDisplayMessage();
+            return Ok(result);
+        }
+
+  
+
+        [Authorize(Roles = "Administrator, User")]
+        [HttpGet(nameof(MethodThatNeedsAdminRoleOrUserRole))]
+        public async Task<IActionResult> MethodThatNeedsAdminRoleOrUserRole()
+        {
+            var result = await CreateDisplayMessage();
+            return Ok(result);
+        }
+        
+        [Authorize]
+        [HttpGet(nameof(MethodThatNeedsAuthenticatedUser))]
+        public async Task<IActionResult> MethodThatNeedsAuthenticatedUser()
+        {
+            var result = await CreateDisplayMessage();
+            return Ok(result);
+        }
+
+        private async Task<string> CreateDisplayMessage()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId().ToString());
+            var roles = await _userManager.GetRolesAsync(user);
+            string result =
+                $"Correct Credentials for User with Id: {HttpContext.GetUserId()} With role(s): {String.Join(",", roles)}";
+            return result;
         }
     }
 }
