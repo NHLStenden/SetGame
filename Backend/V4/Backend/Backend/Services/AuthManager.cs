@@ -159,8 +159,6 @@ namespace Backend.Services
             var authenticationResult = await CreateTokenAsync();
             return authenticationResult;
         }
-
-        
         
         private ClaimsPrincipal GetPrincipalFromToken(string token)
         {
@@ -169,7 +167,7 @@ namespace Backend.Services
             try
             {
                 var principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out var validatedToken);
-                if (!IsJwtWithValidaAlgorithm(validatedToken))
+                if (!IsJwtWithValidAlgorithm(validatedToken))
                 {
                     return null;
                 }
@@ -182,7 +180,7 @@ namespace Backend.Services
             }
         }
 
-        private bool IsJwtWithValidaAlgorithm(SecurityToken validatedToken)
+        private bool IsJwtWithValidAlgorithm(SecurityToken validatedToken)
         {
             return (validatedToken is JwtSecurityToken jwtSecurityToken) &&
                    jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
@@ -214,6 +212,7 @@ namespace Backend.Services
             }
             
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, _user.Id.ToString()));
+
 
             return claims;
         }

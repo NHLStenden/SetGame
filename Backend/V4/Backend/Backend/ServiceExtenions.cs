@@ -3,6 +3,7 @@ using System;
 using System.Text;
 using System.Text.Json;
 using Backend.Models;
+using Backend.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -39,10 +40,10 @@ namespace Backend
                 .AddEntityFrameworkStores<SetContext>();
         }
 
-        public static void ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureJwt(this IServiceCollection services, JwtSettings jwtSettings)
         {
-            var jwtSettings = configuration.GetSection("Jwt");
-            var key = jwtSettings["Key"];
+            //Todo: refactor to JWTSetting object
+
 
             var optionsTokenValidationParameters = new TokenValidationParameters
             {
@@ -50,8 +51,8 @@ namespace Backend
                 ValidateAudience = false,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtSettings.GetSection("Issuer").Value,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                ValidIssuer = jwtSettings.Issuer,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
             };
 
             services.AddSingleton(optionsTokenValidationParameters);

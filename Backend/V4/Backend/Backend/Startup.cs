@@ -31,6 +31,10 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var jwtSettings = new JwtSettings();
+            Configuration.Bind("JWT", jwtSettings);
+            services.AddSingleton(jwtSettings);
+            
             services.AddDbContext<SetContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("Default"))
             );
@@ -38,7 +42,7 @@ namespace Backend
 
             services.AddAuthentication();
             services.ConfigureIdentity(); //See ServiceExtensions.cs
-            services.ConfigureJwt(Configuration); //See ServiceExtensions.cs
+            services.ConfigureJwt(jwtSettings); //See ServiceExtensions.cs
             
             //Unit of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -56,9 +60,7 @@ namespace Backend
             services.AddSingleton<ISeedService, NormalSeedService>();
             // services.AddSingleton<ISeedService, GenerateYamlSeedService>();
 
-            var jwtSettings = new JwtSettings();
-            Configuration.Bind("JWT", jwtSettings);
-            services.AddSingleton(jwtSettings);
+            
             
             //configure automapping
             var mapperConfig = new MapperConfiguration(mc =>

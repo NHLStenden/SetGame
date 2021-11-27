@@ -55,7 +55,7 @@ namespace Backend.Services
 
         public async Task<IList<Card>> DrawCardsFromDeck(int gameId, int numberOfCards)
         {
-            SemaphoreSlim sem = Semaphores.GetOrAdd(gameId, ent => new SemaphoreSlim(1, 1));
+            SemaphoreSlim sem = Semaphores.GetOrAdd(gameId, _ => new SemaphoreSlim(1, 1));
 
             await sem.WaitAsync();
 
@@ -98,10 +98,7 @@ namespace Backend.Services
             }
             finally
             {
-                if (sem != null)
-                {
-                    sem.Release();
-                }
+                sem.Release();
             }
         }
 
