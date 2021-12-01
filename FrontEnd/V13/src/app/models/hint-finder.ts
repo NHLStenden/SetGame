@@ -2,23 +2,33 @@ import {Card} from "./card";
 import {SelectionList} from "./selection-list";
 import {CardList} from "./card-list";
 import {HintsList} from "./hints-list";
+import {HttpService} from "../services/http.service";
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+
 
 export class HintFinder {
+  private http: HttpService;
 
-  constructor() {
+  constructor(http: HttpService) {
+    this.http = http;
   }
 
-  public getHintsFromCards(cardList: CardList) : HintsList {
-    const setsFound = this.findAllSets(cardList.cards, []);
+  public getHintsFromCards(cardList: CardList, idGame: number) : Observable<HintsList> {
+    return this.http.getHints(idGame).pipe(map(foundHints => {
+        const hints = new HintsList();
 
-    const hints = new HintsList();
+        for (const oneset of foundHints) {
+          const list = new CardList();
+          list.addMultiple(oneset);
+          hints.addSet(list);
+        }
 
-    for (const oneset of setsFound) {
-      const list = new CardList();
-      list.addMultiple(oneset);
-      hints.addSet(list);
-    }
-    return hints;
+        return hints;
+    }));
+
+    // const setsFound = this.findAllSets(cardList.cards, []);
   }
 
   /**

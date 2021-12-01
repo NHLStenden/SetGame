@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {Card} from "../models/card";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -51,9 +51,12 @@ export class HttpService {
             let card = data[0];
             return new Card(card.fill, card.color, card.shape, card.nrOfShapes)
           }
-
         )
       );
+  }
+
+  getHints(idGame: number): Observable<Array<Array<Card>>> {
+    return this.getRequest<Array<Array<Card>>>(`/Game/GetAllSetsOnTable/${idGame}`);
   }
 
 }
