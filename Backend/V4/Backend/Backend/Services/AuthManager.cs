@@ -210,9 +210,8 @@ namespace Backend.Services
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
-            
-            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, _user.Id.ToString()));
 
+            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, _user.Id.ToString()));
 
             return claims;
         }

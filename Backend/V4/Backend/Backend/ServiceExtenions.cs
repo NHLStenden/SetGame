@@ -34,7 +34,6 @@ namespace Backend
                     q.SignIn.RequireConfirmedEmail = false;
                     q.SignIn.RequireConfirmedPhoneNumber = false;
                 })
-
                 .AddRoles<IdentityRole<int>>()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<SetContext>();
@@ -42,9 +41,7 @@ namespace Backend
 
         public static void ConfigureJwt(this IServiceCollection services, JwtSettings jwtSettings)
         {
-            //Todo: refactor to JWTSetting object
-
-
+            
             var optionsTokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
